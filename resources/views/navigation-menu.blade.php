@@ -15,14 +15,14 @@
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('dashboard') }}">
+                    <x-jet-nav-link href="{{ route('xml_pub_med') }}" :active="request()->routeIs('xml_pub_med')">
                         XML-PUBMed
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('dashboard') }}">
+                    <x-jet-nav-link href="{{ route('json_article') }}" :active="request()->routeIs('json_article')">
                         JSON-Article
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('dashboard') }}">
-                        XML-Journal
+                    <x-jet-nav-link href="{{ route('json_journal') }}" :active="request()->routeIs('json_journal')">
+                        JSON-Journal
                     </x-jet-nav-link>
                 </div>
             </div>

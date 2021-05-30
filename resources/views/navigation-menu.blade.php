@@ -18,7 +18,7 @@
                     <x-jet-nav-link href="{{ route('xml_pub_med') }}" :active="request()->routeIs('xml_pub_med','xml_pub_med.data','xml_pub_med.export')">
                         {{ __('XML-PUBMed') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('json_article') }}" :active="request()->routeIs('json_article')">
+                    <x-jet-nav-link href="{{ route('json_article') }}" :active="request()->routeIs('json_article','json_article.data','json_article.export')">
                         JSON-Article
                     </x-jet-nav-link>
                     <x-jet-nav-link href="{{ route('json_journal') }}" :active="request()->routeIs('json_journal')">

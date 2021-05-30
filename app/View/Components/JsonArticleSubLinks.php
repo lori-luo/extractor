@@ -4,18 +4,16 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class UploadFile extends Component
+class JsonArticleSubLinks extends Component
 {
     /**
      * Create a new component instance.
      *
      * @return void
      */
-
-    public $category;
-    public function __construct($category)
+    public function __construct()
     {
-        $this->category = $category;
+        //
     }
 
     /**
@@ -25,6 +23,6 @@ class UploadFile extends Component
      */
     public function render()
     {
-        return view('components.upload-file');
+        return view('components.json-article-sub-links');
     }
 }

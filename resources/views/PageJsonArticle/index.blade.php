@@ -1,13 +1,13 @@
 <x-app-layout>
     <x-slot name="header">
-        <x-xml-pub-med-sub-links />
+        <x-json-article-sub-links />
     </x-slot>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
 
-                <x-upload-file :category="'PubMed'" />
+                <x-upload-file :category="'Article'" />
                 <h1>List of Files here</h1>
                 <table class="table">
                     <thead>
@@ -19,19 +19,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($xmls as $xml)
-                        <tr>
-                            <th scope="row">{{ $xml->id }}</th>
-                            <td>{{ $xml->file_name }}</td>
-                            <td>{{ $xml->created_at->diffForHumans() }}</td>
-                            <td>
-                                <livewire:xml-file-row-action :xml="$xml" />
-                            </td>
-                        </tr>
+                        @foreach($articles as $article)
+                        <livewire:row-file-json-article :article="$article" />
                         @endforeach
                     </tbody>
                 </table>
-                {{ $xmls->links() }}
+                {{ $articles->links() }}
             </div>
         </div>
     </div>

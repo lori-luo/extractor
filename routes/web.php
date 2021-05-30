@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\PageXmlPubMedController;
+use App\Http\Controllers\PageJsonArticleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,9 +39,20 @@ Route::middleware(['auth:sanctum', 'verified'])
     ->post('/xml-PubMed/upload', [UploadController::class, 'store'])
     ->name('xml_pub_med.upload.store');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/json-Article', function () {
-    return view('json_article');
-})->name('json_article');
+Route::middleware(['auth:sanctum', 'verified'])
+    ->get('/json-Article', [PageJsonArticleController::class, 'index'])
+    ->name('json_article');
+Route::middleware(['auth:sanctum', 'verified'])
+    ->get('/json-Article/records', [PageJsonArticleController::class, 'show_all_data'])
+    ->name('json_article.data');
+Route::middleware(['auth:sanctum', 'verified'])
+    ->get('/json-Article/export', [PageJsonArticleController::class, 'export_data'])
+    ->name('json_article.export');
+
+
+
+
+
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/json-Journal', function () {
     return view('json_journal');

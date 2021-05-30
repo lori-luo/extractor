@@ -25,12 +25,13 @@
                             <td>{{ $xml->file_name }}</td>
                             <td>{{ $xml->created_at->diffForHumans() }}</td>
                             <td>
-                                <button type="button" class="btn btn-success">Read</button>
+                                <livewire:xml-file-row-action :xml="$xml" />
                             </td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
+                {{ $xmls->links() }}
             </div>
         </div>
     </div>

@@ -15,8 +15,8 @@
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('xml_pub_med') }}" :active="request()->routeIs('xml_pub_med')">
-                        XML-PUBMed
+                    <x-jet-nav-link href="{{ route('xml_pub_med') }}" :active="request()->routeIs('xml_pub_med','xml_pub_med.data','xml_pub_med.export')">
+                        {{ __('XML-PUBMed') }}
                     </x-jet-nav-link>
                     <x-jet-nav-link href="{{ route('json_article') }}" :active="request()->routeIs('json_article')">
                         JSON-Article
@@ -149,6 +149,16 @@
             <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-jet-responsive-nav-link>
+            <x-jet-responsive-nav-link href="{{ route('xml_pub_med') }}" :active="request()->routeIs('xml_pub_med')">
+                {{ __('XML-PUBMed') }}
+            </x-jet-responsive-nav-link>
+            <x-jet-responsive-nav-link href="{{ route('json_article') }}" :active="request()->routeIs('json_article')">
+                JSON-Article
+            </x-jet-responsive-nav-link>
+            <x-jet-responsive-nav-link href="{{ route('json_journal') }}" :active="request()->routeIs('json_journal')">
+                JSON-Journal
+            </x-jet-responsive-nav-link>
+
         </div>
 
         <!-- Responsive Settings Options -->

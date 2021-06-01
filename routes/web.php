@@ -54,6 +54,7 @@ Route::middleware(['auth:sanctum', 'verified'])
 
 
 
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/json-Journal', function () {
     return view('json_journal');
 })->name('json_journal');

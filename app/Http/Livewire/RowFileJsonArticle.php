@@ -128,7 +128,7 @@ class RowFileJsonArticle extends Component
     {
 
 
-        $this->path = storage_path('app\json\Article\\') . $this->article->file_name . '.json';
+        $this->path = storage_path('app/json/Article/') . $this->article->file_name . '.json';
         //$rows = json_decode(file_get_contents($path), true);
         $rows = JsonMachine::fromFile($this->path);
 

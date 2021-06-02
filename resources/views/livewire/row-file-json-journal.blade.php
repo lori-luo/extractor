@@ -1,4 +1,4 @@
-<div>
+<tr>
     <th scope="row">{{ $journal->id }}</th>
     <td>{{ $journal->file_name }}</td>
     <td>{{ $journal->created_at->diffForHumans() }}</td>
@@ -14,11 +14,7 @@
             <button class="btn btn-outline-secondary" type="button" wire:click="export">Export</button>
         </div>
 
-        <h1>{{ $test }}</h1>
-        <span wire:loading>Reading Json File</span>
-
-
+        {{ $test }}
 
     </td>
-    </tr>
-</div>
+</tr>

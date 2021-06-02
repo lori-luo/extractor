@@ -7,18 +7,18 @@ use Livewire\Component;
 class RowFileJsonJournal extends Component
 {
     public $journal;
-    public $test;
     public $export_qty;
+    public $test;
 
     public function mount()
     {
-        $this->export_qty = 2;
         $this->test = "test here";
+        $this->export_qty = 2;
     }
 
     public function export()
     {
-        $this->test = "export there haha";
+        $this->test = "export here";
     }
     public function render()
     {

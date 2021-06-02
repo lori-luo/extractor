@@ -410,7 +410,7 @@ class RowFileJsonArticle extends Component
 
         $this->dl_clean_data();
         // $this->export_file_name .= "_CLEANx_.json";
-        return Response::download(public_path('exports\\' . $this->export_file_name));
+        return Response::download(public_path('exports/' . $this->export_file_name));
     }
 
 

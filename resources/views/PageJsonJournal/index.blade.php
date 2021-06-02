@@ -17,15 +17,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($uploads as $json)
-                        <tr>
-                            <th scope="row">{{ $json->id }}</th>
-                            <td>{{ $json->file_name }}</td>
-                            <td>{{ $json->created_at->diffForHumans() }}</td>
-                            <td>
-
-                            </td>
-                        </tr>
+                        @foreach($uploads as $journal)
+                        <livewire:row-file-json-journal :journal="$journal" />
                         @endforeach
                     </tbody>
                 </table>

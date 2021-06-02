@@ -119,7 +119,7 @@ class RowFileJsonArticle extends Component
         $fileName = $this->article->file_name . "_CLEAN_" .  $this->export_qty_text . '.json';
 
         $fileName2 = $this->article->file_name;
-        File::put(public_path('exports\\' . $fileName), $data_file);
+        File::put(public_path('exports/' . $fileName), $data_file);
 
         $this->export_file_name = $fileName;
     }

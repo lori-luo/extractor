@@ -15,6 +15,8 @@
                             <th scope="col">ID</th>
                             <th scope="col">File Name</th>
                             <th scope="col">Upload Date</th>
+                            <th scope="col">Record Count</th>
+                            <th scope="col">Extracted Count</th>
                             <th scope="col">Actions</th>
                         </tr>
                     </thead>

@@ -53,8 +53,8 @@ return [
     | Examples: "/assets", "myurl.com/app".
     |
     */
-
     'asset_url' => null,
+    //'asset_url' => 'http://192.168.1.146/extractor/public',
 
     /*
     |--------------------------------------------------------------------------

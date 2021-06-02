@@ -29,6 +29,8 @@ class RowFileJsonArticle extends Component
     public $export_qty_text;
 
 
+
+
     public function mount()
     {
         $this->export_range_min = 1;
@@ -132,8 +134,10 @@ class RowFileJsonArticle extends Component
 
 
 
-        $limit = 100000;
+        $limit = 1000000;
         $limit_ctr = 0;
+        $record_ctr = 0;
+        $extracted_ctr = 0;
 
         $ctr = 1;
 
@@ -145,8 +149,15 @@ class RowFileJsonArticle extends Component
 
         foreach ($rows as $row) {
 
+            $record_ctr++;
+
             if ($limit <= $limit_ctr) {
                 break;
+            }
+
+            if (!$this->is_subject_medical(json_encode($row['bibjson']['subject']))) {
+                //if not medical, skip
+                continue;
             }
 
 
@@ -234,6 +245,7 @@ class RowFileJsonArticle extends Component
             if ($ctr++ % 1 === 0) {
                 JsonArticle::insertOrIgnore($data);
                 // JsonArticle::insert($data); // Eloquent approach
+                $extracted_ctr++;
                 $data = [];
             }
 
@@ -246,6 +258,116 @@ class RowFileJsonArticle extends Component
 
             $limit_ctr++;
         }
+
+        $this->article->original_record_count = $record_ctr;
+        $this->article->extracted_record_count = $extracted_ctr;
+        $this->article->save();
+    }
+
+    private function is_subject_medical($subjects) // accepts json
+    {
+
+
+        $valid_subjects = [
+
+            'Medicine',
+
+            //----Medicine
+            'Dentistry',
+            'Dermatology',
+            'Gynecology and obstetrics',
+            'Homeopathy',
+            'Internal medicine',
+            'Infectious and parasitic diseases',
+            'Medical emergencies. Critical care. Intensive care. First aid',
+            'Neoplasms. Tumors. Oncology. Including cancer and carcinogens',
+            'Neurosciences. Biological psychiatry. Neuropsychiatry',
+            'Neurology. Diseases of the nervous system',
+            'Psychiatry',
+            'Therapeutics. Psychotherapy',
+            'Special situations and conditions',
+            'Arctic medicine. Tropical medicine',
+            'Geriatrics',
+            'Industrial medicine. Industrial hygiene',
+            'Sports medicine',
+            'Specialties of internal medicine',
+            'Diseases of the blood and blood-forming organs',
+            'Diseases of the circulatory (Cardiovascular) system',
+            'Diseases of the digestive system. Gastroenterology',
+            'Diseases of the endocrine glands. Clinical endocrinology',
+            'Diseases of the genitourinary system. Urology',
+            'Diseases of the musculoskeletal system',
+            'Diseases of the respiratory system',
+            'Immunologic diseases. Allergy',
+            'Nutritional diseases. Deficiency diseases',
+
+            'Medicine (General)',
+            'Computer applications to medicine. Medical informatics',
+            'General works',
+            'History of medicine. Medical expeditions',
+            'Medical philosophy. Medical ethics',
+            'Medical physics. Medical radiology. Nuclear medicine',
+            'Medical technology',
+
+            'Medical',
+            'Nursing',
+            'Ophthalmology',
+            'Other systems of medicine',
+
+            'Chiropractic',
+            'Mental healing',
+            'Miscellaneous systems and treatments',
+            'Osteopathy',
+
+            'Optics',
+            'Otorhinolaryngology',
+            'Pathology',
+            'Pediatrics',
+            'Pharmacy and materia medica',
+            'Public aspects of medicine',
+            'Toxicology. Poisons',
+            'Anesthesiology',
+            'Orthopedic surgery',
+            'Therapeutics. Pharmacology',
+            'Philosophy. Psychology.', //no found
+            'Aesthetics',
+            'Psychology',
+            'Consciousness. Cognition',
+
+            'Science',
+            'Biology (General)',
+            'Ecology',
+            'Genetics',
+            'Life',
+            'Reproduction',
+
+            'Chemistry',
+            'Analytical chemistry',
+            'Organic chemistry',
+            'Biochemistry',
+            'Human anatomy',
+            'Microbiology',
+            'Microbial ecology',
+
+            'Physiology',
+            'Biochemistry',
+            'Neurophysiology and neuropsychology',
+
+            'Zoology'
+
+
+        ];
+
+
+
+        $subjects = json_decode($subjects);
+        foreach ($subjects as $subject) {
+            if (in_array($subject->term, $valid_subjects)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public function export()

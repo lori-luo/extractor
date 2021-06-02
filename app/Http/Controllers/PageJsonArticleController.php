@@ -20,7 +20,10 @@ class PageJsonArticleController extends Controller
         $this->loop_files();
         $this->loop_uploads();
 
-        $data['articles'] = Upload::latest()->where('file_type', 'json')->paginate(5);
+        $data['articles'] = Upload::orderBy('id', 'desc')
+            ->where('file_type', 'json')
+            ->where('category', 'Article')
+            ->paginate(5);
 
         return view('PageJsonArticle.index', $data);
     }

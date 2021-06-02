@@ -21,7 +21,7 @@
                     <x-jet-nav-link href="{{ route('json_article') }}" :active="request()->routeIs('json_article','json_article.data','json_article.export')">
                         JSON-Article
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('json_journal') }}" :active="request()->routeIs('json_journal')">
+                    <x-jet-nav-link href="{{ route('json_journal') }}" :active="request()->routeIs('json_journal','json_journal.data','json_journal.export')">
                         JSON-Journal
                     </x-jet-nav-link>
                 </div>

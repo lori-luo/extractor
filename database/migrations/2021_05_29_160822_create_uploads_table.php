@@ -18,6 +18,8 @@ class CreateUploadsTable extends Migration
             $table->string('file_name')->nullable();
             $table->string('file_type')->nullable();
             $table->string('new_file_name')->nullable();
+            $table->bigInteger('original_record_count')->nullable();
+            $table->bigInteger('extracted_record_count')->nullable();
             $table->string('category')->nullable();
             $table->timestamps();
         });

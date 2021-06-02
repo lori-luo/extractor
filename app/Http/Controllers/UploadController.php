@@ -47,6 +47,7 @@ class UploadController extends Controller
 
         $file_name = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
         $new_file_name = $file_name . "_" . uniqid() . "_" . Str::random(40) . "." . $file_ext;
+        $new_file_name = $file_name . "." . $file_ext;
         $file->storeAs($file_ext . "/" . $file_category, $new_file_name);
 
         $upload->file_name = $file_name;

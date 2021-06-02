@@ -413,11 +413,7 @@
             @endauth
         </div>
         @endif
-        <h1>Test here</h1>
-        <h1>test again</h1>
-        <div>Test dev</div>
-        <br><br><br><br><br><br><br><br>
-        <h1>test 3</h1>
+
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
             <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
                 <svg viewBox="0 0 651 192" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-16 w-auto text-gray-700 sm:h-20">
@@ -455,6 +451,12 @@
 
                         <div class="ml-12">
                             <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
+
+                                <h1>Test here</h1>
+                                <h1>test again</h1>
+                                <div>Test dev</div>
+                                <br><br><br><br><br><br><br><br>
+                                <h1>test 3</h1>
                                 Laracasts offers thousands of video tutorials on Laravel, PHP, and JavaScript development. Check them out, see for yourself, and massively level up your development skills in the process.
                             </div>
                         </div>

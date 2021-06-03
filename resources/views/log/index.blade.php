@@ -17,18 +17,15 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach($logs as $log)
                         <tr>
-
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
+                            <td>{{ $log->user->name }}</td>
+                            <td>{{ $log->action }}</td>
+                            <td>{{ $log->created_at->diffForHumans() }}</td>
                         </tr>
-                        <tr>
+                        @endforeach
 
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                        </tr>
+
                     </tbody>
                 </table>
             </div>

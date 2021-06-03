@@ -4,9 +4,8 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-10xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-9xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <h1>List of Data here</h1>
                 <div class="table-responsive">
                     <table class="table table-sm text-nowrap table-hover">
                         <thead class="table-primary">

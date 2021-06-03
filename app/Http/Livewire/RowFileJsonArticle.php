@@ -122,10 +122,17 @@ class RowFileJsonArticle extends Component
         File::put(public_path('exports/' . $fileName), $data_file);
 
         $this->export_file_name = $fileName;
+
+        auth()->user()->logs()->create([
+            'action' => 'Export file: ' . $this->export_file_name
+        ]);
     }
 
     public function read_json_article()
     {
+
+
+
 
 
         $this->path = storage_path('app/json/Article/') . $this->article->file_name . '.json';
@@ -262,6 +269,10 @@ class RowFileJsonArticle extends Component
         $this->article->original_record_count = $record_ctr;
         $this->article->extracted_record_count = $extracted_ctr;
         $this->article->save();
+
+        auth()->user()->logs()->create([
+            'action' => 'Import file: ' . $this->article->file_name . ".json"
+        ]);
     }
 
     private function is_subject_medical($subjects) // accepts json

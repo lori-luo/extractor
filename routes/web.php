@@ -25,6 +25,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
+/*
 Route::middleware(['auth:sanctum', 'verified'])
     ->get('/xml-PubMed', [PageXmlPubMedController::class, 'index'])
     ->name('xml_pub_med');
@@ -39,6 +40,8 @@ Route::middleware(['auth:sanctum', 'verified'])
 Route::middleware(['auth:sanctum', 'verified'])
     ->post('/xml-PubMed/upload', [UploadController::class, 'store'])
     ->name('xml_pub_med.upload.store');
+
+    */
 
 Route::middleware(['auth:sanctum', 'verified'])
     ->get('/json-Article', [PageJsonArticleController::class, 'index'])

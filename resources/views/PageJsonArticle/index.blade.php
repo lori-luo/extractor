@@ -15,6 +15,8 @@
                             <th scope="col">Upload Date</th>
                             <th scope="col">Record Count</th>
                             <th scope="col">Extracted Count</th>
+                            <th scope="col">New Records</th>
+                            <th scope="col">Updated Records</th>
                             <th scope="col">Actions</th>
                         </tr>
                     </thead>

@@ -145,10 +145,12 @@ class RowFileJsonArticle extends Component
 
 
 
-        $limit = 1000000;
+        $limit = 200000;
         $limit_ctr = 0;
         $record_ctr = 0;
         $extracted_ctr = 0;
+        $record_new_ctr = 0;
+        $record_updated_ctr = 0;
 
         $ctr = 1;
 
@@ -163,7 +165,7 @@ class RowFileJsonArticle extends Component
             $record_ctr++;
             $this->row_count = $record_ctr;
 
-            if ($limit <= $limit_ctr) {
+            if ($limit <= $record_ctr) { // limit_ctr only includes qualified records
                 break;
             }
 
@@ -173,6 +175,36 @@ class RowFileJsonArticle extends Component
             }
 
 
+            $article = JsonArticle::where('article_id', $row['id'])->first();
+            $article_exists = false;
+            if (!$article) {
+
+                $article = new JsonArticle();
+                $record_new_ctr++;
+            } else {
+                //record exists
+                $article_exists = true;
+                $last_updated = $article->last_updated;
+            }
+            $article->article_id = $row['id'];
+            $article->upload_id = $this->article->id;
+            $article->insert_tag = $this->insert_tag;
+            $article->last_updated = date('Y-m-d h:i:s', strtotime($row['last_updated']));
+
+            if ($article_exists) {
+                //compare the last update date
+                if (
+                    date('Y-m-d h:i:s', strtotime($row['last_updated'])) > $last_updated
+                ) {
+
+                    $article->save();
+                    $record_updated_ctr++;
+                    $extracted_ctr++;
+                }
+            } else { //not exists,means new
+                $article->save();
+                $extracted_ctr++;
+            }
 
 
 
@@ -244,8 +276,9 @@ class RowFileJsonArticle extends Component
 
 
 
-            $new_row['last_updated'] = $row['last_updated'];
-            $new_row['created_date'] = $row['created_date'];
+
+            $new_row['last_updated'] = date('Y-m-d h:i:s', strtotime($row['last_updated']));
+            $new_row['created_date'] = date('Y-m-d h:i:s', strtotime($row['created_date']));
             $new_row['created_at'] = Carbon::now();
             $new_row['updated_at'] = Carbon::now();
             $new_row['ctr'] = $ctr;
@@ -255,9 +288,10 @@ class RowFileJsonArticle extends Component
 
 
             if ($ctr++ % 1 === 0) {
-                JsonArticle::insertOrIgnore($data);
+                // JsonArticle::where('article_id',  $new_row['article_id'])->delete();
+                // JsonArticle::insertOrIgnore($data);
                 // JsonArticle::insert($data); // Eloquent approach
-                $extracted_ctr++;
+
                 $data = [];
             }
 
@@ -273,6 +307,10 @@ class RowFileJsonArticle extends Component
 
         $this->article->original_record_count = $record_ctr;
         $this->article->extracted_record_count = $extracted_ctr;
+        $this->article->new_record_count = $record_new_ctr;
+        $this->article->updated_record_count = $record_updated_ctr;
+
+
         $this->article->save();
 
         auth()->user()->logs()->create([

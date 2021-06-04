@@ -45,8 +45,8 @@ class CreateJsonArticlesTable extends Migration
             $table->text('insert_tag')->nullable();
 
 
-            $table->string('last_updated')->nullable();
-            $table->string('created_date')->nullable();
+            $table->dateTime('last_updated')->nullable();
+            $table->dateTime('created_date')->nullable();
             $table->timestamps();
         });
     }

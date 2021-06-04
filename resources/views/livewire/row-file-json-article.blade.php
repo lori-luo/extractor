@@ -4,6 +4,8 @@
     <td>{{ $article->created_at->diffForHumans() }}</td>
     <td>{{ $article->original_record_count }}</td>
     <td>{{ $article->extracted_record_count }}</td>
+    <td>{{ $article->new_record_count }}</td>
+    <td>{{ $article->updated_record_count }}</td>
     <td>
 
         <div class="row">

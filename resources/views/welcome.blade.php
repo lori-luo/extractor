@@ -431,7 +431,7 @@
 
                         <div class="ml-12">
                             <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                Extractor is a web application designed to extract data from bigsize JSON and XML files.
+                                This web application was designed to extract data from bigsize JSON and XML files.
                             </div>
                         </div>
                     </div>

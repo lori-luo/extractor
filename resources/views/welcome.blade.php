@@ -5,11 +5,11 @@
             <div class="w-full sm:max-w-5xl mt-6 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg prose">
                 <div class="px-4 py-2 my-5 text-center">
                     <img class="d-block mx-auto mb-4" src="{{ asset('images/chenyang.png') }}" alt="" width="72" height="57">
-                    <h1 class="display-5 fw-bold">
+                    <h2 class="display-5 fw-bold">
                         HONGKONG CHENYANG
                         <br>
                         TRADING COMPANY LTD
-                    </h1>
+                    </h2>
                     <div class="col-lg-6 mx-auto">
                         <p class="lead mb-4">
                             This web application was designed to extract data from bigsize JSON and XML files.

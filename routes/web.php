@@ -20,7 +20,7 @@ use App\Http\Controllers\PageJsonJournalController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->middleware('guest');;
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', [LogController::class, 'index'])->name('dashboard');
 

@@ -27,6 +27,9 @@
 
         <h1>{{ $test }}</h1>
 
-        <span wire:loading>Reading Json File</span>
+        <span wire:loading wire:target="read_json_article">Import Json File</span>
+        <span wire:loading wire:target="export">Exporting Json File</span>
+
+
     </td>
 </tr>

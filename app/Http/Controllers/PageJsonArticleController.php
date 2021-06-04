@@ -65,6 +65,10 @@ class PageJsonArticleController extends Controller
                 $upload->new_file_name = $new_file_name;
                 $upload->category = 'Article';
                 $upload->save();
+
+                auth()->user()->logs()->create([
+                    'action' => 'Uploaded file: ' . $new_file_name . ".json"
+                ]);
             }
         }
     }

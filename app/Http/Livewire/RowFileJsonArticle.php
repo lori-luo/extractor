@@ -28,6 +28,8 @@ class RowFileJsonArticle extends Component
 
     public $export_qty_text;
 
+    public $row_count;
+
 
 
 
@@ -36,6 +38,8 @@ class RowFileJsonArticle extends Component
         $this->export_range_min = 1;
         $this->export_range_max = 100;
         $this->export_qty = 1;
+
+        $this->row_count = 0;
     }
     public function dl_clean_data()
     {
@@ -157,6 +161,7 @@ class RowFileJsonArticle extends Component
         foreach ($rows as $row) {
 
             $record_ctr++;
+            $this->row_count = $record_ctr;
 
             if ($limit <= $limit_ctr) {
                 break;

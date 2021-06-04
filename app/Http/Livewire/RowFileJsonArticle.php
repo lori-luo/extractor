@@ -29,6 +29,13 @@ class RowFileJsonArticle extends Component
     public $export_qty_text;
 
     public $row_count;
+    public $import_force;
+
+    public $export_sel_all;
+    public $export_sel_new;
+    public $export_sel_updated;
+
+    public $sel_type;
 
 
 
@@ -40,14 +47,61 @@ class RowFileJsonArticle extends Component
         $this->export_qty = 1;
 
         $this->row_count = 0;
+        $this->import_force = false;
+
+
+
+        $this->sel_type = 2; //2=new,1=all,3=updated
     }
+
+
+
+
+
+
+
+
     public function dl_clean_data()
     {
 
+        $skip = 0;
+        $take = 20000;
 
+        if ($this->export_qty == 2) {
+            $skip = 20000;
+        }
+        if ($this->export_qty == 3) {
+            $skip = 40000;
+        }
+        if ($this->export_qty == 4) {
+            $skip = 60000;
+        }
+        if ($this->export_qty == 5) {
+            $skip = 80000;
+        }
+        /*
         $data = JsonArticle::where('upload_id', $this->article->id)
             ->whereBetween('ctr', [$this->export_range_min, $this->export_range_max])
             ->get();
+            */
+        if ($this->sel_type == 1) {
+            $data = JsonArticle::where('upload_id', $this->article->id)
+                ->skip($skip)->take($take)
+                ->get();
+        }
+
+        if ($this->sel_type == 2) {
+            $data = JsonArticle::where('upload_id', $this->article->id)
+                ->skip($skip)->take($take)->where('is_new', true)
+                ->get();
+        }
+
+        if ($this->sel_type == 3) {
+            $data = JsonArticle::where('upload_id', $this->article->id)
+                ->skip($skip)->take($take)->where('is_updated', true)
+                ->get();
+        }
+
 
         $rows = [];
         $ctr = 1;
@@ -134,10 +188,17 @@ class RowFileJsonArticle extends Component
 
     public function read_json_article()
     {
+        $this->import_force = false;
+        $this->import_json();
+    }
+    public function read_json_article_force()
+    {
+        $this->import_force = true;
+        $this->import_json();
+    }
 
-
-
-
+    public function import_json()
+    {
 
         $this->path = storage_path('app/json/Article/') . $this->article->file_name . '.json';
         //$rows = json_decode(file_get_contents($path), true);
@@ -145,14 +206,26 @@ class RowFileJsonArticle extends Component
 
 
 
-        $limit = 200000;
+        $limit = 5000;
         $limit_ctr = 0;
         $record_ctr = 0;
         $extracted_ctr = 0;
         $record_new_ctr = 0;
         $record_updated_ctr = 0;
 
-        $ctr = 1;
+        JsonArticle::where('upload_id', $this->article->id)->update([
+            'is_new' => false,
+            'is_updated' => false
+        ]);
+
+        if ($this->import_force) {
+            JsonArticle::where('upload_id', $this->article->id)->delete();
+        }
+
+
+
+
+        $ctr = JsonArticle::where('upload_id', $this->article->id)->max('ctr') + 1;
 
         $this->insert_tag = Str::random(40) . "_" . uniqid();
 
@@ -189,122 +262,98 @@ class RowFileJsonArticle extends Component
             $article->article_id = $row['id'];
             $article->upload_id = $this->article->id;
             $article->insert_tag = $this->insert_tag;
+
+
+            if (isset($row['bibjson']['title'])) {
+                $article->title = $row['bibjson']['title'];
+            }
+
+            if (isset($row['bibjson']['abstract'])) {
+                $article->abstract = $row['bibjson']['abstract'];
+            }
+
+            $article->identifier_list = json_encode($row['bibjson']['identifier']);
+
+            if (isset($row['bibjson']['author'])) {
+                $article->author_list = json_encode($row['bibjson']['author']);
+            }
+
+            if (isset($row['bibjson']['link'])) {
+                $article->link_list = json_encode($row['bibjson']['link']);
+            }
+
+            if (isset($row['bibjson']['journal']['volume'])) {
+                $article->journal_volume = $row['bibjson']['journal']['volume'];
+            }
+            if (isset($row['bibjson']['journal']['number'])) {
+                $article->journal_number = $row['bibjson']['journal']['number'];
+            }
+
+            if (isset($row['bibjson']['journal']['country'])) {
+                $article->journal_country = $row['bibjson']['journal']['country'];
+            }
+            if (isset($row['bibjson']['journal']['publisher'])) {
+                $article->journal_publisher = $row['bibjson']['journal']['publisher'];
+            }
+
+            if (isset($row['bibjson']['journal']['language'])) {
+                $article->journal_language = json_encode($row['bibjson']['journal']['language']);
+            }
+            if (isset($row['bibjson']['journal']['title'])) {
+                $article->journal_title = $row['bibjson']['journal']['title'];
+            }
+            if (isset($row['bibjson']['journal']['license'])) {
+                $article->journal_license = json_encode($row['bibjson']['journal']['license']);
+            }
+
+            if (isset($row['bibjson']['journal']['issns'])) {
+                $article->journal_issns = json_encode($row['bibjson']['journal']['issns']);
+            }
+
+            if (isset($row['bibjson']['year'])) {
+                $article->year = $row['bibjson']['year'];
+            }
+            if (isset($row['bibjson']['month'])) {
+                $article->month = $row['bibjson']['month'];
+            }
+
+            if (isset($row['bibjson']['start_page'])) {
+                $article->start_page = $row['bibjson']['start_page'];
+            }
+            if (isset($row['bibjson']['subject'])) {
+                $article->subject = json_encode($row['bibjson']['subject']);
+            }
+
+            if (isset($row['bibjson']['keywords'])) {
+                $article->keywords = json_encode($row['bibjson']['keywords']);
+            }
+
+
             $article->last_updated = date('Y-m-d h:i:s', strtotime($row['last_updated']));
+            $article->created_date = date('Y-m-d h:i:s', strtotime($row['created_date']));
 
             if ($article_exists) {
                 //compare the last update date
                 if (
                     date('Y-m-d h:i:s', strtotime($row['last_updated'])) > $last_updated
                 ) {
-
+                    $article->is_updated = true;
                     $article->save();
+
                     $record_updated_ctr++;
                     $extracted_ctr++;
                 }
             } else { //not exists,means new
+                $article->is_new = true;
+                $article->ctr = $ctr;
                 $article->save();
+
                 $extracted_ctr++;
             }
-
-
-
-            $new_row['article_id'] = $row['id'];
-            $new_row['upload_id'] = $this->article->id;
-            $new_row['insert_tag'] = $this->insert_tag;
-
-            if (isset($row['bibjson']['title'])) {
-                $new_row['title'] = $row['bibjson']['title'];
-            }
-            if (isset($row['bibjson']['abstract'])) {
-                $new_row['abstract'] = $row['bibjson']['abstract'];
-            }
-
-            $new_row['identifier_list'] = json_encode($row['bibjson']['identifier']);
-
-            if (isset($row['bibjson']['author'])) {
-                $new_row['author_list'] = json_encode($row['bibjson']['author']);
-            }
-            if (isset($row['bibjson']['link'])) {
-                $new_row['link_list'] = json_encode($row['bibjson']['link']);
-            }
-
-            if (isset($row['bibjson']['journal']['volume'])) {
-                $new_row['journal_volume'] = $row['bibjson']['journal']['volume'];
-            }
-            if (isset($row['bibjson']['journal']['number'])) {
-                $new_row['journal_number'] = $row['bibjson']['journal']['number'];
-            }
-            if (isset($row['bibjson']['journal']['country'])) {
-                $new_row['journal_country'] = $row['bibjson']['journal']['country'];
-            }
-            if (isset($row['bibjson']['journal']['publisher'])) {
-                $new_row['journal_publisher'] = $row['bibjson']['journal']['publisher'];
-            }
-            if (isset($row['bibjson']['journal']['language'])) {
-                $new_row['journal_language'] = json_encode($row['bibjson']['journal']['language']);
-            }
-            if (isset($row['bibjson']['journal']['title'])) {
-                $new_row['journal_title'] = $row['bibjson']['journal']['title'];
-            }
-            if (isset($row['bibjson']['journal']['license'])) {
-                $new_row['journal_license'] = json_encode($row['bibjson']['journal']['license']);
-            }
-            if (isset($row['bibjson']['journal']['issns'])) {
-                $new_row['journal_issns'] = json_encode($row['bibjson']['journal']['issns']);
-            }
-
-            if (isset($row['bibjson']['year'])) {
-                $new_row['year'] = $row['bibjson']['year'];
-            }
-            if (isset($row['bibjson']['month'])) {
-                $new_row['month'] = $row['bibjson']['month'];
-            }
-
-            if (isset($row['bibjson']['start_page'])) {
-                $new_row['start_page'] = $row['bibjson']['start_page'];
-            }
-            if (isset($row['bibjson']['subject'])) {
-                $new_row['subject'] = json_encode($row['bibjson']['subject']);
-            }
-
-
-
-            if (isset($row['bibjson']['keywords'])) {
-                $new_row['keywords'] = json_encode($row['bibjson']['keywords']);
-            }
-
-
-
-
-
-            $new_row['last_updated'] = date('Y-m-d h:i:s', strtotime($row['last_updated']));
-            $new_row['created_date'] = date('Y-m-d h:i:s', strtotime($row['created_date']));
-            $new_row['created_at'] = Carbon::now();
-            $new_row['updated_at'] = Carbon::now();
-            $new_row['ctr'] = $ctr;
-
-
-            array_push($data, $new_row);
-
-
-            if ($ctr++ % 1 === 0) {
-                // JsonArticle::where('article_id',  $new_row['article_id'])->delete();
-                // JsonArticle::insertOrIgnore($data);
-                // JsonArticle::insert($data); // Eloquent approach
-
-                $data = [];
-            }
-
-
-
-
-
-
-
-
+            $ctr++;
             $limit_ctr++;
         }
-
+        $extracted_ctr =  JsonArticle::where('upload_id', $this->article->id)->count();
         $this->article->original_record_count = $record_ctr;
         $this->article->extracted_record_count = $extracted_ctr;
         $this->article->new_record_count = $record_new_ctr;

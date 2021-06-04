@@ -47,6 +47,13 @@ class CreateJsonArticlesTable extends Migration
 
             $table->dateTime('last_updated')->nullable();
             $table->dateTime('created_date')->nullable();
+
+            //custom by me: Richard 
+
+            $table->boolean('is_new')->default(false);
+            $table->boolean('is_updated')->default(false);
+
+
             $table->timestamps();
         });
     }

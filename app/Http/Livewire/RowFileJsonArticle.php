@@ -38,7 +38,10 @@ class RowFileJsonArticle extends Component
     public $sel_type;
 
 
-
+    public function __construct()
+    {
+        ini_set('max_execution_time', 600); //10 minutes
+    }
 
     public function mount()
     {
@@ -226,6 +229,7 @@ class RowFileJsonArticle extends Component
 
 
         $ctr = JsonArticle::where('upload_id', $this->article->id)->max('ctr') + 1;
+        $record_ctr_all = JsonArticle::where('upload_id', $this->article->id)->count();
 
         $this->insert_tag = Str::random(40) . "_" . uniqid();
 

@@ -209,7 +209,7 @@ class RowFileJsonArticle extends Component
 
 
 
-        $limit = 100;
+        $limit = 200000;
         $limit_ctr = 0;
         $record_ctr = 0;
         $extracted_ctr = 0;

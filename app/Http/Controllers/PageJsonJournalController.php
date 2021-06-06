@@ -12,6 +12,10 @@ class PageJsonJournalController extends Controller
     public function index()
     {
 
+        if (!file_exists(storage_path('app/json/Journal'))) {
+            mkdir(storage_path('app/json/Journal'), 0777, true);
+        }
+
         $this->loop_files();
         $this->loop_uploads();
         $data['uploads'] = Upload::latest()

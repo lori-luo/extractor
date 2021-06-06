@@ -70,6 +70,7 @@ class RowFileJsonArticle extends Component
 
         $skip = 0;
         $take = 20000;
+        $take = 10000;
 
         if ($this->export_qty == 2) {
             $skip = 20000;

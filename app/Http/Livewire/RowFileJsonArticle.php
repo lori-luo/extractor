@@ -109,7 +109,7 @@ class RowFileJsonArticle extends Component
 
         $rows = [];
         $ctr = 1;
-        dd('test here');
+
         foreach ($data as $d) {
             if ($d->journal_title) {
 
@@ -480,6 +480,7 @@ class RowFileJsonArticle extends Component
 
     public function export()
     {
+        dd('test here');
 
         if ($this->export_qty == 1) {
             $this->export_range_min = 1;

@@ -480,7 +480,7 @@ class RowFileJsonArticle extends Component
 
     public function export()
     {
-        dd('test here');
+
 
         if ($this->export_qty == 1) {
             $this->export_range_min = 1;
@@ -514,7 +514,7 @@ class RowFileJsonArticle extends Component
         }
 
 
-
+        dd('test here again');
 
 
         $this->dl_clean_data();

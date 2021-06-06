@@ -16,9 +16,15 @@ class PageJsonArticleController extends Controller
     public function __construct()
     {
         ini_set('memory_limit', '1024M'); // or you could use 1G
+
+
     }
     public function index()
     {
+
+        if (!file_exists(storage_path('app/json/Article'))) {
+            mkdir(storage_path('app/json/Article'), 0777, true);
+        }
 
 
 

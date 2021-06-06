@@ -10,6 +10,14 @@
 
         <div class="row">
             <div class="col">
+                <span wire:loading wire-target="row_count">
+
+                    Current time: {{ $row_count }}
+
+                </span>
+
+
+
                 <button type="button" class="btn btn-sm btn-info" wire:click="read_json_article">Import</button>
                 <button type="button" class="btn btn-sm btn-warning" wire:click="read_json_article_force">Force Import</button>
             </div>

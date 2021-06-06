@@ -66,7 +66,7 @@ class RowFileJsonArticle extends Component
 
     public function dl_clean_data()
     {
-        ini_set('memory_limit', '512M');
+        //  ini_set('memory_limit', '512M');
 
         $skip = 0;
         $take = 20000;

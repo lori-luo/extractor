@@ -109,7 +109,7 @@ class RowFileJsonArticle extends Component
 
         $rows = [];
         $ctr = 1;
-
+        dd('test here');
         foreach ($data as $d) {
             if ($d->journal_title) {
 

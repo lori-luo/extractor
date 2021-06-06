@@ -10,14 +10,6 @@
 
         <div class="row">
             <div class="col">
-                <span wire:loading wire-target="row_count">
-
-                    Current time: {{ $row_count }}
-
-                </span>
-
-
-
                 <button type="button" class="btn btn-sm btn-info" wire:click="read_json_article">Import</button>
                 <button type="button" class="btn btn-sm btn-warning" wire:click="read_json_article_force">Force Import</button>
             </div>
@@ -25,11 +17,16 @@
                 <div class="input-group input-group-sm">
 
                     <select class="form-select" id="export_qty" name="export_qty" wire:model="export_qty">
-                        <option value="1">1-20k</option>
-                        <option value="2">20k-40k</option>
-                        <option value="3">40k-60k</option>
-                        <option value="4">60k-80k</option>
-                        <option value="5">80k-100k</option>
+                        <option value="1">1-10k</option>
+                        <option value="2">10k-20k</option>
+                        <option value="3">20k-30k</option>
+                        <option value="4">30k-40k</option>
+                        <option value="5">40k-50k</option>
+                        <option value="6">50k-60k</option>
+                        <option value="7">60k-70k</option>
+                        <option value="8">70k-80k</option>
+                        <option value="9">80k-90k</option>
+                        <option value="10">90k-100k</option>
                     </select>
 
                     <button class="btn btn-outline-secondary" type="button" wire:click="export">Export</button>
@@ -37,9 +34,6 @@
 
             </div>
         </div>
-
-
-
 
         <span wire:loading wire:target="read_json_article">Import Json File</span>
         <span wire:loading wire:target="read_json_article_force">Force:Import Json File</span>

@@ -20,6 +20,7 @@ class RowFileJsonArticle extends Component
     public $export_file_name;
     public $insert_tag;
     public $export_qty;
+    public $export_skip;
 
     public $export_range_min;
     public $export_range_max;
@@ -54,13 +55,10 @@ class RowFileJsonArticle extends Component
 
 
 
+
+
         $this->sel_type = 2; //2=new,1=all,3=updated
     }
-
-
-
-
-
 
 
 
@@ -68,22 +66,10 @@ class RowFileJsonArticle extends Component
     {
         //  ini_set('memory_limit', '512M');
 
-        $skip = 0;
-        $take = 20000;
+        $skip = $this->export_skip;
         $take = 10000;
 
-        if ($this->export_qty == 2) {
-            $skip = 20000;
-        }
-        if ($this->export_qty == 3) {
-            $skip = 40000;
-        }
-        if ($this->export_qty == 4) {
-            $skip = 60000;
-        }
-        if ($this->export_qty == 5) {
-            $skip = 80000;
-        }
+
         /*
         $data = JsonArticle::where('upload_id', $this->article->id)
             ->whereBetween('ctr', [$this->export_range_min, $this->export_range_max])
@@ -228,8 +214,6 @@ class RowFileJsonArticle extends Component
         }
 
 
-
-
         $ctr = JsonArticle::where('upload_id', $this->article->id)->max('ctr') + 1;
         $record_ctr_all = JsonArticle::where('upload_id', $this->article->id)->count();
 
@@ -359,6 +343,8 @@ class RowFileJsonArticle extends Component
             $ctr++;
             $limit_ctr++;
         }
+
+
         $extracted_ctr =  JsonArticle::where('upload_id', $this->article->id)->count();
         $this->article->original_record_count = $record_ctr;
         $this->article->extracted_record_count = $extracted_ctr;
@@ -484,34 +470,48 @@ class RowFileJsonArticle extends Component
 
 
         if ($this->export_qty == 1) {
-            $this->export_range_min = 1;
-            $this->export_range_max = 20000;
-
-            $this->export_qty_text = "1-20k";
+            $this->export_skip = 0;
+            $this->export_qty_text = "1-10k";
         }
 
         if ($this->export_qty == 2) {
-            $this->export_range_min = 20001;
-            $this->export_range_max = 40000;
-            $this->export_qty_text = "20-40k";
+            $this->export_skip = 10000;
+            $this->export_qty_text = "10-20k";
         }
 
         if ($this->export_qty == 3) {
-            $this->export_range_min = 40001;
-            $this->export_range_max = 60000;
-            $this->export_qty_text = "40-60k";
+            $this->export_skip = 20000;
+            $this->export_qty_text = "20-30k";
         }
 
         if ($this->export_qty == 4) {
-            $this->export_range_min = 60001;
-            $this->export_range_max = 80000;
-            $this->export_qty_text = "60-80k";
+            $this->export_skip = 30000;
+            $this->export_qty_text = "30-40k";
         }
 
         if ($this->export_qty == 5) {
-            $this->export_range_min = 80001;
-            $this->export_range_max = 100000;
-            $this->export_qty_text = "80-100k";
+            $this->export_skip = 40000;
+            $this->export_qty_text = "40-50k";
+        }
+        if ($this->export_qty == 6) {
+            $this->export_skip = 50000;
+            $this->export_qty_text = "50-60k";
+        }
+        if ($this->export_qty == 7) {
+            $this->export_skip = 60000;
+            $this->export_qty_text = "60-70k";
+        }
+        if ($this->export_qty == 8) {
+            $this->export_skip = 70000;
+            $this->export_qty_text = "70-80k";
+        }
+        if ($this->export_qty == 9) {
+            $this->export_skip = 80000;
+            $this->export_qty_text = "80-90k";
+        }
+        if ($this->export_qty == 10) {
+            $this->export_skip = 90000;
+            $this->export_qty_text = "90-100k";
         }
 
 

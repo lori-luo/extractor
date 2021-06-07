@@ -343,7 +343,9 @@ class RowFileJsonJournal extends Component
 
         $this->journal->save();
 
-        // dd($record_ctr);
+        auth()->user()->logs()->create([
+            'action' => 'Import file: ' . $this->journal->file_name . ".json"
+        ]);
     }
     public function render()
     {

@@ -13,7 +13,12 @@
                             <th scope="col">ID</th>
                             <th scope="col">File Name</th>
                             <th scope="col">Upload Date</th>
+                            <th scope="col">Record <br> Count</th>
+                            <th scope="col">Extracted <br> Count</th>
+                            <th scope="col">New <br> Records</th>
+                            <th scope="col">Updated <br> Records</th>
                             <th scope="col">Actions</th>
+                            <th scope="col">Export Selection</th>
                         </tr>
                     </thead>
                     <tbody>

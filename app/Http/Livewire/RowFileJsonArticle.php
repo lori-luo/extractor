@@ -99,7 +99,6 @@ class RowFileJsonArticle extends Component
 
         foreach ($data as $d) {
             if ($d->journal_title) {
-
                 $row['bibjson']['journal']['issns'] = json_decode($d->journal_issns);
             }
 

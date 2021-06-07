@@ -15,7 +15,7 @@
             </div>
             <div class="col">
                 <div class="input-group input-group-sm">
-
+                    @if($export_qty_category==1)
                     <select class="form-select" id="export_qty" name="export_qty" wire:model="export_qty">
                         <option value="1">1-10k</option>
                         <option value="2">10k-20k</option>
@@ -29,6 +29,15 @@
                         <option value="10">90k-100k</option>
                     </select>
 
+                    @elseif($export_qty_category==2)
+                    <select class="form-select" id="export_qty" name="export_qty" wire:model="export_qty">
+                        <option value="1">1-20k</option>
+                        <option value="2">20k-40k</option>
+                        <option value="3">40k-60k</option>
+                        <option value="4">60k-80k</option>
+                        <option value="5">80k-100k</option>
+                    </select>
+                    @endif
                     <button class="btn btn-outline-secondary" type="button" wire:click="export">Export</button>
                 </div>
 

@@ -38,6 +38,8 @@ class RowFileJsonArticle extends Component
 
     public $sel_type;
 
+    public $export_qty_category;
+
 
     public function __construct()
     {
@@ -54,7 +56,8 @@ class RowFileJsonArticle extends Component
         $this->import_force = false;
 
 
-
+        $this->export_qty_category = 2; //per 10k
+        //  $this->export_qty_category=2; //per 20k
 
 
         $this->sel_type = 2; //2=new,1=all,3=updated
@@ -467,59 +470,88 @@ class RowFileJsonArticle extends Component
     public function export()
     {
 
-
-        if ($this->export_qty == 1) {
-            $this->export_skip = 0;
-            $this->export_qty_text = "1-10k";
-        }
-
-        if ($this->export_qty == 2) {
-            $this->export_skip = 10000;
-            $this->export_qty_text = "10-20k";
-        }
-
-        if ($this->export_qty == 3) {
-            $this->export_skip = 20000;
-            $this->export_qty_text = "20-30k";
-        }
-
-        if ($this->export_qty == 4) {
-            $this->export_skip = 30000;
-            $this->export_qty_text = "30-40k";
-        }
-
-        if ($this->export_qty == 5) {
-            $this->export_skip = 40000;
-            $this->export_qty_text = "40-50k";
-        }
-        if ($this->export_qty == 6) {
-            $this->export_skip = 50000;
-            $this->export_qty_text = "50-60k";
-        }
-        if ($this->export_qty == 7) {
-            $this->export_skip = 60000;
-            $this->export_qty_text = "60-70k";
-        }
-        if ($this->export_qty == 8) {
-            $this->export_skip = 70000;
-            $this->export_qty_text = "70-80k";
-        }
-        if ($this->export_qty == 9) {
-            $this->export_skip = 80000;
-            $this->export_qty_text = "80-90k";
-        }
-        if ($this->export_qty == 10) {
-            $this->export_skip = 90000;
-            $this->export_qty_text = "90-100k";
-        }
-
-
-        // dd('test here again');
-
+        $this->set_export_prop();
 
         $this->dl_clean_data();
         // $this->export_file_name .= "_CLEANx_.json";
         return Response::download(public_path('exports/' . $this->export_file_name));
+    }
+
+    private function set_export_prop()
+    {
+        if ($this->export_qty_category == 1) {
+
+            if ($this->export_qty == 1) {
+                $this->export_skip = 0;
+                $this->export_qty_text = "1-10k";
+            }
+
+            if ($this->export_qty == 2) {
+                $this->export_skip = 10000;
+                $this->export_qty_text = "10-20k";
+            }
+
+            if ($this->export_qty == 3) {
+                $this->export_skip = 20000;
+                $this->export_qty_text = "20-30k";
+            }
+
+            if ($this->export_qty == 4) {
+                $this->export_skip = 30000;
+                $this->export_qty_text = "30-40k";
+            }
+
+            if ($this->export_qty == 5) {
+                $this->export_skip = 40000;
+                $this->export_qty_text = "40-50k";
+            }
+            if ($this->export_qty == 6) {
+                $this->export_skip = 50000;
+                $this->export_qty_text = "50-60k";
+            }
+            if ($this->export_qty == 7) {
+                $this->export_skip = 60000;
+                $this->export_qty_text = "60-70k";
+            }
+            if ($this->export_qty == 8) {
+                $this->export_skip = 70000;
+                $this->export_qty_text = "70-80k";
+            }
+            if ($this->export_qty == 9) {
+                $this->export_skip = 80000;
+                $this->export_qty_text = "80-90k";
+            }
+            if ($this->export_qty == 10) {
+                $this->export_skip = 90000;
+                $this->export_qty_text = "90-100k";
+            }
+        } elseif ($this->export_qty_category == 2) {
+
+            if ($this->export_qty == 1) {
+                $this->export_skip = 0;
+                $this->export_qty_text = "1-20k";
+            }
+
+            if ($this->export_qty == 2) {
+                $this->export_skip = 20000;
+                $this->export_qty_text = "20-40k";
+            }
+
+            if ($this->export_qty == 3) {
+                $this->export_skip = 40000;
+                $this->export_qty_text = "40-60k";
+            }
+
+            if ($this->export_qty == 4) {
+                $this->export_skip = 60000;
+                $this->export_qty_text = "60-80k";
+            }
+
+            if ($this->export_qty == 5) {
+                $this->export_skip = 80000;
+                $this->export_qty_text = "80-100k";
+            }
+        }
     }
 
 

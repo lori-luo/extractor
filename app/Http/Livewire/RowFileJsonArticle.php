@@ -56,7 +56,7 @@ class RowFileJsonArticle extends Component
         $this->import_force = false;
 
 
-        $this->export_qty_category = 2; //per 10k
+        $this->export_qty_category = 1; //per 10k
         //  $this->export_qty_category=2; //per 20k
 
 

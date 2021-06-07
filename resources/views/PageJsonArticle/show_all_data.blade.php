@@ -43,7 +43,7 @@
                                     {{ $article->title }}
                                 </td>
                                 <td>
-                                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic mixed styles example">
                                         <button type="button" class="btn btn-success ">Edit</button>
                                         <button type="button" class="btn btn-danger">Delete</button>
                                     </div>

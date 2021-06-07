@@ -7,8 +7,8 @@
         <x-jet-nav-link href="{{ route('json_article.data') }}" :active="request()->routeIs('json_article.data')">
             All Data
         </x-jet-nav-link>
-        <x-jet-nav-link href="{{ route('json_article.export') }}" :active="request()->routeIs('json_article.export')">
-            Export
-        </x-jet-nav-link>
+        {{-- <x-jet-nav-link href="{{ route('json_article.export') }}" :active="request()->routeIs('json_article.export')">
+        Export
+        </x-jet-nav-link> --}}
     </div>
 </div>

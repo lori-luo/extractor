@@ -26,34 +26,43 @@
         </span>
         @endforeach
 
+        @if($article->subject <> $article->subject_orig)
+            <div>
+                <a href="#" wire:click.prevent="reset_subject">
+                    <span class="badge bg-dark">Reset</span>
+                </a>
+            </div>
+            @endif
+
     </td>
     <td>
         @if($article->keyword_obj())
         @foreach($article->keyword_obj() as $keyword)
         <span class="badge rounded-pill bg-info text-dark">
             {{ $keyword }}
-            <button type="button" class="close" aria-label="Dismiss">
+            <button wire:click="remove_keyword('{{ $keyword }}')" type="button" class="close" aria-label="Dismiss">
                 <span aria-hidden="true">&times;</span>
             </button>
         </span>
         @endforeach
-
         @endif
+
+        @if($article->keywords <> $article->keywords_orig)
+            <div>
+                <a href="#" wire:click.prevent="reset_keywords">
+                    <span class="badge bg-dark">Reset</span>
+                </a>
+            </div>
+            @endif
+
+
 
 
     </td>
     <td>
-        @if($edit)
         <div class="btn-group btn-group-sm" role="group">
-            <button type="button" class="btn btn-primary" wire:click="save_edit">Save</button>
-            <button type="button" class="btn btn-danger">Cancel</button>
-        </div>
-        @else
-        <div class="btn-group btn-group-sm" role="group">
-            <button type="button" class="btn btn-success" wire:click="show_edit">Edit</button>
             <button type="button" class="btn btn-danger">Delete</button>
         </div>
-        @endif
 
     </td>
 </tr>

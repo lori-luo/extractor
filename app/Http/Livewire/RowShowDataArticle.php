@@ -25,6 +25,22 @@ class RowShowDataArticle extends Component
         $this->edit = false;
     }
 
+    public function remove_keyword($keyword)
+    {
+
+        $new_keywords = [];
+        foreach ($this->article->keyword_obj() as $k) {
+            if (!($keyword == $k)) {
+                array_push($new_keywords, $k);
+            }
+        }
+
+        $new_keywords_obj = json_encode($new_keywords);
+
+        $this->article->keywords = $new_keywords_obj;
+        $this->article->save();
+    }
+
     public function remove_subject($subject)
     {
         $new_subjects = [];
@@ -41,6 +57,18 @@ class RowShowDataArticle extends Component
         $new_subjects_obj = json_encode($new_subjects);
 
         $this->article->subject = $new_subjects_obj;
+        $this->article->save();
+    }
+
+    public function reset_subject()
+    {
+        $this->article->subject = $this->article->subject_orig;
+        $this->article->save();
+    }
+
+    public function reset_keywords()
+    {
+        $this->article->keywords = $this->article->keywords_orig;
         $this->article->save();
     }
 

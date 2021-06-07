@@ -26,29 +26,16 @@
                                     </div>
                                 </th>
                                 <th scope="col">Title</th>
+                                <th scope="col">Subjects</th>
+                                <th scope="col">Keywords</th>
+                                <th scope="col">Title</th>
                                 <th scope="col">Action</th>
 
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($articles as $article)
-                            <tr>
-                                <th scope="row">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-
-                                    </div>
-                                </th>
-                                <td>
-                                    {{ $article->title }}
-                                </td>
-                                <td>
-                                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic mixed styles example">
-                                        <button type="button" class="btn btn-success ">Edit</button>
-                                        <button type="button" class="btn btn-danger">Delete</button>
-                                    </div>
-                                </td>
-                            </tr>
+                            <livewire:row-show-data-article :article="$article" />
                             @endforeach
                         </tbody>
                     </table>

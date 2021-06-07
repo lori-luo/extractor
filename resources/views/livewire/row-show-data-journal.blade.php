@@ -10,6 +10,7 @@
     </td>
 
     <td>
+        @if($journal->subject_obj())
         @foreach($journal->subject_obj() as $subject)
         <span class="badge rounded-pill bg-primary">
             {{ $subject->term }}
@@ -18,6 +19,7 @@
             </button>
         </span>
         @endforeach
+        @endif
 
         @if($journal->subject <> $journal->subject_orig)
             <div>

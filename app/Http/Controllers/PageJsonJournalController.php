@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Upload;
 use DirectoryIterator;
+use App\Models\JsonJournal;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
@@ -23,6 +24,13 @@ class PageJsonJournalController extends Controller
             ->where('category', 'Journal')
             ->paginate(5);
         return view('PageJsonJournal.index', $data);
+    }
+
+    public function show_all_data()
+    {
+        $data['journals'] = JsonJournal::latest()->paginate(50);
+
+        return view('PageJsonJournal.show_all_data', $data);
     }
 
     private function loop_files()

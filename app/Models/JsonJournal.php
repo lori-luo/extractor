@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class JsonJournal extends Model
 {
     use HasFactory;
+
+    public function subject_obj()
+    {
+        return json_decode($this->subject);
+    }
+
+    public function keyword_obj()
+    {
+        return json_decode($this->keywords);
+    }
 }

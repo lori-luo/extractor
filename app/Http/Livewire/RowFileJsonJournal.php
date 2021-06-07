@@ -229,6 +229,7 @@ class RowFileJsonJournal extends Component
 
             if (isset($row['bibjson']['keywords'])) {
                 $journal->keywords = json_encode($row['bibjson']['keywords']);
+                $journal->keywords_orig = json_encode($row['bibjson']['keywords']);
             }
 
             if (isset($row['bibjson']['plagiarism'])) {
@@ -237,6 +238,7 @@ class RowFileJsonJournal extends Component
 
             if (isset($row['bibjson']['subject'])) {
                 $journal->subject = json_encode($row['bibjson']['subject']);
+                $journal->subject_orig = json_encode($row['bibjson']['subject']);
             }
 
             if (isset($row['bibjson']['eissn'])) {

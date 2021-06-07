@@ -23,8 +23,11 @@ class CreateJsonJournalsTable extends Migration
             $table->text('pid_scheme')->nullable();
             $table->text('copyright')->nullable();
             $table->text('keywords')->nullable();
+            $table->text('keywords_orig')->nullable();
+
             $table->text('plagiarism')->nullable();
             $table->text('subject')->nullable();
+            $table->text('subject_orig')->nullable();
             $table->text('eissn')->nullable();
             $table->text('language')->nullable();
 

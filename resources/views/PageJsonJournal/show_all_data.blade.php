@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <x-json-article-sub-links />
+        <x-json-journal-sub-links />
     </x-slot>
 
     <div class="py-12">
@@ -33,13 +33,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($articles as $article)
-                            <livewire:row-show-data-article :article="$article" />
+                            @foreach($journals as $journal)
+                            <livewire:row-show-data-journal :journal="$journal" />
                             @endforeach
                         </tbody>
                     </table>
                 </div>
-                {{ $articles->links() }}
+                {{ $journals->links() }}
             </div>
         </div>
     </div>

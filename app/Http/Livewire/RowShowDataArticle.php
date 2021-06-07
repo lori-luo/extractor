@@ -25,6 +25,25 @@ class RowShowDataArticle extends Component
         $this->edit = false;
     }
 
+    public function remove_subject($subject)
+    {
+        $new_subjects = [];
+        foreach ($this->article->subject_obj() as $s) {
+            if (!($subject == $s->term)) {
+
+                $new_subject['code'] = $s->code;
+                $new_subject['scheme'] = $s->scheme;
+                $new_subject['term'] = $s->term;
+                array_push($new_subjects, $new_subject);
+            }
+        }
+
+        $new_subjects_obj = json_encode($new_subjects);
+
+        $this->article->subject = $new_subjects_obj;
+        $this->article->save();
+    }
+
 
     public function render()
     {

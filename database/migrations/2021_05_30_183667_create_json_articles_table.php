@@ -40,8 +40,10 @@ class CreateJsonArticlesTable extends Migration
 
             $table->string('start_page')->nullable();
             $table->text('subject')->nullable();
+            $table->text('subject_orig')->nullable();
 
             $table->text('keywords')->nullable();
+            $table->text('keywords_orig')->nullable();
             $table->text('insert_tag')->nullable();
 
 

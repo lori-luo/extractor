@@ -314,10 +314,12 @@ class RowFileJsonArticle extends Component
             }
             if (isset($row['bibjson']['subject'])) {
                 $article->subject = json_encode($row['bibjson']['subject']);
+                $article->subject_orig = json_encode($row['bibjson']['subject']);
             }
 
             if (isset($row['bibjson']['keywords'])) {
                 $article->keywords = json_encode($row['bibjson']['keywords']);
+                $article->keywords_orig = json_encode($row['bibjson']['keywords']);
             }
 
 

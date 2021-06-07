@@ -20,7 +20,7 @@
         @foreach($article->subject_obj() as $subject)
         <span class="badge rounded-pill bg-primary">
             {{ $subject->term }}
-            <button type="button" class="close" aria-label="Dismiss">
+            <button wire:click="remove_subject('{{ $subject->term }}')" type="button" class="close" aria-label="Dismiss">
                 <span aria-hidden="true">&times;</span>
             </button>
         </span>

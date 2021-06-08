@@ -109,10 +109,11 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @isset($journal->pid_scheme_obj()->scheme)
                                             <tr>
                                                 <th>Scheme</th>
                                                 <td>
-                                                    @if($journal->pid_scheme_obj()->scheme)
+
                                                     @foreach($journal->pid_scheme_obj()->scheme as $scheme)
                                                     @if($loop->last)
                                                     {{ $scheme }}
@@ -120,9 +121,10 @@
                                                     {{ $scheme }},
                                                     @endif
                                                     @endforeach
-                                                    @endif
+
                                                 </td>
                                             </tr>
+                                            @endisset
                                             <tr>
                                                 <th>Has PID Scheme</th>
                                                 <td>

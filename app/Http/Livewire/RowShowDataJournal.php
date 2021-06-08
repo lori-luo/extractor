@@ -39,6 +39,10 @@ class RowShowDataJournal extends Component
 
         $this->journal->subject = $new_subjects_obj;
         $this->journal->save();
+
+        auth()->user()->logs()->create([
+            'action' => 'Removed Journal Subject : ' . $subject
+        ]);
     }
 
 
@@ -56,6 +60,10 @@ class RowShowDataJournal extends Component
 
         $this->journal->keywords = $new_keywords_obj;
         $this->journal->save();
+
+        auth()->user()->logs()->create([
+            'action' => 'Removed Journal Keyword: ' . $keyword
+        ]);
     }
 
     public function render()

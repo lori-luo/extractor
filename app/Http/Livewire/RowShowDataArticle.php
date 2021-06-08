@@ -39,6 +39,10 @@ class RowShowDataArticle extends Component
 
         $this->article->keywords = $new_keywords_obj;
         $this->article->save();
+
+        auth()->user()->logs()->create([
+            'action' => 'Removed Keyword : ' . $keyword
+        ]);
     }
 
     public function remove_subject($subject)
@@ -58,6 +62,10 @@ class RowShowDataArticle extends Component
 
         $this->article->subject = $new_subjects_obj;
         $this->article->save();
+
+        auth()->user()->logs()->create([
+            'action' => 'Removed Article Subject : ' . $subject
+        ]);
     }
 
     public function reset_subject()

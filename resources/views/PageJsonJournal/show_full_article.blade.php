@@ -8,7 +8,7 @@
                         <div class="row g-5">
                             <div class="col-md-8">
                                 <article class="blog-post">
-                                    <h2 class="blog-post-title">
+                                    <h2 class="blog-post-title mt-3">
                                         {{ $journal->title }}
                                     </h2>
                                     <p class="blog-post-meta">

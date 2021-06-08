@@ -18,4 +18,54 @@ class JsonJournal extends Model
     {
         return json_decode($this->keywords);
     }
+
+    public function editorial_obj()
+    {
+        return json_decode($this->editorial);
+    }
+
+    public function pid_scheme_obj()
+    {
+        return json_decode($this->pid_scheme);
+    }
+
+    public function copyright_obj()
+    {
+        return json_decode($this->copyright);
+    }
+
+    public function plagiarism_obj()
+    {
+        return json_decode($this->plagiarism);
+    }
+
+    public function language_obj()
+    {
+        return json_decode($this->language);
+    }
+
+    public function article_obj()
+    {
+        return json_decode($this->article);
+    }
+
+    public function institution_obj()
+    {
+        return json_decode($this->institution_);
+    }
+
+    public function preservation_obj()
+    {
+        return json_decode($this->preservation);
+    }
+
+    public function license_obj()
+    {
+        return json_decode($this->license);
+    }
+
+    public function ref_obj()
+    {
+        return json_decode($this->ref);
+    }
 }

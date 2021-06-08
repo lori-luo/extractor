@@ -28,9 +28,15 @@ class PageJsonJournalController extends Controller
 
     public function show_all_data()
     {
-        $data['journals'] = JsonJournal::latest()->paginate(50);
+        $data['journals'] = JsonJournal::latest()->simplePaginate(50);
 
         return view('PageJsonJournal.show_all_data', $data);
+    }
+
+    public function show_full_article(JsonJournal $journal)
+    {
+        $data['journal'] = $journal;
+        return view('PageJsonJournal.show_full_article', $data);
     }
 
     private function loop_files()

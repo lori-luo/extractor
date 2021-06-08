@@ -6,7 +6,12 @@
     </th>
 
     <td>
-        <small>{{ $journal->title }}</small>
+        <small>
+            <a href="{{ route('json_journal.data.row',$journal) }}" target="_blank">
+                {{ $journal->title }}
+            </a>
+        </small>
+
     </td>
 
     <td style="width:20%">

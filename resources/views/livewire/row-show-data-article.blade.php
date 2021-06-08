@@ -14,7 +14,8 @@
         <small>
             <a href="{{ route('json_article.data.row',$article) }}" target="_blank">
                 {{ $article->title }}
-            </a></small>
+            </a>
+        </small>
         @endif
 
 

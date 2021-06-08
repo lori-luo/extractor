@@ -185,9 +185,18 @@
 
                                                             @foreach($article->license_obj() as $license)
                                                             <tr>
-                                                                <td>Mark</td>
-                                                                <td>Otto</td>
-                                                                <td>@mdo</td>
+                                                                <td>
+                                                                    {{ $license->open_access }}
+                                                                </td>
+                                                                <td>
+                                                                    {{ $license->title }}
+                                                                </td>
+                                                                <td>
+                                                                    {{ $license->type }}
+                                                                </td>
+                                                                <td>
+                                                                    {{ $license->url }}
+                                                                </td>
                                                             </tr>
                                                             @endforeach
                                                         </tbody>

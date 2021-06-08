@@ -1,6 +1,10 @@
 <div>
 
     {{ $journals->links() }}
+    <div class="btn-group btn-group-sm" role="group" aria-label="Basic mixed styles example">
+        <button type="button" class="btn btn-danger">Delete</button>
+        <button type="button" class="btn btn-warning">Reset</button>
+    </div>
     <table class="table table-sm table-hover">
         <thead class="table-primary">
             <tr>

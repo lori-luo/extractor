@@ -13,11 +13,20 @@ class PageArticleShowData extends Component
 
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
+    protected $listeners = [
+        'articleDeleted' => '$refresh'
+    ];
+
+    public $to_delete_article;
+
+
 
     public function mount()
     {
         // $this->articles =  JsonArticle::latest()->simplePaginate(50);
     }
+
+
 
 
     public function render()

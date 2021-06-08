@@ -65,7 +65,19 @@
     </td>
     <td>
         <div class="btn-group btn-group-sm" role="group">
-            <button type="button" class="btn btn-danger">Delete</button>
+
+
+            @if($show_delete_confirm)
+            <span>
+                <h3>SURE?</h3>
+            </span>
+            <div class="btn-group btn-group-sm" role="group">
+                <button type="button" class="btn btn-danger" wire:click="delete_article">YES</button>
+                <button type="button" class="btn btn-warning" wire:click="cancel_confirm">CANCEL</button>
+            </div>
+            @else
+            <button type="button" class="btn btn-danger" wire:click="delete_confirm">Delete</button>
+            @endif
         </div>
 
     </td>

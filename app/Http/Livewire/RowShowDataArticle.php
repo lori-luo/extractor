@@ -9,10 +9,12 @@ class RowShowDataArticle extends Component
     public $article;
 
     public $edit;
+    public $show_delete_confirm;
 
     public function mount()
     {
         $this->edit = false;
+        $this->show_delete_confirm = false;
     }
 
     public function show_edit()
@@ -78,6 +80,33 @@ class RowShowDataArticle extends Component
     {
         $this->article->keywords = $this->article->keywords_orig;
         $this->article->save();
+    }
+
+
+    public function delete_confirm()
+    {
+        $this->show_delete_confirm = true;
+    }
+
+
+
+    public function cancel_confirm()
+    {
+        $this->show_delete_confirm = false;
+    }
+
+
+
+
+    public function delete_article()
+    {
+
+        auth()->user()->logs()->create([
+            'action' => 'Deleted Article : ' . $this->article->title
+        ]);
+
+        $this->article->delete();
+        $this->emit('articleDeleted');
     }
 
 

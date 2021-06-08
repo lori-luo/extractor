@@ -21,6 +21,7 @@ class RowFileJsonArticle extends Component
     public $insert_tag;
     public $export_qty;
     public $export_skip;
+    public $export_take;
 
     public $export_range_min;
     public $export_range_max;
@@ -40,11 +41,12 @@ class RowFileJsonArticle extends Component
 
     public $export_qty_category;
 
-
     public function __construct()
     {
         ini_set('max_execution_time', 600); //10 minutes
     }
+
+
 
     public function mount()
     {
@@ -57,7 +59,7 @@ class RowFileJsonArticle extends Component
 
 
         $this->export_qty_category = 1; //per 10k
-        //  $this->export_qty_category=2; //per 20k
+        // $this->export_qty_category = 2; //per 20k
 
 
         $this->sel_type = 2; //2=new,1=all,3=updated
@@ -70,7 +72,7 @@ class RowFileJsonArticle extends Component
         //  ini_set('memory_limit', '512M');
 
         $skip = $this->export_skip;
-        $take = 10000;
+        $take = $this->export_take;
 
 
         /*
@@ -86,15 +88,12 @@ class RowFileJsonArticle extends Component
 
         if ($this->sel_type == 2) {
             $data = JsonArticle::where('upload_id', $this->article->id)
-                ->skip($skip)->take($take)->where('is_new', true)
+                ->skip($skip)->take($take)
+                ->where('is_new', true)
+                ->orWhere('is_updated', true)
                 ->get();
         }
 
-        if ($this->sel_type == 3) {
-            $data = JsonArticle::where('upload_id', $this->article->id)
-                ->skip($skip)->take($take)->where('is_updated', true)
-                ->get();
-        }
 
 
         $rows = [];
@@ -200,6 +199,7 @@ class RowFileJsonArticle extends Component
 
 
         $limit = 200000;
+        //   $limit = 1000;
         $limit_ctr = 0;
         $record_ctr = 0;
         $extracted_ctr = 0;
@@ -482,7 +482,7 @@ class RowFileJsonArticle extends Component
     private function set_export_prop()
     {
         if ($this->export_qty_category == 1) {
-
+            $this->export_take = 10000;
             if ($this->export_qty == 1) {
                 $this->export_skip = 0;
                 $this->export_qty_text = "1-10k";
@@ -528,7 +528,7 @@ class RowFileJsonArticle extends Component
                 $this->export_qty_text = "90-100k";
             }
         } elseif ($this->export_qty_category == 2) {
-
+            $this->export_take = 20000;
             if ($this->export_qty == 1) {
                 $this->export_skip = 0;
                 $this->export_qty_text = "1-20k";

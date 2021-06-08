@@ -34,7 +34,7 @@ class PageJsonArticleController extends Controller
         $data['articles'] = Upload::orderBy('id', 'desc')
             ->where('file_type', 'json')
             ->where('category', 'Article')
-            ->paginate(5);
+            ->paginate(20);
 
         return view('PageJsonArticle.index', $data);
     }

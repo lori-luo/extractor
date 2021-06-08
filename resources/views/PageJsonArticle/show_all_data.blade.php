@@ -26,8 +26,8 @@
                                     </div>
                                 </th>
                                 <th scope="col">Title</th>
-                                <th scope="col">Subjects</th>
-                                <th scope="col">Keywords</th>
+                                <th scope="col" style="width:20%">Subjects</th>
+                                <th scope="col" style="width:20%">Keywords</th>
                                 <th scope="col">Action</th>
 
                             </tr>

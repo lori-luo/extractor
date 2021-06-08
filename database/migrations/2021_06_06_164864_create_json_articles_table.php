@@ -22,7 +22,7 @@ class CreateJsonArticlesTable extends Migration
             $table->string('article_id')->nullable()->unique();
             $table->text('title')->nullable();
             $table->text('abstract')->nullable();
-            $table->string('identifier_list')->nullable();
+            $table->text('identifier_list')->nullable();
             $table->mediumText('author_list')->nullable();
             $table->text('link_list')->nullable();
 

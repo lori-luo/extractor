@@ -10,8 +10,21 @@
 
         <div class="row">
             <div class="col">
-                <button type="button" class="btn btn-sm btn-info" wire:click="read_json_article">Import</button>
-                <button type="button" class="btn btn-sm btn-warning" wire:click="read_json_article_force">Force Import</button>
+                <button type="button" class="btn btn-sm btn-info" wire:click="read_json_article">
+                    <span wire:loading wire:target="read_json_article">
+                        <div class="spinner-border spinner-border-sm" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </span>
+                    Import</button>
+                <button type="button" class="btn btn-sm btn-warning" wire:click="read_json_article_force">
+                    <span wire:loading wire:target="read_json_article_force">
+                        <div class="spinner-border spinner-border-sm" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </span>
+                    Force Import
+                </button>
             </div>
             <div class="col">
                 <div class="input-group input-group-sm">
@@ -44,8 +57,7 @@
             </div>
         </div>
 
-        <span wire:loading wire:target="read_json_article">Import Json File</span>
-        <span wire:loading wire:target="read_json_article_force">Force:Import Json File</span>
+
         <span wire:loading wire:target="export">Exporting Json File</span>
 
 
@@ -54,9 +66,7 @@
         <input type="radio" id="all-{{ $article->id }}" name="sel_typ-{{ $article->id }}" value="1" wire:model="sel_type">
         <label for="all-{{ $article->id }}">All</label>
         <input type="radio" id="new-{{ $article->id }}" name="sel_typ-{{ $article->id }}" value="2" wire:model="sel_type">
-        <label for="new-{{ $article->id }}">New</label>
-        <input type="radio" id="updated-{{ $article->id }}" name="sel_typ-{{ $article->id }}" value="3" wire:model="sel_type">
-        <label for="updated-{{ $article->id }}">Updated</label>
+        <label for="new-{{ $article->id }}">Updated</label>
 
 
     </td>

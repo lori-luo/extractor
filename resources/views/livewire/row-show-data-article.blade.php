@@ -16,7 +16,7 @@
 
 
     </td>
-    <td>
+    <td style="width:20%">
         @foreach($article->subject_obj() as $subject)
         <span class="badge rounded-pill bg-primary">
             {{ $subject->term }}
@@ -35,7 +35,7 @@
             @endif
 
     </td>
-    <td>
+    <td style="width:20%">
         @if($article->keyword_obj())
         @foreach($article->keyword_obj() as $keyword)
         <span class="badge rounded-pill bg-info text-dark">

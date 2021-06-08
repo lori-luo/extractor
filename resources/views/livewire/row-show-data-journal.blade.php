@@ -9,7 +9,7 @@
         <small>{{ $journal->title }}</small>
     </td>
 
-    <td>
+    <td style="width:20%">
         @if($journal->subject_obj())
         @foreach($journal->subject_obj() as $subject)
         <span class="badge rounded-pill bg-primary">
@@ -32,7 +32,7 @@
 
     </td>
 
-    <td>
+    <td style="width:20%">
         @if($journal->keyword_obj())
         @foreach($journal->keyword_obj() as $keyword)
         <span class="badge rounded-pill bg-info text-dark">

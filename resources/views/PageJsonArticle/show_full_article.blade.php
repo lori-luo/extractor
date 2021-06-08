@@ -195,7 +195,7 @@
                                                                     {{ $license->type }}
                                                                 </td>
                                                                 <td>
-                                                                    {{ $license->url }}
+                                                                    <a href="{{ $license->url }}">{{ $license->url }}</a>
                                                                 </td>
                                                             </tr>
                                                             @endforeach

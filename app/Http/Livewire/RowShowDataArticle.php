@@ -41,7 +41,7 @@ class RowShowDataArticle extends Component
         $this->article->save();
 
         auth()->user()->logs()->create([
-            'action' => 'Removed Keyword : ' . $keyword
+            'action' => 'Removed Article Keyword : ' . $keyword
         ]);
     }
 

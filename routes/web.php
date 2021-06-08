@@ -48,6 +48,9 @@ Route::middleware(['auth:sanctum', 'verified'])
 Route::middleware(['auth:sanctum', 'verified'])
     ->get('/json-Article/records', [PageJsonArticleController::class, 'show_all_data'])
     ->name('json_article.data');
+Route::middleware(['auth:sanctum', 'verified'])
+    ->get('/json-Article/records/{article}', [PageJsonArticleController::class, 'show_full_article'])
+    ->name('json_article.data.row');
 /*
 Route::middleware(['auth:sanctum', 'verified'])
     ->get('/json-Article/export', [PageJsonArticleController::class, 'export_data'])

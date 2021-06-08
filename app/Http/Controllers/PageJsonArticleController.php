@@ -41,9 +41,15 @@ class PageJsonArticleController extends Controller
 
     public function show_all_data()
     {
-        $data['articles'] = JsonArticle::latest()->paginate(50);
+        $data['articles'] = JsonArticle::latest()->simplePaginate(50);
 
         return view('PageJsonArticle.show_all_data', $data);
+    }
+
+    public function show_full_article(JsonArticle $article)
+    {
+        $data['article'] = $article;
+        return view('PageJsonArticle.show_full_article', $data);
     }
 
 

@@ -11,7 +11,10 @@
             edit here
         </div>
         @else
-        <small>{{ $article->title }}</small>
+        <small>
+            <a href="{{ route('json_article.data.row',$article) }}" target="_blank">
+                {{ $article->title }}
+            </a></small>
         @endif
 
 

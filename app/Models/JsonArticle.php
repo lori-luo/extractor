@@ -18,4 +18,34 @@ class JsonArticle extends Model
     {
         return json_decode($this->keywords);
     }
+
+    public function author_obj()
+    {
+        return json_decode($this->author_list);
+    }
+
+    public function links_obj()
+    {
+        return json_decode($this->link_list);
+    }
+
+    public function identifier_obj()
+    {
+        return json_decode($this->identifier_list);
+    }
+
+    public function issns_obj()
+    {
+        return json_decode($this->journal_issns);
+    }
+
+    public function license_obj()
+    {
+        return json_decode($this->journal_license);
+    }
+
+    public function language_obj()
+    {
+        return json_decode($this->journal_language);
+    }
 }

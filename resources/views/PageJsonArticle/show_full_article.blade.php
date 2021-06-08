@@ -1,7 +1,4 @@
 <x-app-layout>
-    <x-slot name="header">
-
-    </x-slot>
 
     <div class="py-12">
         <div class="max-w-9xl mx-auto sm:px-6 lg:px-8">
@@ -11,7 +8,7 @@
                         <div class="row g-5">
                             <div class="col-md-8">
                                 <article class="blog-post">
-                                    <h2 class="blog-post-title">
+                                    <h2 class="blog-post-title mt-3">
                                         {{ $article->title }}
                                     </h2>
                                     <p class="blog-post-meta">
@@ -26,9 +23,11 @@
                                         {{ $article->abstract }}
                                     </p>
                                     <hr>
-                                    <h3>Author list</h3>
                                     <table class="table table-sm">
                                         <thead>
+                                            <tr class="table-primary">
+                                                <th scope="col" colspan="3">Author list</th>
+                                            </tr>
                                             <tr>
                                                 <th>name</th>
                                                 <th>affiliation</th>
@@ -61,9 +60,12 @@
                                         </tbody>
                                     </table>
 
-                                    <h3>Link list</h3>
+
                                     <table class="table table-sm">
                                         <thead>
+                                            <tr class="table-primary">
+                                                <th scope="col" colspan="3">Link list</th>
+                                            </tr>
                                             <tr>
                                                 <th>content_type</th>
                                                 <th>type</th>
@@ -95,9 +97,11 @@
                                     </table>
 
 
-                                    <h3>Identifier list</h3>
                                     <table class="table table-sm">
                                         <thead>
+                                            <tr class="table-primary">
+                                                <th scope="col" colspan="3">Identifier list</th>
+                                            </tr>
                                             <tr>
                                                 <th>id</th>
                                                 <th>type</th>
@@ -122,8 +126,12 @@
                                         </tbody>
                                     </table>
 
-                                    <h3>Journal</h3>
                                     <table class="table table-sm">
+                                        <thead>
+                                            <tr class="table-primary">
+                                                <th scope="col" colspan="2">Journal</th>
+                                            </tr>
+                                        </thead>
                                         <tbody>
                                             <tr>
                                                 <th>Title</th>
@@ -246,17 +254,18 @@
                                             @endif
                                         </ol>
                                     </div>
-
+                                    @if(!is_null($article->keyword_obj()))
                                     <div class="p-4">
                                         <h4 class="fst-italic">Keywords</h4>
                                         <ol class="list-unstyled">
-                                            @if($article->keyword_obj())
+
                                             @foreach($article->keyword_obj() as $keyword)
                                             <li><a href="#">{{ $keyword }}</a></li>
                                             @endforeach
-                                            @endif
+
                                         </ol>
                                     </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>

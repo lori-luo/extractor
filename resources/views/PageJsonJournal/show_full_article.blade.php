@@ -125,14 +125,16 @@
                                                 </td>
                                             </tr>
                                             @endisset
+                                            @isset($journal->pid_scheme_obj()->has_pid_scheme)
                                             <tr>
                                                 <th>Has PID Scheme</th>
                                                 <td>
-                                                    @if($journal->pid_scheme_obj()->has_pid_scheme)
+
                                                     {{ $journal->pid_scheme_obj()->has_pid_scheme ? 'Yes' : 'No' }}
-                                                    @endif
+
                                                 </td>
                                             </tr>
+                                            @endisset
                                         </tbody>
                                     </table>
 

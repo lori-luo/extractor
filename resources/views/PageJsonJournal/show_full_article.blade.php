@@ -19,274 +19,184 @@
 
                                     <hr>
 
-                                    <div class="row">
-                                        <div class="col">
-                                            <table class="table table-sm">
-                                                <thead>
-                                                    <tr class="table-primary">
-                                                        <th scope="col" colspan="2">General Data</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <th>EISSN</th>
-                                                        <td>
-                                                            @isset($journal->eissn)
-                                                            {{ $journal->eissn }}
-                                                            @endisset
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>Language</th>
-                                                        <td>
-                                                            @if($journal->language_obj())
-                                                            @foreach($journal->language_obj() as $language)
-                                                            @if($loop->last)
-                                                            {{ $language }}
-                                                            @else
-                                                            {{ $language }},
-                                                            @endif
-                                                            @endforeach
-                                                            @endif
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="col">
-                                            <table class="table table-sm">
-                                                <thead>
-                                                    <tr class="table-primary">
-                                                        <th scope="col" colspan="2">Editorial</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <th>Review Process</th>
-                                                        <td>
-                                                            @if($journal->editorial_obj()->review_process)
-                                                            @foreach($journal->editorial_obj()->review_process as $process)
-                                                            @if($loop->last)
-                                                            {{ $process }}
-                                                            @else
-                                                            {{ $process }},
-                                                            @endif
-                                                            @endforeach
-                                                            @endif
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>Review URL</th>
-                                                        <td>
-                                                            @isset($journal->editorial_obj()->review_url)
-                                                            <a href="{{ $journal->editorial_obj()->review_url }}" target="_blank">
-                                                                {{ $journal->editorial_obj()->review_url }}
-                                                            </a>
-                                                            @endisset
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>Board URL</th>
-                                                        <td>
-                                                            @isset($journal->editorial_obj()->board_url)
-                                                            <a href="{{ $journal->editorial_obj()->board_url }}" target="_blank">
-                                                                {{ $journal->editorial_obj()->board_url }}
-                                                            </a>
-                                                            @endisset
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
 
-                                    <div class="row">
-                                        <div class="col">
-                                            <table class="table table-sm">
-                                                <thead>
-                                                    <tr class="table-primary">
-                                                        <th scope="col" colspan="2">PID Scheme</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @isset($journal->pid_scheme_obj()->scheme)
-                                                    <tr>
-                                                        <th>Scheme</th>
-                                                        <td>
-
-                                                            @foreach($journal->pid_scheme_obj()->scheme as $scheme)
-                                                            @if($loop->last)
-                                                            {{ $scheme }}
-                                                            @else
-                                                            {{ $scheme }},
-                                                            @endif
-                                                            @endforeach
-
-                                                        </td>
-                                                    </tr>
+                                    <table class="table table-sm">
+                                        <thead>
+                                            <tr class="table-primary">
+                                                <th scope="col" colspan="2">General Data</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th>EISSN</th>
+                                                <td>
+                                                    @isset($journal->eissn)
+                                                    {{ $journal->eissn }}
                                                     @endisset
-                                                    @isset($journal->pid_scheme_obj()->has_pid_scheme)
-                                                    <tr>
-                                                        <th>Has PID Scheme</th>
-                                                        <td>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Language</th>
+                                                <td>
+                                                    @if($journal->language_obj())
+                                                    @foreach($journal->language_obj() as $language)
+                                                    @if($loop->last)
+                                                    {{ $language }}
+                                                    @else
+                                                    {{ $language }},
+                                                    @endif
+                                                    @endforeach
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
 
-                                                            {{ $journal->pid_scheme_obj()->has_pid_scheme ? 'Yes' : 'No' }}
 
-                                                        </td>
-                                                    </tr>
+                                    <table class="table table-sm">
+                                        <thead>
+                                            <tr class="table-primary">
+                                                <th scope="col" colspan="2">Editorial</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th>Review Process</th>
+                                                <td>
+                                                    @if($journal->editorial_obj()->review_process)
+                                                    @foreach($journal->editorial_obj()->review_process as $process)
+                                                    @if($loop->last)
+                                                    {{ $process }}
+                                                    @else
+                                                    {{ $process }},
+                                                    @endif
+                                                    @endforeach
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Review URL</th>
+                                                <td>
+                                                    @isset($journal->editorial_obj()->review_url)
+                                                    <a href="{{ $journal->editorial_obj()->review_url }}" target="_blank">
+                                                        {{ $journal->editorial_obj()->review_url }}
+                                                    </a>
                                                     @endisset
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="col">
-                                            <table class="table table-sm">
-                                                <thead>
-                                                    <tr class="table-primary">
-                                                        <th scope="col" colspan="2">Copyright</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @isset($journal->copyright_obj()->author_retains)
-                                                    <tr>
-                                                        <th>Author Retains</th>
-                                                        <td>
-
-                                                            {{ $journal->copyright_obj()->author_retains ? 'Yes':'No' }}
-
-                                                        </td>
-                                                    </tr>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Board URL</th>
+                                                <td>
+                                                    @isset($journal->editorial_obj()->board_url)
+                                                    <a href="{{ $journal->editorial_obj()->board_url }}" target="_blank">
+                                                        {{ $journal->editorial_obj()->board_url }}
+                                                    </a>
                                                     @endisset
-                                                    <tr>
-                                                        <th>URL</th>
-                                                        <td>
-                                                            @isset($journal->copyright_obj()->url)
-                                                            <a href="{{ $journal->copyright_obj()->url }}" target="_blank">
-                                                                {{ $journal->copyright_obj()->url }}
-                                                            </a>
-                                                            @endisset
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
 
-                                    <div class="row">
-                                        <div class="col">
-                                            <table class="table table-sm">
-                                                <thead>
-                                                    <tr class="table-primary">
-                                                        <th scope="col" colspan="2">Plagiarism</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @isset($journal->plagiarism_obj()->detection)
-                                                    <tr>
-                                                        <th>Detection</th>
-                                                        <td>
 
-                                                            {{ $journal->plagiarism_obj()->detection ?'Yes':'No' }}
 
-                                                        </td>
-                                                    </tr>
+
+                                    <table class="table table-sm">
+                                        <thead>
+                                            <tr class="table-primary">
+                                                <th scope="col" colspan="2">PID Scheme</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @isset($journal->pid_scheme_obj()->scheme)
+                                            <tr>
+                                                <th>Scheme</th>
+                                                <td>
+
+                                                    @foreach($journal->pid_scheme_obj()->scheme as $scheme)
+                                                    @if($loop->last)
+                                                    {{ $scheme }}
+                                                    @else
+                                                    {{ $scheme }},
+                                                    @endif
+                                                    @endforeach
+
+                                                </td>
+                                            </tr>
+                                            @endisset
+                                            @isset($journal->pid_scheme_obj()->has_pid_scheme)
+                                            <tr>
+                                                <th>Has PID Scheme</th>
+                                                <td>
+
+                                                    {{ $journal->pid_scheme_obj()->has_pid_scheme ? 'Yes' : 'No' }}
+
+                                                </td>
+                                            </tr>
+                                            @endisset
+                                        </tbody>
+                                    </table>
+
+
+                                    <table class="table table-sm">
+                                        <thead>
+                                            <tr class="table-primary">
+                                                <th scope="col" colspan="2">Copyright</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @isset($journal->copyright_obj()->author_retains)
+                                            <tr>
+                                                <th>Author Retains</th>
+                                                <td>
+
+                                                    {{ $journal->copyright_obj()->author_retains ? 'Yes':'No' }}
+
+                                                </td>
+                                            </tr>
+                                            @endisset
+                                            <tr>
+                                                <th>URL</th>
+                                                <td>
+                                                    @isset($journal->copyright_obj()->url)
+                                                    <a href="{{ $journal->copyright_obj()->url }}" target="_blank">
+                                                        {{ $journal->copyright_obj()->url }}
+                                                    </a>
                                                     @endisset
-                                                    <tr>
-                                                        <th>URL</th>
-                                                        <td>
-                                                            @isset($journal->plagiarism_obj()->url)
-                                                            <a href="{{ $journal->plagiarism_obj()->url }}" target="_blank">
-                                                                {{ $journal->plagiarism_obj()->url }}
-                                                            </a>
-                                                            @endisset
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="col">
-                                            <table class="table table-sm">
-                                                <thead>
-                                                    <tr class="table-primary">
-                                                        <th scope="col" colspan="2">Preservation</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @isset($journal->preservation_obj()->has_preservation)
-                                                    <tr>
-                                                        <th>Has Preservation</th>
-                                                        <td>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
 
-                                                            {{ $journal->preservation_obj()->has_preservation  ? 'Yes' : 'No' }}
 
-                                                        </td>
-                                                    </tr>
+                                    <table class="table table-sm">
+                                        <thead>
+                                            <tr class="table-primary">
+                                                <th scope="col" colspan="2">Plagiarism</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @isset($journal->plagiarism_obj()->detection)
+                                            <tr>
+                                                <th>Detection</th>
+                                                <td>
+
+                                                    {{ $journal->plagiarism_obj()->detection ?'Yes':'No' }}
+
+                                                </td>
+                                            </tr>
+                                            @endisset
+                                            <tr>
+                                                <th>URL</th>
+                                                <td>
+                                                    @isset($journal->plagiarism_obj()->url)
+                                                    <a href="{{ $journal->plagiarism_obj()->url }}" target="_blank">
+                                                        {{ $journal->plagiarism_obj()->url }}
+                                                    </a>
                                                     @endisset
-                                                    @isset($journal->preservation_obj()->service)
-                                                    <tr>
-                                                        <th>Service</th>
-                                                        <td>
-
-                                                            @foreach($journal->preservation_obj()->service as $service)
-                                                            @if($loop->last)
-                                                            {{ $service }}
-                                                            @else
-                                                            {{ $service }},
-                                                            @endif
-                                                            @endforeach
-
-
-                                                        </td>
-                                                    </tr>
-                                                    @endisset
-                                                    @isset($journal->preservation_obj()->national_library)
-                                                    <tr>
-                                                        <th>National Library</th>
-                                                        <td>
-
-                                                            @foreach($journal->preservation_obj()->national_library as $library)
-                                                            @if($loop->last)
-                                                            {{ $library }}
-                                                            @else
-                                                            {{ $library }},
-                                                            @endif
-                                                            @endforeach
-
-
-                                                        </td>
-                                                    </tr>
-                                                    @endisset
-                                                    @isset($journal->preservation_obj()->url)
-                                                    <tr>
-                                                        <th>URL</th>
-                                                        <td>
-
-                                                            <a href="{{ $journal->preservation_obj()->url }}" target="_blank">
-                                                                {{ $journal->preservation_obj()->url }}
-                                                            </a>
-
-                                                        </td>
-                                                    </tr>
-                                                    @endisset
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
 
 
 
@@ -378,7 +288,71 @@
 
 
 
+                                    <table class="table table-sm">
+                                        <thead>
+                                            <tr class="table-primary">
+                                                <th scope="col" colspan="2">Preservation</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @isset($journal->preservation_obj()->has_preservation)
+                                            <tr>
+                                                <th>Has Preservation</th>
+                                                <td>
 
+                                                    {{ $journal->preservation_obj()->has_preservation  ? 'Yes' : 'No' }}
+
+                                                </td>
+                                            </tr>
+                                            @endisset
+                                            @isset($journal->preservation_obj()->service)
+                                            <tr>
+                                                <th>Service</th>
+                                                <td>
+
+                                                    @foreach($journal->preservation_obj()->service as $service)
+                                                    @if($loop->last)
+                                                    {{ $service }}
+                                                    @else
+                                                    {{ $service }},
+                                                    @endif
+                                                    @endforeach
+
+
+                                                </td>
+                                            </tr>
+                                            @endisset
+                                            @isset($journal->preservation_obj()->national_library)
+                                            <tr>
+                                                <th>National Library</th>
+                                                <td>
+
+                                                    @foreach($journal->preservation_obj()->national_library as $library)
+                                                    @if($loop->last)
+                                                    {{ $library }}
+                                                    @else
+                                                    {{ $library }},
+                                                    @endif
+                                                    @endforeach
+
+
+                                                </td>
+                                            </tr>
+                                            @endisset
+                                            @isset($journal->preservation_obj()->url)
+                                            <tr>
+                                                <th>URL</th>
+                                                <td>
+
+                                                    <a href="{{ $journal->preservation_obj()->url }}" target="_blank">
+                                                        {{ $journal->preservation_obj()->url }}
+                                                    </a>
+
+                                                </td>
+                                            </tr>
+                                            @endisset
+                                        </tbody>
+                                    </table>
 
 
 

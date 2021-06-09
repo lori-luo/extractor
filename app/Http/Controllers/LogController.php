@@ -10,8 +10,8 @@ class LogController extends Controller
 {
     public function index()
     {
-        $data['logs'] = Log::latest()->paginate(50);
-        return view('log.index', $data);
+
+        return view('log.index');
     }
 
     public function dl_article_exported($file_name)

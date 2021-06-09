@@ -31,7 +31,6 @@
                                             <tr>
                                                 <th>name</th>
                                                 <th>affiliation</th>
-                                                <th>orcid_id</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -45,11 +44,6 @@
                                                 <td>
                                                     @isset($author->affiliation)
                                                     {{ $author->affiliation  }}
-                                                    @endisset
-                                                </td>
-                                                <td>
-                                                    @isset($author->orcid_id)
-                                                    {{ $author->orcid_id  }}
                                                     @endisset
                                                 </td>
 

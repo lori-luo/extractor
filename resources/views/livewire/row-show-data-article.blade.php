@@ -1,7 +1,7 @@
 <tr>
     <th scope="row">
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="{{ $article->id }}" wire:model="is_selected" wire:change="$emit('selectedArticle')">
+            <input class="form-check-input" type="checkbox" value="{{ $article->id }}" wire:model="is_selected" wire:change="$emit('selectedArticle',{{ $article->id }},$event.target.checked)">
         </div>
     </th>
     <td>

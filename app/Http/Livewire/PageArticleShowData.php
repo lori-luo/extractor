@@ -15,7 +15,8 @@ class PageArticleShowData extends Component
     protected $paginationTheme = 'bootstrap';
     protected $listeners = [
         'articleDeleted' => '$refresh',
-        'selectedArticle'
+        'articlesDeleted' => '$refresh',
+        'selectedArticle' => 'selectedArticlex'
     ];
 
     public $to_delete_article;
@@ -28,9 +29,29 @@ class PageArticleShowData extends Component
         // $this->articles =  JsonArticle::latest()->simplePaginate(50);
     }
 
-    public function selectedArticle()
+    public function selectedArticlex(JsonArticle $article, $is_selected)
     {
-        array_push($this->selected_articles, 'Game');
+        if ($is_selected) {
+            array_push($this->selected_articles, $article->id);
+        } else {
+            $selecteds = $this->selected_articles;
+            foreach ($selecteds as $key => $art) {
+                if ($article->id == $art) {
+                    unset($this->selected_articles[$key]);
+                }
+            }
+        }
+    }
+
+    public function delete_selected()
+    {
+        foreach ($this->selected_articles as $key => $art) {
+            $article = JsonArticle::find($art);
+            $article->delete();
+        }
+
+        $this->selected_articles = [];
+        $this->emit('articlesDeleted');
     }
 
 

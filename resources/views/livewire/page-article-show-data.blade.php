@@ -2,12 +2,10 @@
 
     {{ $articles->links() }}
 
-
-
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <div class="btn-group btn-group-sm" role="group">
-                <button type="button" class="btn btn-danger">Delete</button>
+                <button type="button" class="btn btn-danger" wire:click="delete_selected">Delete</button>
                 <button type="button" class="btn btn-warning">Reset</button>
             </div>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">

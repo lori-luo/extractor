@@ -9,10 +9,12 @@ class RowShowDataJournal extends Component
 
     public $journal;
     public $show_delete_confirm;
+    public $is_selected;
 
-    public function mount()
+    public function mount($is_selected)
     {
         $this->show_delete_confirm = false;
+        $this->is_selected = $is_selected;
     }
 
     public function delete_confirm()

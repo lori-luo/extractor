@@ -1,7 +1,8 @@
 <tr>
     <th scope="row">
+
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            <input class="form-check-input" type="checkbox" value="{{ $journal->id }}" wire:change="$emit('selectedJournal',{{ $journal->id }},$event.target.checked)" {{ $is_selected ? 'checked' :'' }}>
         </div>
     </th>
 

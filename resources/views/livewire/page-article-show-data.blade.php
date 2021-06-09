@@ -7,7 +7,7 @@
             <div class="btn-group btn-group-sm" role="group">
                 <button type="button" class="btn btn-danger" wire:click="delete_selected">Delete</button>
             </div>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse ml-2" id="navbarSupportedContent">
 
                 <form class="d-flex" wire:submit.prevent="re_search">
                     <input wire:model.lazy="search_str" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

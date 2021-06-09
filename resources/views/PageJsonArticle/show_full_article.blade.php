@@ -18,11 +18,16 @@
                                         <br><br>
                                         Year/Month:{{ $article->month }}/{{ $article->year }}
                                     </p>
+
+                                    @if(!is_null($article->abstract))
                                     <h3>Abstract</h3>
                                     <p>
                                         {{ $article->abstract }}
                                     </p>
                                     <hr>
+                                    @endif
+
+
                                     <table class="table table-sm">
                                         <thead>
                                             <tr class="table-primary">

@@ -49,6 +49,7 @@ class PageJsonArticleController extends Controller
     public function show_full_article(JsonArticle $article)
     {
         $data['article'] = $article;
+        $data['title'] = $data['article']->title;
         return view('PageJsonArticle.show_full_article', $data);
     }
 

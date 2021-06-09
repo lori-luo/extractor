@@ -1,23 +1,15 @@
 <tr>
     <th scope="row">
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="{{ $article->id }}" wire:model="is_selected" wire:change="$emit('selectedArticle',{{ $article->id }},$event.target.checked)">
+            <input class="form-check-input" type="checkbox" value="{{ $article->id }}" wire:change="$emit('selectedArticle',{{ $article->id }},$event.target.checked)" {{ $is_selected ? 'checked' :'' }}>
         </div>
     </th>
     <td>
-
-        @if($edit)
-        <div>
-            edit here
-        </div>
-        @else
         <small>
             <a href="{{ route('json_article.data.row',$article) }}" target="_blank">
                 {{ $article->title }}
             </a>
         </small>
-        @endif
-
 
     </td>
     <td style="width:20%">
@@ -58,9 +50,6 @@
                 </a>
             </div>
             @endif
-
-
-
 
     </td>
     <td>

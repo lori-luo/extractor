@@ -8,8 +8,9 @@
                 <button type="button" class="btn btn-danger" wire:click="delete_selected">Delete</button>
             </div>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+
+                <form class="d-flex" wire:submit.prevent="re_search">
+                    <input wire:model.lazy="search_str" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
             </div>
@@ -21,8 +22,7 @@
             <tr>
                 <th scope="col">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-
+                        <input class="form-check-input" type="checkbox" {{ $is_selected ? 'checked':'' }} wire:change="setSelectAll($event.target.checked)">
                     </div>
                 </th>
                 <th scope="col">Title</th>
@@ -34,7 +34,7 @@
         </thead>
         <tbody>
             @foreach($articles as $article)
-            <livewire:row-show-data-article :article="$article" :wire:key="$article->article_id" />
+            @livewire('row-show-data-article',['article' => $article,'is_selected'=>$is_selected],key($article->article_id))
             @endforeach
         </tbody>
     </table>

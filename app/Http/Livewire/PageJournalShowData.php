@@ -17,6 +17,10 @@ class PageJournalShowData extends Component
         'journalDeleted' => '$refresh'
     ];
 
+    public function delete_selected()
+    {
+    }
+
 
 
     public function render()

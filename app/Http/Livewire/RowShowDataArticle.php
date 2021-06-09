@@ -12,12 +12,13 @@ class RowShowDataArticle extends Component
     public $show_delete_confirm;
 
     public $is_selected;
+    protected $listeners = [];
 
-    public function mount()
+    public function mount($is_selected)
     {
         $this->edit = false;
         $this->show_delete_confirm = false;
-        $this->is_selected = false;
+        $this->is_selected = $is_selected;
     }
 
     public function show_edit()

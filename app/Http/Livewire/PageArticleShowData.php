@@ -21,12 +21,20 @@ class PageArticleShowData extends Component
 
     public $to_delete_article;
     public $selected_articles = [];
+    public $is_selected;
+    public $search_str;
 
 
 
     public function mount()
     {
+        $this->is_selected = false;
+        $this->search_str = "";
         // $this->articles =  JsonArticle::latest()->simplePaginate(50);
+    }
+
+    public function re_search()
+    {
     }
 
     public function selectedArticlex(JsonArticle $article, $is_selected)
@@ -41,6 +49,13 @@ class PageArticleShowData extends Component
                 }
             }
         }
+    }
+
+    public function setSelectAll($isChecked)
+    {
+        $this->is_selected = $isChecked;
+
+        $this->emit('articlesSelectAll');
     }
 
     public function delete_selected()
@@ -61,9 +76,15 @@ class PageArticleShowData extends Component
             ->where('category', 'Article')
             ->where('original_record_count', '>', 0)
             ->max('id');
-        $data['articles'] = JsonArticle::latest()->where('upload_id', $max_id)->simplePaginate(20);
 
+        if ($this->search_str <> "") {
 
+            $data['articles'] = JsonArticle::latest()
+                ->where('title', 'like', '%' . $this->search_str . '%')
+                ->simplePaginate(20);
+        } else {
+            $data['articles'] = JsonArticle::latest()->where('upload_id', $max_id)->simplePaginate(20);
+        }
         return view('livewire.page-article-show-data', $data);
     }
 }

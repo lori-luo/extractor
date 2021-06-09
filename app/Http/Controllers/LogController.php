@@ -9,7 +9,7 @@ class LogController extends Controller
 {
     public function index()
     {
-        $data['logs'] = Log::latest()->paginate(10);
+        $data['logs'] = Log::latest()->paginate(50);
         return view('log.index', $data);
     }
 }

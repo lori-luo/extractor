@@ -43,8 +43,14 @@ class PageJournalShowData extends Component
 
     public function delete_selected()
     {
-        foreach ($this->selected_journals as $key => $journal) {
-            $journal = JsonJournal::find($journal);
+        foreach ($this->selected_journals as $key => $j) {
+            $journal = JsonJournal::find($j);
+
+            auth()->user()->logs()->create([
+                'action' => 'Deleted Journal: ' . $journal->title
+            ]);
+
+
             $journal->delete();
         }
 

@@ -8,9 +8,9 @@
     <div class="py-12">
         <div class="max-w-9xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <table class="table">
+                <table class="table table-sm">
                     <thead>
-                        <tr>
+                        <tr class="table-primary">
                             <th scope="col">User</th>
                             <th scope="col">Action</th>
                             <th scope="col">When</th>

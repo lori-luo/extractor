@@ -62,6 +62,13 @@ class PageArticleShowData extends Component
     {
         foreach ($this->selected_articles as $key => $art) {
             $article = JsonArticle::find($art);
+
+            auth()->user()->logs()->create([
+                'action' => 'Deleted Article: ' . $article->title
+            ]);
+
+
+
             $article->delete();
         }
 

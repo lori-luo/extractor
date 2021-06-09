@@ -16,7 +16,10 @@
                         </p>
                         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
                             <a class="btn btn-primary btn-lg px-4 gap-3 text-white" href="{{ route('login') }}" role="button">Login</a>
+                            {{--
                             <a class="btn btn-danger btn-lg px-4 gap-3 text-white" href="{{ route('register') }}" role="button">Register</a>
+
+                            --}}
                         </div>
                     </div>
                 </div>

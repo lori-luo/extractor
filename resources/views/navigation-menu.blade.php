@@ -13,7 +13,7 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                        Logs
                     </x-jet-nav-link>
                     {{-- <x-jet-nav-link href="{{ route('xml_pub_med') }}" :active="request()->routeIs('xml_pub_med','xml_pub_med.data','xml_pub_med.export')">
                     {{ __('XML-PUBMed') }}

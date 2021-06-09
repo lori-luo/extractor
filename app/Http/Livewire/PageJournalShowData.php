@@ -47,7 +47,9 @@ class PageJournalShowData extends Component
             $journal = JsonJournal::find($j);
 
             auth()->user()->logs()->create([
-                'action' => 'Deleted Journal: ' . $journal->title
+                'action' => 'Deleted Journal: ' . $journal->title,
+                'type' => 'delete-journal',
+                'obj' => json_encode($journal)
             ]);
 
 

@@ -19,6 +19,7 @@ class CreateLogsTable extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->text('action')->nullable();
             $table->string('type')->nullable();
+            $table->text('obj')->nullable();
             $table->timestamps();
         });
     }

@@ -64,7 +64,9 @@ class PageArticleShowData extends Component
             $article = JsonArticle::find($art);
 
             auth()->user()->logs()->create([
-                'action' => 'Deleted Article: ' . $article->title
+                'action' => 'Deleted Article: ' . $article->title,
+                'type' => 'delete-article',
+                'obj' => json_encode($article)
             ]);
 
 

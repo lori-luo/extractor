@@ -46,8 +46,14 @@ class RowShowDataArticle extends Component
         $this->article->keywords = $new_keywords_obj;
         $this->article->save();
 
+
         auth()->user()->logs()->create([
-            'action' => 'Removed Article Keyword : ' . $keyword
+            'action' => 'Removed Article Keyword : ' . $keyword,
+            'type' => 'delete-keyword-article',
+            'obj' => json_encode([
+                'article' => $this->article,
+                'keyword' => $keyword
+            ])
         ]);
     }
 
@@ -70,7 +76,12 @@ class RowShowDataArticle extends Component
         $this->article->save();
 
         auth()->user()->logs()->create([
-            'action' => 'Removed Article Subject : ' . $subject
+            'action' => 'Removed Article Subject : ' . $subject,
+            'type' => 'delete-subject-article',
+            'obj' => json_encode([
+                'article' => $this->article,
+                'subject' => $subject
+            ])
         ]);
     }
 
@@ -106,7 +117,9 @@ class RowShowDataArticle extends Component
     {
 
         auth()->user()->logs()->create([
-            'action' => 'Deleted Article : ' . $this->article->title
+            'action' => 'Deleted Article : ' . $this->article->title,
+            'type' => 'delete-article',
+            'obj' => json_encode($this->article)
         ]);
 
         $this->article->delete();

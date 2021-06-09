@@ -174,7 +174,11 @@ class RowFileJsonArticle extends Component
         $this->export_file_name = $fileName;
 
         auth()->user()->logs()->create([
-            'action' => 'Export file: ' . $this->export_file_name
+            'action' => 'Export file: ' . $this->export_file_name,
+            'type' => 'export-article',
+            'obj' => json_encode([
+                'file_name' => $fileName
+            ])
         ]);
     }
 
@@ -199,7 +203,7 @@ class RowFileJsonArticle extends Component
 
 
         $limit = 200000;
-        //$limit = 10000;
+        $limit = 1000;
         $limit_ctr = 0;
         $record_ctr = 0;
         $extracted_ctr = 0;
@@ -359,7 +363,9 @@ class RowFileJsonArticle extends Component
         $this->article->save();
 
         auth()->user()->logs()->create([
-            'action' => 'Import file: ' . $this->article->file_name . ".json"
+            'action' => 'Import file: ' . $this->article->file_name . ".json",
+            'type' => 'import-article',
+            'obj' => json_encode($this->article)
         ]);
     }
 

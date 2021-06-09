@@ -26,7 +26,8 @@ class LogoutListener
     public function handle($event)
     {
         $event->user->logs()->create([
-            'action' => 'Logout'
+            'action' => 'Logout',
+            'type' => 'logout'
         ]);
     }
 }

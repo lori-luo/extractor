@@ -207,7 +207,11 @@ class RowFileJsonJournal extends Component
         $this->export_file_name = $fileName;
 
         auth()->user()->logs()->create([
-            'action' => 'Export file: ' . $this->export_file_name
+            'action' => 'Export file: ' . $this->export_file_name,
+            'type' => 'export-journal',
+            'obj' => json_encode([
+                'file_name' => $fileName
+            ])
         ]);
     }
 
@@ -389,7 +393,9 @@ class RowFileJsonJournal extends Component
         $this->journal->save();
 
         auth()->user()->logs()->create([
-            'action' => 'Import file: ' . $this->journal->file_name . ".json"
+            'action' => 'Import file: ' . $this->journal->file_name . ".json",
+            'type' => 'import-journal',
+            'obj' => json_encode($this->journal)
         ]);
     }
     public function render()

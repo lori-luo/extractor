@@ -33,7 +33,10 @@ class RowShowDataJournal extends Component
     {
 
         auth()->user()->logs()->create([
-            'action' => 'Deleted Journal : ' . $this->journal->title
+            'action' => 'Deleted Journal : ' . $this->journal->title,
+            'type' => 'delete-journal',
+            'obj' => json_encode($this->journal)
+
         ]);
 
         $this->journal->delete();
@@ -71,7 +74,12 @@ class RowShowDataJournal extends Component
         $this->journal->save();
 
         auth()->user()->logs()->create([
-            'action' => 'Removed Journal Subject : ' . $subject
+            'action' => 'Removed Journal Subject : ' . $subject,
+            'type' => 'delete-subject-journal',
+            'obj' => json_encode([
+                'journal' => $this->journal,
+                'subject' => $subject
+            ])
         ]);
     }
 
@@ -92,7 +100,12 @@ class RowShowDataJournal extends Component
         $this->journal->save();
 
         auth()->user()->logs()->create([
-            'action' => 'Removed Journal Keyword: ' . $keyword
+            'action' => 'Removed Journal Keyword: ' . $keyword,
+            'type' => 'delete-keyword-journal',
+            'obj' => json_encode([
+                'journal' => $this->journal,
+                'keyword' => $keyword
+            ])
         ]);
     }
 

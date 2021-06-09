@@ -22,7 +22,11 @@ Route::get('/', function () {
     return view('welcome');
 })->middleware('guest');;
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', [LogController::class, 'index'])->name('dashboard');
+Route::middleware(['auth:sanctum', 'verified'])
+    ->get('/dashboard', [LogController::class, 'index'])->name('dashboard');
+
+Route::middleware(['auth:sanctum', 'verified'])
+    ->get('/download_exported_article/{file_name}', [LogController::class, 'dl_article_exported'])->name('log.dl_art_export_file');
 
 /*
 Route::middleware(['auth:sanctum', 'verified'])

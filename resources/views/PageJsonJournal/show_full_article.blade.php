@@ -415,6 +415,8 @@
                                         </thead>
                                         <tbody>
                                             <tr>
+                                            </tr>
+                                            <tr>
                                                 <th>Aims Scope</th>
                                                 <td>
                                                     @isset($journal->ref_obj()->aims_scope)

@@ -72,10 +72,7 @@ class PageArticleShowData extends Component
 
     public function render()
     {
-        $max_id = Upload::where('file_type', 'json')
-            ->where('category', 'Article')
-            ->where('original_record_count', '>', 0)
-            ->max('id');
+
 
         if ($this->search_str <> "") {
 
@@ -83,6 +80,10 @@ class PageArticleShowData extends Component
                 ->where('title', 'like', '%' . $this->search_str . '%')
                 ->simplePaginate(20);
         } else {
+            $max_id = Upload::where('file_type', 'json')
+                ->where('category', 'Article')
+                ->where('original_record_count', '>', 0)
+                ->max('id');
             $data['articles'] = JsonArticle::latest()->where('upload_id', $max_id)->simplePaginate(20);
         }
         return view('livewire.page-article-show-data', $data);

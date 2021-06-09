@@ -21,9 +21,8 @@
         <thead class="table-primary">
             <tr>
                 <th scope="col">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" {{ $is_selected ? 'checked':'' }} wire:change="setSelectAll($event.target.checked)">
-                    </div>
+
+
                 </th>
                 <th scope="col">Title</th>
                 <th scope="col" style="width:20%">Subjects</th>

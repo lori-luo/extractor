@@ -20,10 +20,7 @@
         <thead class="table-primary">
             <tr>
                 <th scope="col">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
 
-                    </div>
                 </th>
                 <th scope="col">Title</th>
                 <th scope="col" style="width:20%">Subjects</th>

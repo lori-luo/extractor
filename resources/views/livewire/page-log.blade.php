@@ -79,9 +79,10 @@
                         </p>
                         <hr>
                         <p class="mb-0">
-
-                            Record: {{ $obj->original_record_count }} | Extracted:{{ $obj->extracted_record_count }} | New:{{ $obj->new_record_count }} | Updated:{{ $obj->updated_record_count }}
-
+                            <span class="badge bg-primary">Record: {{ $obj->original_record_count }}</span>
+                            <span class="badge bg-secondary">Extracted:{{ $obj->extracted_record_count }}</span>
+                            <span class="badge bg-success">New:{{ $obj->new_record_count }}</span>
+                            <span class="badge bg-danger">Updated:{{ $obj->updated_record_count }}</span>
                         </p>
                     </div>
 
@@ -98,8 +99,10 @@
                         <hr>
                         <p class="mb-0">
 
-                            Record: {{ $obj->original_record_count }} | Extracted:{{ $obj->extracted_record_count }} | New:{{ $obj->new_record_count }} | Updated:{{ $obj->updated_record_count }}
-
+                            <span class="badge bg-primary">Record: {{ $obj->original_record_count }}</span>
+                            <span class="badge bg-secondary">Extracted:{{ $obj->extracted_record_count }}</span>
+                            <span class="badge bg-success">New:{{ $obj->new_record_count }}</span>
+                            <span class="badge bg-danger">Updated:{{ $obj->updated_record_count }}</span>
                         </p>
                     </div>
 

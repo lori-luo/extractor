@@ -14,10 +14,12 @@ class PageArticleShowData extends Component
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
     protected $listeners = [
-        'articleDeleted' => '$refresh'
+        'articleDeleted' => '$refresh',
+        'selectedArticle'
     ];
 
     public $to_delete_article;
+    public $selected_articles = [];
 
 
 
@@ -26,7 +28,10 @@ class PageArticleShowData extends Component
         // $this->articles =  JsonArticle::latest()->simplePaginate(50);
     }
 
-
+    public function selectedArticle()
+    {
+        array_push($this->selected_articles, 'Game');
+    }
 
 
     public function render()

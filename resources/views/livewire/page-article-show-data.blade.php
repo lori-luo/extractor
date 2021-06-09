@@ -5,6 +5,7 @@
         <button type="button" class="btn btn-danger">Delete</button>
         <button type="button" class="btn btn-warning">Reset</button>
     </div>
+
     <table class="table table-sm table-hover">
         <thead class="table-primary">
             <tr>

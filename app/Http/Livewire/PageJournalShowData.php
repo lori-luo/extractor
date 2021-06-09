@@ -12,6 +12,13 @@ class PageJournalShowData extends Component
     use WithPagination;
 
     protected $paginationTheme = 'bootstrap';
+
+    protected $listeners = [
+        'journalDeleted' => '$refresh'
+    ];
+
+
+
     public function render()
     {
         $data['journals'] = JsonJournal::latest()->simplePaginate(20);

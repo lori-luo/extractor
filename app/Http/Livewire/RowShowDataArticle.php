@@ -11,10 +11,13 @@ class RowShowDataArticle extends Component
     public $edit;
     public $show_delete_confirm;
 
+    public $is_selected;
+
     public function mount()
     {
         $this->edit = false;
         $this->show_delete_confirm = false;
+        $this->is_selected = false;
     }
 
     public function show_edit()

@@ -8,7 +8,35 @@ class RowShowDataJournal extends Component
 {
 
     public $journal;
+    public $show_delete_confirm;
 
+    public function mount()
+    {
+        $this->show_delete_confirm = false;
+    }
+
+    public function delete_confirm()
+    {
+        $this->show_delete_confirm = true;
+    }
+
+    public function cancel_confirm()
+    {
+        $this->show_delete_confirm = false;
+    }
+
+
+
+    public function delete_article()
+    {
+
+        auth()->user()->logs()->create([
+            'action' => 'Deleted Journal : ' . $this->journal->title
+        ]);
+
+        $this->journal->delete();
+        $this->emit('journalDeleted');
+    }
     public function reset_subject()
     {
         $this->journal->subject = $this->journal->subject_orig;

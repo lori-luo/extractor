@@ -1,7 +1,7 @@
 <tr>
     <th scope="row">
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            <input class="form-check-input" type="checkbox" value="{{ $article->id }}" wire:model="is_selected" wire:change="$emit('selectedArticle')">
         </div>
     </th>
     <td>
@@ -68,13 +68,17 @@
 
 
             @if($show_delete_confirm)
-            <span>
-                <h3>SURE?</h3>
-            </span>
-            <div class="btn-group btn-group-sm" role="group">
-                <button type="button" class="btn btn-danger" wire:click="delete_article">YES</button>
-                <button type="button" class="btn btn-warning" wire:click="cancel_confirm">CANCEL</button>
+            <div class="alert alert-primary mt-1" role="alert">
+                <span>
+                    SURE?
+                </span>
+                <div class="btn-group btn-group-sm" role="group">
+                    <button type="button" class="btn btn-danger" wire:click="delete_article">YES</button>
+                    <button type="button" class="btn btn-warning" wire:click="cancel_confirm">CANCEL</button>
+                </div>
             </div>
+
+
             @else
             <button type="button" class="btn btn-danger" wire:click="delete_confirm">Delete</button>
             @endif

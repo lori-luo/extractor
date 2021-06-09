@@ -34,8 +34,8 @@ class RowFileJsonJournal extends Component
         $this->sel_type = 2;
         $this->row_count = 0;
 
-        $this->export_qty_category = 1; //per 10k
-        // $this->export_qty_category = 2; //per 20k
+        // $this->export_qty_category = 1; //per 10k
+        $this->export_qty_category = 2; //per 20k
 
     }
 
@@ -188,8 +188,10 @@ class RowFileJsonJournal extends Component
                 $row['bibjson']['publisher']['name'] = json_decode($d->publisher)->name;
             }
 
-            if ($d->institution) {
-                $row['bibjson']['institution']['name'] = json_decode($d->institution)->name;
+            if (!is_null($d->institution)) {
+                if (isset(json_decode($d->institution)->name)) {
+                    $row['bibjson']['institution']['name'] = json_decode($d->institution)->name;
+                }
             }
 
             array_push($rows, $row);

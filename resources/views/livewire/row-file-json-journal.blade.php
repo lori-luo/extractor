@@ -14,6 +14,7 @@
             </div>
 
             <div class="col">
+
                 <div class="input-group input-group-sm">
                     @if($export_qty_category==1)
                     <select class="form-select" name="export_qty" wire:model="export_qty">

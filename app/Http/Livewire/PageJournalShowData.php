@@ -74,7 +74,7 @@ class PageJournalShowData extends Component
 
             $data['journals'] = JsonJournal::latest()
                 ->where('title', 'like', '%' . $this->search_str . '%')
-                ->simplePaginate(20);
+                ->simplePaginate(50);
         } else {
             $data['journals'] = JsonJournal::latest()->simplePaginate(20);
         }

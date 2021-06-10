@@ -13,6 +13,7 @@ class CreateUploadsTable extends Migration
      */
     public function up()
     {
+        $this->down();
         Schema::create('uploads', function (Blueprint $table) {
             $table->id();
             $table->string('file_name')->nullable();

@@ -80,7 +80,11 @@ class PageJsonArticleController extends Controller
                 $upload->save();
 
                 auth()->user()->logs()->create([
-                    'action' => 'Uploaded file: ' . $file_name_only . ".json"
+                    'action' => 'Uploaded file: ' . $file_name_only . ".json",
+                    'type' => 'upload-file-article',
+                    'obj' => json_encode([
+                        'file_name' => $file_name_only
+                    ])
                 ]);
             }
         }

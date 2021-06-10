@@ -196,6 +196,30 @@
                         </p>
                     </div>
 
+                    @elseif($log->type=="upload-file-article")
+                    @php
+                    $obj = json_decode($log->obj);
+                    @endphp
+                    <div class="alert alert-secondary" role="alert">
+                        <h4 class="alert-heading">Upload JSON File - Article</h4>
+                        <p>
+                            {{ $obj->file_name }}
+                        </p>
+                    </div>
+
+                    @elseif($log->type=="upload-file-journal")
+                    @php
+                    $obj = json_decode($log->obj);
+                    @endphp
+                    <div class="alert alert-secondary" role="alert">
+                        <h4 class="alert-heading">Upload JSON File - Journal</h4>
+                        <p>
+                            {{ $obj->file_name }}
+                        </p>
+                    </div>
+
+
+
 
 
 

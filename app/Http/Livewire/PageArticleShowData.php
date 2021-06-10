@@ -93,7 +93,7 @@ class PageArticleShowData extends Component
                 ->where('category', 'Article')
                 ->where('original_record_count', '>', 0)
                 ->max('id');
-            $data['articles'] = JsonArticle::latest()->where('upload_id', $max_id)->simplePaginate(20);
+            $data['articles'] = JsonArticle::latest()->where('upload_id', $max_id)->simplePaginate(50);
         }
         return view('livewire.page-article-show-data', $data);
     }

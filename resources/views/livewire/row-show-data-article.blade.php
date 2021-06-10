@@ -4,7 +4,7 @@
             <input class="form-check-input" type="checkbox" value="{{ $article->id }}" wire:change="$emit('selectedArticle',{{ $article->id }},$event.target.checked)" {{ $is_selected ? 'checked' :'' }}>
         </div>
     </th>
-    <td>
+    <td style="width:50%">
         <small>
             @if(is_null($article->abstract))
             <span class="badge bg-danger">No abstract</span> -
@@ -17,7 +17,7 @@
         </small>
 
     </td>
-    <td style="width:20%">
+    <td style="width:0%">
         @foreach($article->subject_obj() as $subject)
         <span class="badge rounded-pill bg-primary">
             {{ $subject->term }}
@@ -36,7 +36,7 @@
             @endif
 
     </td>
-    <td style="width:20%">
+    <td style="width:10%">
         @if($article->keyword_obj())
         @foreach($article->keyword_obj() as $keyword)
         <span class="badge rounded-pill bg-info text-dark">
@@ -56,6 +56,16 @@
             </div>
             @endif
 
+    </td>
+    <td class="text-nowrap">
+        <small>{{ $article->created_at->format('M-d-Y') }}</small>
+    </td>
+    <td class="text-nowrap">
+        <small>{{ $article->created_date->format('M-d-Y') }}</small>
+
+    </td>
+    <td class="text-nowrap">
+        <small>{{ $article->last_updated->format('M-d-Y') }}</small>
     </td>
     <td>
         <div class="btn-group btn-group-sm" role="group">

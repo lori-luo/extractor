@@ -55,8 +55,8 @@ class CreateJsonJournalsTable extends Migration
 
 
 
-            $table->dateTime('last_updated')->nullable();
-            $table->dateTime('created_date')->nullable();
+            $table->timestamp('last_updated')->nullable();
+            $table->timestamp('created_date')->nullable();
 
             //custom by me: Richard 
 

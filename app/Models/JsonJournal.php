@@ -9,6 +9,11 @@ class JsonJournal extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'created_date' => 'datetime:Y-m-d',
+        'last_updated' => 'datetime:Y-m-d',
+    ];
+
     public function subject_obj()
     {
         return json_decode($this->subject);

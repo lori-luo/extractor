@@ -6,7 +6,7 @@
         </div>
     </th>
 
-    <td>
+    <td style="width:50%">
         <small>
             <a href="{{ route('json_journal.data.row',$journal) }}" target="_blank">
                 {{ $journal->title }}
@@ -15,7 +15,7 @@
 
     </td>
 
-    <td style="width:20%">
+    <td style="width:10%">
         @if($journal->subject_obj())
         @foreach($journal->subject_obj() as $subject)
         <span class="badge rounded-pill bg-primary">
@@ -38,7 +38,7 @@
 
     </td>
 
-    <td style="width:20%">
+    <td style="width:10%">
         @if($journal->keyword_obj())
         @foreach($journal->keyword_obj() as $keyword)
         <span class="badge rounded-pill bg-info text-dark">
@@ -57,6 +57,17 @@
                 </a>
             </div>
             @endif
+    </td>
+
+    <td class="text-nowrap">
+        <small>{{ $journal->created_at->format('M-d-Y') }}</small>
+    </td>
+    <td class="text-nowrap">
+        <small>{{ $journal->created_date->format('M-d-Y') }}</small>
+
+    </td>
+    <td class="text-nowrap">
+        <small>{{ $journal->last_updated->format('M-d-Y') }}</small>
     </td>
     <td>
         <div class="btn-group btn-group-sm" role="group">

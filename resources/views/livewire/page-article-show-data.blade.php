@@ -21,12 +21,13 @@
         <thead class="table-primary">
             <tr>
                 <th scope="col">
-
-
                 </th>
-                <th scope="col">Title</th>
-                <th scope="col" style="width:20%">Subjects</th>
-                <th scope="col" style="width:20%">Keywords</th>
+                <th scope="col" style="width:50%">Title</th>
+                <th scope="col" style="width:10%">Subjects</th>
+                <th scope="col" style="width:10%">Keywords</th>
+                <th scope="col">Imported</th>
+                <th scope="col">Created</th>
+                <th scope="col">Updated</th>
                 <th scope="col">Action</th>
 
             </tr>

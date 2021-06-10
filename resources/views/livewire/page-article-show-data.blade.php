@@ -1,5 +1,7 @@
 <div>
 
+
+
     {{ $articles->links() }}
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -39,6 +41,7 @@
         </tbody>
     </table>
     {{ $articles->links() }}
+
 
 
 </div>

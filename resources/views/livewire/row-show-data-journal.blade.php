@@ -18,8 +18,13 @@
     <td style="width:10%">
         @if($journal->subject_obj())
         @foreach($journal->subject_obj() as $subject)
-        <span class="badge rounded-pill bg-primary">
+        <span class="tooltipx badge rounded-pill bg-primary">
+            <span class="tooltiptext">{{ $subject->term }}</span>
+            @if(strlen($subject->term) >= 20)
+            {{ Str::substr($subject->term, 0, 20) }} . . .
+            @else
             {{ $subject->term }}
+            @endif
             <button wire:click="remove_subject('{{ $subject->term }}')" type="button" class="close" aria-label="Dismiss">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -41,8 +46,13 @@
     <td style="width:10%">
         @if($journal->keyword_obj())
         @foreach($journal->keyword_obj() as $keyword)
-        <span class="badge rounded-pill bg-info text-dark">
+        <span class="tooltipx badge rounded-pill bg-info text-dark">
+            <span class="tooltiptext">{{ $keyword }}</span>
+            @if(strlen($keyword) >= 20)
+            {{ Str::substr($keyword, 0, 20) }} . . .
+            @else
             {{ $keyword }}
+            @endif
             <button wire:click="remove_keyword('{{ $keyword }}')" type="button" class="close" aria-label="Dismiss">
                 <span aria-hidden="true">&times;</span>
             </button>

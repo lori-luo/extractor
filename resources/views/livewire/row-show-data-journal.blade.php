@@ -8,7 +8,7 @@
 
     <td style="width:50%">
         <small>
-            <a href="{{ route('json_journal.data.row',$journal) }}" target="_blank">
+            <a class="title_link" href="{{ route('json_journal.data.row',$journal) }}" target="_blank">
                 {{ $journal->title }}
             </a>
         </small>

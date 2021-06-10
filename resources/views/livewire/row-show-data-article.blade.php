@@ -11,7 +11,7 @@
             <span class="badge bg-danger">No abstract</span> -
             @endif
 
-            <a href="{{ route('json_article.data.row',$article) }}" target="_blank">
+            <a class="title_link" href="{{ route('json_article.data.row',$article) }}" target="_blank">
                 {{ $article->title }}
 
             </a>

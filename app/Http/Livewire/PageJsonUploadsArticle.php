@@ -36,7 +36,7 @@ class PageJsonUploadsArticle extends Component
             ->where('file_name', 'like', '%' . $this->search . '%')
 
             ->where('show', true)
-            ->paginate(5);
+            ->paginate(50);
 
 
         return view('livewire.page-json-uploads-article', $data);

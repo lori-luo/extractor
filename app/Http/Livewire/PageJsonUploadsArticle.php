@@ -12,21 +12,28 @@ class PageJsonUploadsArticle extends Component
 
     use WithPagination;
 
-    public $search_str;
+    public $search;
 
     public function mount()
     {
-        $this->search_str = "";
+        $this->search  = "";
+    }
+
+    public function updatedSearch()
+    {
+        $this->resetPage();
     }
 
 
     public function render()
     {
 
+
+
         $data['articles'] = Upload::orderBy('id', 'desc')
             ->where('file_type', 'json')
             ->where('category', 'Article')
-            ->where('file_name', 'like', '%' . $this->search_str . '%')
+            ->where('file_name', 'like', '%' . $this->search . '%')
 
             ->where('show', true)
             ->paginate(5);

@@ -9,19 +9,27 @@ use Livewire\WithPagination;
 class PageJsonUploadsJournal extends Component
 {
     use WithPagination;
-    public $search_str;
+    public $search;
 
     public function mount()
     {
-        $this->search_str = "";
+        $this->search = "";
     }
+
+    public function updatedSearch()
+    {
+        $this->resetPage();
+    }
+
+
+
     public function render()
     {
         $data['uploads'] = Upload::latest()
             ->where('file_type', 'json')
             ->where('category', 'Journal')
             ->where('show', true)
-            ->where('file_name', 'like', '%' . $this->search_str . '%')
+            ->where('file_name', 'like', '%' . $this->search . '%')
             ->paginate(5);
         return view('livewire.page-json-uploads-journal', $data);
     }

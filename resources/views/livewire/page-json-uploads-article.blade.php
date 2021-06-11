@@ -9,7 +9,7 @@
                 <td colspan="4">
                     <div class="input-group flex-nowrap">
                         <span class="input-group-text" id="addon-wrapping">Search </span>
-                        <input wire:model="search_str" type="text" class="form-control" placeholder="filename" aria-describedby="addon-wrapping">
+                        <input wire:model="search" type="text" class="form-control" placeholder="filename" aria-describedby="addon-wrapping">
                     </div>
                 </td>
             </tr>

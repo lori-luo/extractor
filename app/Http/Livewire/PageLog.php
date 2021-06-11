@@ -11,21 +11,19 @@ class PageLog extends Component
 
     use WithPagination;
 
-    public $search_str;
+    public $search;
 
     public function mount()
     {
-        $this->search_str = "";
+        $this->search = "";
     }
 
-    public function re_search()
-    {
-    }
+
 
     public function render()
     {
         $data['logs'] = Log::latest()
-            ->where('obj', 'like', '%' . $this->search_str . '%')
+            ->where('obj', 'like', '%' . $this->search . '%')
             ->paginate(10);
         return view('livewire.page-log', $data);
     }

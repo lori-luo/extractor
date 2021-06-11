@@ -1,6 +1,7 @@
 <div>
-
-    {{ $journals->links() }}
+    <div style="height:30px;">
+        {{ $journals->links() }}
+    </div>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
@@ -38,7 +39,6 @@
             @endforeach
         </tbody>
     </table>
-    {{ $journals->links() }}
 
 
 </div>

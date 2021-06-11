@@ -13,7 +13,7 @@ class CreateJsonJournalsTable extends Migration
      */
     public function up()
     {
-        $this->down();
+
         Schema::create('json_journals', function (Blueprint $table) {
             $table->id();
             $table->foreignId('upload_id')->constrained()->onDelete('cascade');

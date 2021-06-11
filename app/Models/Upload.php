@@ -9,6 +9,13 @@ class Upload extends Model
 {
     use HasFactory;
 
+
+    protected $casts = [
+        'date_modified' => 'datetime:Y-m-d',
+    ];
+
+
+
     protected $fillable = [
         'file_name',
     ];

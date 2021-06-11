@@ -14,6 +14,8 @@ class JsonArticle extends Model
         'last_updated' => 'datetime:Y-m-d',
     ];
 
+
+
     public function subject_obj()
     {
         return json_decode($this->subject);

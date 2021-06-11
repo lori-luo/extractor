@@ -7,6 +7,7 @@ use DirectoryIterator;
 use App\Models\JsonArticle;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
 
@@ -31,12 +32,9 @@ class PageJsonArticleController extends Controller
         $this->loop_files();
         $this->loop_uploads();
 
-        $data['articles'] = Upload::orderBy('id', 'desc')
-            ->where('file_type', 'json')
-            ->where('category', 'Article')
-            ->paginate(20);
 
-        return view('PageJsonArticle.index', $data);
+
+        return view('PageJsonArticle.index');
     }
 
     public function show_all_data()
@@ -63,20 +61,22 @@ class PageJsonArticleController extends Controller
             if ($fileInfo->isDot()) {
                 continue;
             }
-
+            // dd($fileInfo);
 
             $file_name_only = pathinfo($fileInfo->getFilename(), PATHINFO_FILENAME);
 
-            $rows = Upload::where('file_name', $file_name_only)
-                ->get();
-
-            if (!$rows->count()) { //not exists
+            $row = Upload::where('file_name', $file_name_only)
+                ->first();
+            $modified_date = date("Y-m-d H:i:s", $fileInfo->getMTime());
+            if (!$row) { //not exists
                 $upload = new Upload();
                 $upload->file_name = $file_name_only;
                 $upload->file_type = 'json';
                 $new_file_name = $file_name_only . "_" . uniqid() . "_" . Str::random(40) . ".json";
                 $upload->new_file_name = $new_file_name;
                 $upload->category = 'Article';
+                $upload->show = true;
+                $upload->date_modified = $modified_date;
                 $upload->save();
 
                 auth()->user()->logs()->create([
@@ -86,6 +86,22 @@ class PageJsonArticleController extends Controller
                         'file_name' => $file_name_only
                     ])
                 ]);
+            } else {
+
+                if ($modified_date > $row->date_modified || !$row->show) {
+                    $row->date_modified = date("Y-m-d H:i:s", $fileInfo->getMTime());
+                    $row->show = true;
+                    $row->save();
+
+                    auth()->user()->logs()->create([
+                        'action' => 'Uploaded file modified: ' . $file_name_only . ".json",
+                        'type' => 'modified-file-article',
+                        'obj' => json_encode([
+                            'file_name' => $file_name_only,
+                            'modified_date' => $modified_date
+                        ])
+                    ]);
+                }
             }
         }
     }
@@ -118,7 +134,8 @@ class PageJsonArticleController extends Controller
             }
 
             if (!$file_exists) {
-                $upload->delete();
+                $upload->show = false;
+                $upload->save();
             }
         }
     }

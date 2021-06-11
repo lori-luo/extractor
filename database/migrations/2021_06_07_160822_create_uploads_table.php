@@ -13,17 +13,19 @@ class CreateUploadsTable extends Migration
      */
     public function up()
     {
-        $this->down();
+
         Schema::create('uploads', function (Blueprint $table) {
             $table->id();
-            $table->string('file_name')->nullable();
+            $table->string('file_name')->unique();
             $table->string('file_type')->nullable();
             $table->string('new_file_name')->nullable();
+            $table->timestamp('date_modified')->nullable();
             $table->bigInteger('original_record_count')->nullable();
             $table->bigInteger('extracted_record_count')->nullable();
             $table->bigInteger('new_record_count')->nullable();
             $table->bigInteger('updated_record_count')->nullable();
             $table->string('category')->nullable();
+            $table->boolean('show')->default(true);
             $table->timestamps();
         });
     }

@@ -1,7 +1,7 @@
 <tr>
     <th scope="row">{{ $article->id }}</th>
     <td>{{ $article->file_name }}</td>
-    <td>{{ $article->created_at->diffForHumans() }}</td>
+    <td>{{ $article->date_modified->format('M-d-Y') }}</td>
     <td>{{ $article->original_record_count }}</td>
     <td>{{ $article->extracted_record_count }}</td>
     <td>{{ $article->new_record_count }}</td>

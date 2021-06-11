@@ -197,13 +197,17 @@ class RowFileJsonArticle extends Component
     {
 
         $this->path = storage_path('app/json/Article/') . $this->article->file_name . '.json';
+
+
+
+
+
         //$rows = json_decode(file_get_contents($path), true);
         $rows = JsonMachine::fromFile($this->path);
 
 
-
         $limit = 200000;
-        // $limit = 1000;
+        $limit = 1000;
         $limit_ctr = 0;
         $record_ctr = 0;
         $extracted_ctr = 0;
@@ -342,6 +346,7 @@ class RowFileJsonArticle extends Component
                     $extracted_ctr++;
                 }
             } else { //not exists,means new
+                //  dd('taro');
                 $article->is_new = true;
                 $article->ctr = $ctr;
                 $article->save();

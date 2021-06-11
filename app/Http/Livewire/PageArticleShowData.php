@@ -87,13 +87,13 @@ class PageArticleShowData extends Component
 
             $data['articles'] = JsonArticle::latest()
                 ->where('title', 'like', '%' . $this->search_str . '%')
-                ->simplePaginate(50);
+                ->paginate(50);
         } else {
             $max_id = Upload::where('file_type', 'json')
                 ->where('category', 'Article')
                 ->where('original_record_count', '>', 0)
                 ->max('id');
-            $data['articles'] = JsonArticle::latest()->where('upload_id', $max_id)->simplePaginate(50);
+            $data['articles'] = JsonArticle::latest()->where('upload_id', $max_id)->paginate(50);
         }
         return view('livewire.page-article-show-data', $data);
     }

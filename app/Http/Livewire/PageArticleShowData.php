@@ -12,7 +12,7 @@ class PageArticleShowData extends Component
     //  public $articles;
 
     use WithPagination;
-    protected $paginationTheme = 'bootstrap';
+    //  protected $paginationTheme = 'bootstrap';
     protected $listeners = [
         'articleDeleted' => '$refresh',
         'articlesDeleted' => '$refresh',

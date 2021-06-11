@@ -11,7 +11,7 @@ class PageJournalShowData extends Component
 
     use WithPagination;
 
-    protected $paginationTheme = 'bootstrap';
+    //  protected $paginationTheme = 'bootstrap';
     public $is_selected;
     public $search_str;
     public $selected_journals = [];

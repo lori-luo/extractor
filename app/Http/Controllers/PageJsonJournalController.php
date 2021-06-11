@@ -42,7 +42,7 @@ class PageJsonJournalController extends Controller
         // Shows us all files and directories in directory except "." and "..".
         $files = new DirectoryIterator(storage_path('app/json/Journal'));
         foreach ($files as $fileInfo) {
-            if ($fileInfo->isDot()) {
+            if ($fileInfo->isDot() || $fileInfo->isDir()) {
                 continue;
             }
 
@@ -100,7 +100,7 @@ class PageJsonJournalController extends Controller
             // Shows us all files and directories in directory except "." and "..".
             $files = new DirectoryIterator(storage_path('app/json/Journal'));
             foreach ($files as $fileInfo) {
-                if ($fileInfo->isDot()) {
+                if ($fileInfo->isDot() || $fileInfo->isDir()) {
                     continue;
                 }
 

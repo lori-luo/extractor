@@ -58,7 +58,7 @@ class PageJsonArticleController extends Controller
         // Shows us all files and directories in directory except "." and "..".
         $files = new DirectoryIterator(storage_path('app/json/Article'));
         foreach ($files as $fileInfo) {
-            if ($fileInfo->isDot()) {
+            if ($fileInfo->isDot() || $fileInfo->isDir()) {
                 continue;
             }
             // dd($fileInfo);
@@ -116,7 +116,7 @@ class PageJsonArticleController extends Controller
             // Shows us all files and directories in directory except "." and "..".
             $files = new DirectoryIterator(storage_path('app/json/Article'));
             foreach ($files as $fileInfo) {
-                if ($fileInfo->isDot()) {
+                if ($fileInfo->isDot() || $fileInfo->isDir()) {
                     continue;
                 }
 

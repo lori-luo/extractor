@@ -18,6 +18,12 @@ class PageLog extends Component
         $this->search = "";
     }
 
+    public function updatedSearch()
+    {
+        $this->resetPage();
+    }
+
+
 
 
     public function render()

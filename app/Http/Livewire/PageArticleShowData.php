@@ -22,19 +22,24 @@ class PageArticleShowData extends Component
     public $to_delete_article;
     public $selected_articles = [];
     public $is_selected;
-    public $search_str;
+    public $search;
 
 
 
     public function mount()
     {
         $this->is_selected = false;
-        $this->search_str = "";
+        $this->search = "";
         // $this->articles =  JsonArticle::latest()->simplePaginate(50);
     }
 
     public function re_search()
     {
+    }
+
+    public function updatedSearch()
+    {
+        $this->resetPage();
     }
 
     public function selectedArticlex(JsonArticle $article, $is_selected)
@@ -83,10 +88,10 @@ class PageArticleShowData extends Component
     {
 
 
-        if ($this->search_str <> "") {
+        if ($this->search <> "") {
 
             $data['articles'] = JsonArticle::latest()
-                ->where('title', 'like', '%' . $this->search_str . '%')
+                ->where('title', 'like', '%' . $this->search . '%')
                 ->paginate(50);
         } else {
             $max_id = Upload::where('file_type', 'json')

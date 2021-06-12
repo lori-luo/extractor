@@ -253,18 +253,18 @@
                                             @endif
                                         </ol>
                                     </div>
-                                    @if(!is_null($article->keyword_obj()))
+
                                     <div class="p-4">
                                         <h4 class="fst-italic">Keywords</h4>
                                         <ol class="list-unstyled">
-
+                                            @if(!is_null($article->keyword_obj()))
                                             @foreach($article->keyword_obj() as $keyword)
                                             <li><a href="#">{{ $keyword }}</a></li>
                                             @endforeach
-
+                                            @endif
                                         </ol>
                                     </div>
-                                    @endif
+
                                 </div>
                             </div>
                         </div>

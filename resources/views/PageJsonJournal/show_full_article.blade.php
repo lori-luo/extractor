@@ -256,7 +256,7 @@
                                         </tbody>
                                     </table>
 
-                                    @if(!is_null($journal->institution_obj()))
+
 
                                     <table class="table table-sm">
                                         <thead>
@@ -283,7 +283,65 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                    @endif
+
+                                    <table class="table table-sm">
+                                        <thead>
+                                            <tr class="table-primary">
+                                                <th scope="col" colspan="2">Publisher</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th>Name</th>
+                                                <td>
+                                                    @isset($journal->publisher_obj()->name)
+                                                    {{ $journal->publisher_obj()->name }}
+                                                    @endisset
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Country</th>
+                                                <td>
+                                                    @isset($journal->publisher_obj()->country)
+                                                    {{ $journal->publisher_obj()->country }}
+                                                    @endisset
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+
+                                    <table class="table table-sm">
+                                        <thead>
+                                            <tr class="table-primary">
+                                                <th scope="col" colspan="2">Other Chargers</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th>Has Other Charges</th>
+                                                <td>
+                                                    @isset($journal->other_charges_obj()->has_other_charges)
+                                                    {{ $journal->other_charges_obj()->has_other_charges ? 'Yes' : 'No' }}
+
+                                                    @endisset
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>URL</th>
+                                                <td>
+                                                    @isset($journal->other_charges_obj()->url)
+                                                    <a href="{{ $journal->other_charges_obj()->url }}" target="_blank">
+                                                        {{ $journal->other_charges_obj()->url }}
+                                                    </a>
+
+                                                    @endisset
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+
 
 
 

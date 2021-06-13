@@ -73,4 +73,14 @@ class JsonJournal extends Model
     {
         return json_decode($this->ref);
     }
+
+    public function publisher_obj()
+    {
+        return json_decode($this->publisher);
+    }
+
+    public function other_charges_obj()
+    {
+        return json_decode($this->other_charges);
+    }
 }

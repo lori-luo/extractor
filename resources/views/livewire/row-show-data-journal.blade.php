@@ -15,10 +15,10 @@
 
     </td>
     <td class="text-nowrap">
-        <small>{{ $journal->last_updated->format('M-d-Y') }}</small>
+        <small>{{ $journal->eissn }}</small>
     </td>
     <td class="text-nowrap">
-        <small>{{ $journal->last_updated->format('M-d-Y') }}</small>
+        <small>{{ $journal->pissn }}</small>
     </td>
 
     <td style="width:10%">

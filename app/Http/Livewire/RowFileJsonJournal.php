@@ -222,7 +222,7 @@ class RowFileJsonJournal extends Component
         $rows = JsonMachine::fromFile($this->path);
 
         $limit = 200000;
-        //  $limit = 1000;
+        $limit = 1000;
         $limit_ctr = 0;
         $record_ctr = 0;
         $extracted_ctr = 0;
@@ -261,6 +261,8 @@ class RowFileJsonJournal extends Component
                 $last_updated = $journal->last_updated;
             }
 
+            $journal->full_row_obj =  json_encode($row);
+
             $journal->journal_id = $row['id'];
             $journal->upload_id = $this->journal->id;
 
@@ -290,6 +292,10 @@ class RowFileJsonJournal extends Component
 
             if (isset($row['bibjson']['eissn'])) {
                 $journal->eissn =  $row['bibjson']['eissn'];
+            }
+
+            if (isset($row['bibjson']['pissn'])) {
+                $journal->pissn =  $row['bibjson']['pissn'];
             }
 
             if (isset($row['bibjson']['language'])) {
@@ -348,6 +354,10 @@ class RowFileJsonJournal extends Component
             if (isset($row['admin'])) {
                 $journal->admin = json_encode($row['admin']);
             }
+
+
+
+
 
 
 

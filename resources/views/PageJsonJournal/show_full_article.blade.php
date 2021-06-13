@@ -36,6 +36,14 @@
                                                 </td>
                                             </tr>
                                             <tr>
+                                                <th>PISSN</th>
+                                                <td>
+                                                    @isset($journal->pissn)
+                                                    {{ $journal->pissn }}
+                                                    @endisset
+                                                </td>
+                                            </tr>
+                                            <tr>
                                                 <th>Language</th>
                                                 <td>
                                                     @if($journal->language_obj())
@@ -521,6 +529,53 @@
                                                     <a href="{{ $journal->ref_obj()->license_terms }}" target="_blank">
                                                         {{ $journal->ref_obj()->license_terms }}
                                                     </a>
+                                                    @endisset
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+
+                                    <table class="table table-sm">
+                                        <thead>
+                                            <tr class="table-primary">
+                                                <th scope="col" colspan="2">APC</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                            </tr>
+                                            <tr>
+                                                <th>Has APC</th>
+                                                <td>
+                                                    @isset($journal->apc_obj()->has_apc)
+                                                    {{ $journal->apc_obj()->has_apc ? 'Yes':'No' }}
+                                                    @endisset
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>URL</th>
+                                                <td>
+                                                    @isset($journal->apc_obj()->url)
+                                                    <a href="{{ $journal->apc_obj()->url }}" target="_blank">
+                                                        {{ $journal->apc_obj()->url }}
+                                                    </a>
+                                                    @endisset
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Max</th>
+                                                <td>
+                                                    @isset($journal->apc_obj()->max)
+                                                    @foreach($journal->apc_obj()->max as $m)
+                                                    @if($loop->last)
+                                                    Price : {{ $m->price }} , Currency: {{ $m->currency }}
+                                                    @else
+                                                    Price : {{ $m->price }} , Currency: {{ $m->currency }} <br>
+                                                    @endif
+                                                    @endforeach
+
+
                                                     @endisset
                                                 </td>
                                             </tr>

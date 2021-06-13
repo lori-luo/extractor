@@ -26,6 +26,8 @@ class CreateUploadsTable extends Migration
             $table->bigInteger('updated_record_count')->nullable();
             $table->string('category')->nullable();
             $table->boolean('show')->default(true);
+            $table->timestamp('import_start')->nullable();
+            $table->timestamp('import_end')->nullable();
             $table->timestamps();
         });
     }

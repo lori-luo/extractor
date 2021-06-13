@@ -213,6 +213,7 @@ class RowFileJsonArticle extends Component
         $extracted_ctr = 0;
         $record_new_ctr = 0;
         $record_updated_ctr = 0;
+        $import_start = Carbon::now();
 
         JsonArticle::where('upload_id', $this->article->id)->update([
             'is_new' => false,
@@ -357,12 +358,14 @@ class RowFileJsonArticle extends Component
             $limit_ctr++;
         }
 
-
+        $import_end = Carbon::now();
         $extracted_ctr =  JsonArticle::where('upload_id', $this->article->id)->count();
         $this->article->original_record_count = $record_ctr;
         $this->article->extracted_record_count = $extracted_ctr;
         $this->article->new_record_count = $record_new_ctr;
         $this->article->updated_record_count = $record_updated_ctr;
+        $this->article->import_start = $import_start;
+        $this->article->import_end = $import_end;
 
 
         $this->article->save();

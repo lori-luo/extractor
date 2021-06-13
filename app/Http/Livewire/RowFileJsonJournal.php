@@ -229,6 +229,8 @@ class RowFileJsonJournal extends Component
         $record_new_ctr = 0;
         $record_updated_ctr = 0;
 
+        $import_start = Carbon::now();
+
         JsonJournal::where('upload_id', $this->journal->id)->update([
             'is_new' => false,
             'is_updated' => false
@@ -392,15 +394,19 @@ class RowFileJsonJournal extends Component
             $ctr++;
             $limit_ctr++;
         }
-
+        $import_end = Carbon::now();
         $extracted_ctr =  JsonJournal::where('upload_id', $this->journal->id)->count();
         $this->journal->original_record_count = $record_ctr;
         $this->journal->extracted_record_count = $extracted_ctr;
         $this->journal->new_record_count = $record_new_ctr;
         $this->journal->updated_record_count = $record_updated_ctr;
+        $this->journal->import_start = $import_start;
+        $this->journal->import_end = $import_end;
 
 
         $this->journal->save();
+
+
 
         auth()->user()->logs()->create([
             'action' => 'Import file: ' . $this->journal->file_name . ".json",

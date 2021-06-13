@@ -1,7 +1,4 @@
 <div>
-    <div style="height:30px;">
-        {{ $articles->links() }}
-    </div>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
@@ -39,5 +36,10 @@
             @endforeach
         </tbody>
     </table>
+
+    <div style="height:30px;">
+        {{ $articles->links() }}
+    </div>
+
 
 </div>

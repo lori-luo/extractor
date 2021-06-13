@@ -83,4 +83,9 @@ class JsonJournal extends Model
     {
         return json_decode($this->other_charges);
     }
+
+    public function apc_obj()
+    {
+        return json_decode($this->apc);
+    }
 }

@@ -56,6 +56,8 @@ class CreateJsonArticlesTable extends Migration
             $table->boolean('is_new')->default(false);
             $table->boolean('is_updated')->default(false);
 
+            $table->text('full_row_obj')->nullable();
+
 
             $table->timestamps();
         });

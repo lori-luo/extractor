@@ -24,8 +24,11 @@
 
                 </th>
                 <th scope="col" style="width:50%">Title</th>
+                <th scope="col">ISSN</th>
+                <th scope="col">PISSN</th>
                 <th scope="col" style="width:10%">Subjects</th>
                 <th scope="col" style="width:10%">Keywords</th>
+
                 <th scope="col">Imported</th>
                 <th scope="col">Created</th>
                 <th scope="col">Updated</th>

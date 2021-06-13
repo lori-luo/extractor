@@ -29,6 +29,7 @@ class CreateJsonJournalsTable extends Migration
             $table->text('subject')->nullable();
             $table->text('subject_orig')->nullable();
             $table->text('eissn')->nullable();
+            $table->text('pissn')->nullable();
             $table->text('language')->nullable();
 
             $table->text('title')->nullable();
@@ -57,6 +58,8 @@ class CreateJsonJournalsTable extends Migration
 
             $table->timestamp('last_updated')->nullable();
             $table->timestamp('created_date')->nullable();
+
+            $table->text('full_row_obj')->nullable();
 
             //custom by me: Richard 
 

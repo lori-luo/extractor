@@ -14,6 +14,12 @@
         </small>
 
     </td>
+    <td class="text-nowrap">
+        <small>{{ $journal->last_updated->format('M-d-Y') }}</small>
+    </td>
+    <td class="text-nowrap">
+        <small>{{ $journal->last_updated->format('M-d-Y') }}</small>
+    </td>
 
     <td style="width:10%">
         @if($journal->subject_obj())

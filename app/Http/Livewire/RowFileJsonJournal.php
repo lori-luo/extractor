@@ -24,6 +24,10 @@ class RowFileJsonJournal extends Component
     public $import_force;
     public $row_count;
 
+    public $to_import_type;
+    public $to_import_type_title;
+    public $to_import_type_warning;
+
 
     public $export_qty_category;
 
@@ -37,18 +41,24 @@ class RowFileJsonJournal extends Component
         $this->export_qty_category = 1; //per 10k
         //$this->export_qty_category = 2; //per 20k
 
+        $this->to_import_type_title = "";
+        $this->to_import_type_warning = "";
     }
 
-    public function read_json_journal()
-    {
-        $this->import_force = false;
-        $this->import_json();
-    }
 
-    public function read_json_journal_force()
+    public function set_to_read_json_type($type)
     {
-        $this->import_force = true;
-        $this->import_json();
+        $this->to_import_type = $type;
+
+        if ($type == "force") {
+            $this->import_force = true;
+            $this->to_import_type_title = "Force Import";
+            $this->to_import_type_warning = "This will delete all old data and will import all data from the file.";
+        } elseif ($type == "import") {
+            $this->import_force = false;
+            $this->to_import_type_title = "Import";
+            $this->to_import_type_warning = "This will only import new and updated records.";
+        }
     }
 
     public function export()

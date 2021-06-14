@@ -11,8 +11,46 @@
     <td>
         <div class="row">
             <div class="col">
-                <button type="button" class="btn btn-sm btn-info" wire:click="read_json_journal">Import</button>
-                <button type="button" class="btn btn-sm btn-warning" wire:click="read_json_journal_force">Force Import</button>
+
+                <!-- Modal -->
+                <div wire:ignore.self class="modal fade" id="exampleModal-{{ $journal->id }}" aria-labelledby="exampleModalLabel-{{ $journal->id }}" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel-{{ $journal->id }}">
+                                    {{ $to_import_type_title }}
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                            </div>
+                            <div class="modal-body">
+                                <div class="alert alert-warning" role="alert">
+                                    {{ $to_import_type_warning }}
+                                </div>
+                                File : <h3>{{ $journal->file_name }}</h3>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button wire:click="import_json" data-bs-dismiss="modal" type="button" class="btn btn-primary">OK</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button wire:loading.remove wire:target="import_json" wire:key="btn_import_{{ $journal->id }}" wire:click="set_to_read_json_type('import')" type="button" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal-{{ $journal->id }}">
+                    Import
+                </button>
+                <button wire:loading.remove wire:target="import_json" wire:key="btn_force_import_{{ $journal->id }}" wire:click="set_to_read_json_type('force')" type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal-{{ $journal->id }}">
+                    Force Import
+                </button>
+
+                <span wire:loading wire:target="import_json">
+                    <div class="d-flex align-items-center">
+                        <strong>Importing...</strong>
+                        <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
+                    </div>
+                </span>
+
+
             </div>
 
             <div class="col">

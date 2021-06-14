@@ -1,8 +1,5 @@
 <div>
 
-    <div style="height:30px;">
-        {{ $logs->links() }}
-    </div>
     <div class="">
         <table class="table table-sm">
             <thead>

@@ -273,6 +273,10 @@ class RowFileJsonArticle extends Component
                 $article_exists = true;
                 $last_updated = $article->last_updated;
             }
+
+            $article->full_row_obj =  json_encode($row);
+
+
             $article->article_id = $row['id'];
             $article->upload_id = $this->article->id;
             $article->insert_tag = $this->insert_tag;

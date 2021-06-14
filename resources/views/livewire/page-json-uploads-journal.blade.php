@@ -2,7 +2,7 @@
     <div style="height:30px;">
         {{ $uploads->links() }}
     </div>
-    <table class="table">
+    <table class="table table-sm table-hover small">
         <thead>
             <tr>
                 <td colspan="4">

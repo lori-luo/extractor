@@ -7,7 +7,7 @@
         {{ $articles->links() }}
     </div>
 
-    <table class="table table-sm table-hover">
+    <table class="table table-sm table-hover small">
         <thead>
             <tr>
                 <td colspan="4">

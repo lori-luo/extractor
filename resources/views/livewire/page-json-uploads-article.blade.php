@@ -1,4 +1,8 @@
 <div>
+
+
+
+
     <div style="height:30px;">
         {{ $articles->links() }}
     </div>

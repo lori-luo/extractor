@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Upload;
 use Livewire\Component;
 use App\Models\JsonArticle;
 use Illuminate\Support\Str;
@@ -41,6 +42,10 @@ class RowFileJsonArticle extends Component
 
     public $export_qty_category;
 
+    public $to_import_type;
+    public $to_import_type_title;
+    public $to_import_type_warning;
+
     public function __construct()
     {
         ini_set('max_execution_time', 600); //10 minutes
@@ -63,6 +68,9 @@ class RowFileJsonArticle extends Component
 
 
         $this->sel_type = 2; //2=new,1=all,3=updated
+
+        $this->to_import_type_title = "";
+        $this->to_import_type_warning = "";
     }
 
 
@@ -182,15 +190,21 @@ class RowFileJsonArticle extends Component
         ]);
     }
 
-    public function read_json_article()
+
+
+    public function set_to_read_json_type($type)
     {
-        $this->import_force = false;
-        $this->import_json();
-    }
-    public function read_json_article_force()
-    {
-        $this->import_force = true;
-        $this->import_json();
+        $this->to_import_type = $type;
+
+        if ($type == "force") {
+            $this->import_force = true;
+            $this->to_import_type_title = "Force Import";
+            $this->to_import_type_warning = "This will delete all old data and will import all data from the file.";
+        } elseif ($type == "import") {
+            $this->import_force = false;
+            $this->to_import_type_title = "Import";
+            $this->to_import_type_warning = "This will only import new and updated records.";
+        }
     }
 
     public function import_json()
@@ -201,13 +215,12 @@ class RowFileJsonArticle extends Component
 
 
 
-
         //$rows = json_decode(file_get_contents($path), true);
         $rows = JsonMachine::fromFile($this->path);
 
 
         $limit = 200000;
-        // $limit = 1000;
+        $limit = 1000;
         $limit_ctr = 0;
         $record_ctr = 0;
         $extracted_ctr = 0;

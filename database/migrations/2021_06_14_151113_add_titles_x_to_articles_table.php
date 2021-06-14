@@ -14,9 +14,9 @@ class AddTitlesXToArticlesTable extends Migration
     public function up()
     {
         Schema::table('json_articles', function (Blueprint $table) {
-            $table->string('title_1')->default('');
-            $table->string('title_2')->default('');
-            $table->string('title_3')->default('');
+            $table->string('title_1')->nullable();
+            $table->string('title_2')->nullable();
+            $table->string('title_3')->nullable();
             $table->index(['title_1', 'title_2', 'title_3']);
         });
     }

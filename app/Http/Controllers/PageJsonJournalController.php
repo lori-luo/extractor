@@ -60,6 +60,7 @@ class PageJsonJournalController extends Controller
                 $upload->new_file_name = $new_file_name;
                 $upload->category = 'Journal';
                 $upload->show = true;
+                $upload->size = $fileInfo->getSize();
                 $upload->date_modified = $modified_date;
                 $upload->save();
 
@@ -75,6 +76,7 @@ class PageJsonJournalController extends Controller
                 if ($modified_date > $row->date_modified || !$row->show) {
                     $row->date_modified = date("Y-m-d H:i:s", $fileInfo->getMTime());
                     $row->show = true;
+                    $row->size = $fileInfo->getSize();
                     $row->save();
 
                     auth()->user()->logs()->create([

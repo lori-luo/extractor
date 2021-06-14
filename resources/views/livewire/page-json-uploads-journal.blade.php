@@ -16,6 +16,7 @@
                 <th scope="col">ID</th>
                 <th scope="col">File Name</th>
                 <th scope="col">Modified <br> Date</th>
+                <th scope="col">Size</th>
                 <th scope="col">Import <br> Duration</th>
                 <th scope="col">Record <br> Count</th>
                 <th scope="col">Extracted <br> Count</th>

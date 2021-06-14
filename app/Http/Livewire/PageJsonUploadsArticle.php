@@ -30,7 +30,7 @@ class PageJsonUploadsArticle extends Component
 
 
 
-        $data['articles'] = Upload::orderBy('id', 'desc')
+        $data['articles'] = Upload::orderBy('date_modified', 'desc')
             ->where('file_type', 'json')
             ->where('category', 'Article')
             ->where('file_name', 'like', '%' . $this->search . '%')

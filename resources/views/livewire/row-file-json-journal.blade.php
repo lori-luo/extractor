@@ -2,6 +2,7 @@
     <th scope="row">{{ $journal->id }}</th>
     <td>{{ $journal->file_name }}</td>
     <td>{{ $journal->date_modified->format('M-d-Y') }}</td>
+    <td>{{ $journal->size() }}</td>
     <td>{{ $journal->import_duration() }}</td>
     <td>{{ $journal->original_record_count }}</td>
     <td>{{ $journal->extracted_record_count }}</td>

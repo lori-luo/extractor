@@ -87,25 +87,20 @@ class PageArticleShowData extends Component
     public function render()
     {
 
-        $max_id = Upload::where('file_type', 'json')
-            ->where('category', 'Article')
-            ->where('original_record_count', '>', 0)
-            ->max('id');
+
 
 
         if ($this->search <> "") {
 
-            for ($x = $max_id; $x >= 1; $x--) {
-                $data['articles'] = JsonArticle::latest()
-                    ->where('title', 'like', '%' . $this->search . '%')
-                    ->where('upload_id', $x)
-                    ->paginate(50);
 
-                if (count($data['articles']) > 0) {
-                    break;
-                }
-            }
+            $data['articles'] = JsonArticle::latest()
+                ->where('title_short', 'like', '%' . $this->search . '%')
+                ->paginate(50);
         } else {
+            $max_id = Upload::where('file_type', 'json')
+                ->where('category', 'Article')
+                ->where('original_record_count', '>', 0)
+                ->max('id');
 
             $data['articles'] = JsonArticle::latest()->where('upload_id', $max_id)->paginate(50);
         }

@@ -220,7 +220,7 @@ class RowFileJsonArticle extends Component
 
 
         $limit = 200000;
-        //  $limit = 1000;
+        // $limit = 1242;
         $limit_ctr = 0;
         $record_ctr = 0;
         $extracted_ctr = 0;
@@ -277,10 +277,12 @@ class RowFileJsonArticle extends Component
             $article->upload_id = $this->article->id;
             $article->insert_tag = $this->insert_tag;
 
-
+            $article->title_short = $record_new_ctr;
             if (isset($row['bibjson']['title'])) {
                 $article->title = $row['bibjson']['title'];
+                $article->title_short = Str::substr($article->title, 0, 180) . ' ' . $record_new_ctr;
             }
+
 
             if (isset($row['bibjson']['abstract'])) {
                 $article->abstract = $row['bibjson']['abstract'];

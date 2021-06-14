@@ -94,7 +94,7 @@ class PageArticleShowData extends Component
 
 
             $data['articles'] = JsonArticle::latest()
-                ->where('title', 'like', '%' . $this->search . '%')
+                ->where('title_short', 'like', '%' . $this->search . '%')
                 ->paginate(50);
         } else {
             $max_id = Upload::where('file_type', 'json')

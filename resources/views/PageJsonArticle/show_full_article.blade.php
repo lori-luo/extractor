@@ -9,7 +9,7 @@
                             <div class="col-md-8">
                                 <article class="blog-post">
                                     <h2 class="blog-post-title mt-3">
-                                        {{ $article->title }}
+                                        {!! $article->title !!}
                                     </h2>
                                     <p class="blog-post-meta">
                                         Created date: {{ date('F-d-Y', strtotime($article->created_date))  }}
@@ -22,7 +22,7 @@
                                     @if(!is_null($article->abstract))
                                     <h3>Abstract</h3>
                                     <p>
-                                        {{ $article->abstract }}
+                                        {!! $article->abstract !!}
                                     </p>
                                     <hr>
                                     @endif

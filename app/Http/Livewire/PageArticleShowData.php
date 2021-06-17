@@ -23,6 +23,8 @@ class PageArticleShowData extends Component
     public $selected_articles = [];
     public $is_selected;
     public $search;
+    public $selected_file;
+
 
 
 
@@ -30,7 +32,11 @@ class PageArticleShowData extends Component
     {
         $this->is_selected = false;
         $this->search = "";
+
+        $this->selected_file = (Upload::where('category', 'Article')
+            ->orderBy('date_modified', 'desc')->first())->id;
         // $this->articles =  JsonArticle::latest()->simplePaginate(50);
+
     }
 
     public function re_search()
@@ -90,20 +96,16 @@ class PageArticleShowData extends Component
 
 
 
-        if ($this->search <> "") {
+        $data['articles'] = JsonArticle::latest()
+            ->where('title_short', 'like', '%' . $this->search . '%')
+            ->where('upload_id', $this->selected_file)
+            ->paginate(50);
+
+        $data['option_files'] = Upload::where('category', 'Article')
+            ->orderBy('date_modified', 'desc')->get();
 
 
-            $data['articles'] = JsonArticle::latest()
-                ->where('title_short', 'like', '%' . $this->search . '%')
-                ->paginate(50);
-        } else {
-            $max_id = Upload::where('file_type', 'json')
-                ->where('category', 'Article')
-                ->where('original_record_count', '>', 0)
-                ->max('id');
 
-            $data['articles'] = JsonArticle::latest()->where('upload_id', $max_id)->paginate(50);
-        }
         return view('livewire.page-article-show-data', $data);
     }
 }

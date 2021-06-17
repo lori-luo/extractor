@@ -2,20 +2,33 @@
 
 
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav wire:loading.remove class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <div class="btn-group btn-group-sm" role="group">
                 <button type="button" class="btn btn-danger" wire:click="delete_selected">Delete</button>
             </div>
             <div class="collapse navbar-collapse ml-2" id="navbarSupportedContent">
-
                 <form class="d-flex" wire:submit.prevent="re_search">
-                    <input wire:model.lazy="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <input wire:model.defer="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+
+                    <div class="input-group mr-2">
+                        <label class="input-group-text" for="inputGroupSelect01">File</label>
+                        <select class="form-select" wire:model.defer="selected_file">
+                            @foreach($option_files as $file)
+                            <option value="{{ $file->id }}">{{ $file->file_name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
             </div>
         </div>
     </nav>
+
+    <button wire:loading class="btn btn-primary mb-2" type="button" disabled>
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Searching...
+    </button>
 
     <table class="table table-sm table-hover">
         <thead class="table-primary">

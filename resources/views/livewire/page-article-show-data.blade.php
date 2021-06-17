@@ -2,7 +2,7 @@
 
 
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav wire:loading.remove class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <div class="btn-group btn-group-sm" role="group">
                 <button type="button" class="btn btn-danger" wire:click="delete_selected">Delete</button>

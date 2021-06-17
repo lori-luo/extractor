@@ -33,10 +33,7 @@ class PageArticleShowData extends Component
         $this->is_selected = false;
         $this->search = "";
 
-        $this->selected_file = (Upload::where('category', 'Article')
-            ->orderBy('date_modified', 'desc')->first())->id;
-        // $this->articles =  JsonArticle::latest()->simplePaginate(50);
-
+        $this->selected_file = 0;
     }
 
     public function re_search()
@@ -94,15 +91,26 @@ class PageArticleShowData extends Component
     {
 
 
+        if ($this->selected_file == 0) {
+
+            $data['articles'] = JsonArticle::latest()
+                ->where(function ($query) {
+                    $query->where('title_short', 'like', '%' . $this->search . '%')
+                        ->orWhere('title', 'like', '%' . $this->search . '%');
+                })
+                ->paginate(50);
+        } else {
+
+            $data['articles'] = JsonArticle::latest()
+                ->where(function ($query) {
+                    $query->where('title_short', 'like', '%' . $this->search . '%')
+                        ->orWhere('title', 'like', '%' . $this->search . '%');
+                })
+                ->where('upload_id', $this->selected_file)
+                ->paginate(50);
+        }
 
 
-        $data['articles'] = JsonArticle::latest()
-            ->where(function ($query) {
-                $query->where('title_short', 'like', '%' . $this->search . '%')
-                    ->orWhere('title', 'like', '%' . $this->search . '%');
-            })
-            ->where('upload_id', $this->selected_file)
-            ->paginate(50);
 
         $data['option_files'] = Upload::where('category', 'Article')
             ->orderBy('date_modified', 'desc')->get();

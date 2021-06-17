@@ -97,7 +97,10 @@ class PageArticleShowData extends Component
 
 
         $data['articles'] = JsonArticle::latest()
-            ->where('title_short', 'like', '%' . $this->search . '%')
+            ->where(function ($query) {
+                $query->where('title_short', 'like', '%' . $this->search . '%')
+                    ->orWhere('title', 'like', '%' . $this->search . '%');
+            })
             ->where('upload_id', $this->selected_file)
             ->paginate(50);
 

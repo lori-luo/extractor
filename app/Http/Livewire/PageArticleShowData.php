@@ -33,7 +33,10 @@ class PageArticleShowData extends Component
         $this->is_selected = false;
         $this->search = "";
 
-        $this->selected_file = 0;
+        $this->selected_file = (Upload::where('category', 'Article')
+            ->orderBy('date_modified', 'desc')->first())->id;
+        // $this->articles =  JsonArticle::latest()->simplePaginate(50);
+
     }
 
     public function re_search()
@@ -90,9 +93,7 @@ class PageArticleShowData extends Component
     public function render()
     {
 
-
         if ($this->selected_file == 0) {
-
             $data['articles'] = JsonArticle::latest()
                 ->where(function ($query) {
                     $query->where('title_short', 'like', '%' . $this->search . '%')
@@ -100,7 +101,6 @@ class PageArticleShowData extends Component
                 })
                 ->paginate(50);
         } else {
-
             $data['articles'] = JsonArticle::latest()
                 ->where(function ($query) {
                     $query->where('title_short', 'like', '%' . $this->search . '%')
@@ -109,6 +109,7 @@ class PageArticleShowData extends Component
                 ->where('upload_id', $this->selected_file)
                 ->paginate(50);
         }
+
 
 
 

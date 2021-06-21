@@ -12,7 +12,7 @@
             @endif
 
             <a class="title_link" href="{{ route('json_article.data.row',$article) }}" target="_blank">
-                {{ $article->title }}
+                {!! $article->title !!}
 
             </a>
         </small>

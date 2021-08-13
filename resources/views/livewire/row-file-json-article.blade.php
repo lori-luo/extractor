@@ -111,7 +111,7 @@
                                             <tr>
                                                 <th scope="row">
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="{{ $lang->id }}" {{ $lang->selected ? 'checked' : '' }}>
+                                                        <input class="form-check-input" type="checkbox" wire:click="lang_clicked({{ $lang->id }},$event.target.checked)" value="{{ $lang->id }}" {{ $lang->selected ? 'checked' : '' }}>
                                                     </div>
                                                 </th>
                                                 <td>{{ $lang->code }}</td>

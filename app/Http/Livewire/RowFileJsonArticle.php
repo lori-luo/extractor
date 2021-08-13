@@ -6,6 +6,7 @@ use App\Models\Upload;
 use Livewire\Component;
 use App\Models\JsonArticle;
 use Illuminate\Support\Str;
+use App\Models\FileLanguage;
 use JsonMachine\JsonMachine;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\File;
@@ -432,6 +433,15 @@ class RowFileJsonArticle extends Component
             'type' => 'import-article',
             'obj' => json_encode($this->article)
         ]);
+    }
+
+    public function lang_clicked($id, $val)
+    {
+        $lang = FileLanguage::find($id);
+        $lang_selected = ($val ? true : false);
+
+        $lang->selected = $lang_selected;
+        $lang->save();
     }
 
     public function get_code_lang($code)

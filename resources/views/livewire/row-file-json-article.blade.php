@@ -88,24 +88,22 @@
                     <div wire:ignore.self class="modal fade" id="modal-export-article-{{ $article->id }}">
                         <div class="modal-dialog">
                             <div class="modal-content">
-                                <div class="modal-header">
+                                <div class="modal-header bg-success text-light">
                                     <h5 class="modal-title" id="modal-export-article-{{ $article->id }}">
                                         Export Options
                                     </h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 
                                 </div>
-                                <div class="modal-body text-center">
-                                    <div class="p-3">
-                                        Filename: <strong>{{ strtoupper($article->file_name) }}</strong>
+                                <div class="modal-body">
+                                    <div class="p-2 text-center">
+                                        <strong>{{ strtoupper($article->file_name) }}</strong>
                                     </div>
 
-                                    <table class="table">
+                                    <table class="table table-striped table-sm">
                                         <thead>
                                             <tr>
-                                                <th scope="col"></th>
-                                                <th scope="col">Code</th>
-                                                <th scope="col">Language</th>
+                                                <th colspan="3">Languages</th>
                                             </tr>
                                         </thead>
                                         <tbody>

@@ -54,4 +54,10 @@ class Upload extends Model
 
         return $bytes;
     }
+
+
+    public function languages()
+    {
+        return $this->hasMany(FileLanguage::class);
+    }
 }

@@ -229,13 +229,14 @@ class RowFileJsonArticle extends Component
 
 
         $limit = 200000;
-        // $limit = 1242;
+        // $limit = 1020;
         $limit_ctr = 0;
         $record_ctr = 0;
         $extracted_ctr = 0;
         $record_new_ctr = 0;
         $record_updated_ctr = 0;
         $import_start = Carbon::now();
+        $languages = [];
 
         JsonArticle::where('upload_id', $this->article->id)->update([
             'is_new' => false,
@@ -265,10 +266,14 @@ class RowFileJsonArticle extends Component
                 break;
             }
 
+
+
             if (!$this->is_subject_medical(json_encode($row['bibjson']['subject']))) {
                 //if not medical, skip
                 continue;
             }
+
+
 
 
             $article = JsonArticle::where('article_id', $row['id'])->first();
@@ -327,6 +332,12 @@ class RowFileJsonArticle extends Component
 
             if (isset($row['bibjson']['journal']['language'])) {
                 $article->journal_language = json_encode($row['bibjson']['journal']['language']);
+                $langs = json_decode($article->journal_language);
+                foreach ($langs as $lang) {
+                    if (!in_array($lang, $languages)) {
+                        array_push($languages, $lang);
+                    }
+                }
             }
             if (isset($row['bibjson']['journal']['title'])) {
                 $article->journal_title = $row['bibjson']['journal']['title'];
@@ -386,6 +397,9 @@ class RowFileJsonArticle extends Component
             $limit_ctr++;
         }
 
+        //  $languages = array_values(array_unique($languages));
+        // dd($languages);
+
         $import_end = Carbon::now();
         $extracted_ctr =  JsonArticle::where('upload_id', $this->article->id)->count();
         $this->article->original_record_count = $record_ctr;
@@ -397,12 +411,212 @@ class RowFileJsonArticle extends Component
 
 
         $this->article->save();
+        $this->article->languages()->delete();
+        foreach ($languages as $language) {
+            $this->article->languages()->create([
+                'code' => $language,
+                'language' => $this->get_code_lang(strtolower($language))
+            ]);
+        }
 
         auth()->user()->logs()->create([
             'action' => 'Import file: ' . $this->article->file_name . ".json",
             'type' => 'import-article',
             'obj' => json_encode($this->article)
         ]);
+    }
+
+    public function get_code_lang($code)
+    {
+        $codes = [
+            'ab' => 'Abkhazian',
+            'aa' => 'Afar',
+            'af' => 'Afrikaans',
+            'ak' => 'Akan',
+            'sq' => 'Albanian',
+            'am' => 'Amharic',
+            'ar' => 'Arabic',
+            'an' => 'Aragonese',
+            'hy' => 'Armenian',
+            'as' => 'Assamese',
+            'av' => 'Avaric',
+            'ae' => 'Avestan',
+            'ay' => 'Aymara',
+            'az' => 'Azerbaijani',
+            'bm' => 'Bambara',
+            'ba' => 'Bashkir',
+            'eu' => 'Basque',
+            'be' => 'Belarusian',
+            'bn' => 'Bengali',
+            'bh' => 'Bihari languages',
+            'bi' => 'Bislama',
+            'bs' => 'Bosnian',
+            'br' => 'Breton',
+            'bg' => 'Bulgarian',
+            'my' => 'Burmese',
+            'ca' => 'Catalan, Valencian',
+            'km' => 'Central Khmer',
+            'ch' => 'Chamorro',
+            'ce' => 'Chechen',
+            'ny' => 'Chichewa, Chewa, Nyanja',
+            'zh' => 'Chinese',
+            'cu' => 'Church Slavonic, Old Bulgarian, Old Church Slavonic',
+            'cv' => 'Chuvash',
+            'kw' => 'Cornish',
+            'co' => 'Corsican',
+            'cr' => 'Cree',
+            'hr' => 'Croatian',
+            'cs' => 'Czech',
+            'da' => 'Danish',
+            'dv' => 'Divehi, Dhivehi, Maldivian',
+            'nl' => 'Dutch, Flemish',
+            'dz' => 'Dzongkha',
+            'en' => 'English',
+            'eo' => 'Esperanto',
+            'et' => 'Estonian',
+            'ee' => 'Ewe',
+            'fo' => 'Faroese',
+            'fj' => 'Fijian',
+            'fi' => 'Finnish',
+            'fr' => 'French',
+            'ff' => 'Fulah',
+            'gd' => 'Gaelic, Scottish Gaelic',
+            'gl' => 'Galician',
+            'lg' => 'Ganda',
+            'ka' => 'Georgian',
+            'de' => 'German',
+            'ki' => 'Gikuyu, Kikuyu',
+            'el' => 'Greek (Modern)',
+            'kl' => 'Greenlandic, Kalaallisut',
+            'gn' => 'Guarani',
+            'gu' => 'Gujarati',
+            'ht' => 'Haitian, Haitian Creole',
+            'ha' => 'Hausa',
+            'he' => 'Hebrew',
+            'hz' => 'Herero',
+            'hi' => 'Hindi',
+            'ho' => 'Hiri Motu',
+            'hu' => 'Hungarian',
+            'is' => 'Icelandic',
+            'io' => 'Ido',
+            'ig' => 'Igbo',
+            'id' => 'Indonesian',
+            'ia' => 'Interlingua (International Auxiliary Language Association)',
+            'ie' => 'Interlingue',
+            'iu' => 'Inuktitut',
+            'ik' => 'Inupiaq',
+            'ga' => 'Irish',
+            'it' => 'Italian',
+            'ja' => 'Japanese',
+            'jv' => 'Javanese',
+            'kn' => 'Kannada',
+            'kr' => 'Kanuri',
+            'ks' => 'Kashmiri',
+            'kk' => 'Kazakh',
+            'rw' => 'Kinyarwanda',
+            'kv' => 'Komi',
+            'kg' => 'Kongo',
+            'ko' => 'Korean',
+            'kj' => 'Kwanyama, Kuanyama',
+            'ku' => 'Kurdish',
+            'ky' => 'Kyrgyz',
+            'lo' => 'Lao',
+            'la' => 'Latin',
+            'lv' => 'Latvian',
+            'lb' => 'Letzeburgesch, Luxembourgish',
+            'li' => 'Limburgish, Limburgan, Limburger',
+            'ln' => 'Lingala',
+            'lt' => 'Lithuanian',
+            'lu' => 'Luba-Katanga',
+            'mk' => 'Macedonian',
+            'mg' => 'Malagasy',
+            'ms' => 'Malay',
+            'ml' => 'Malayalam',
+            'mt' => 'Maltese',
+            'gv' => 'Manx',
+            'mi' => 'Maori',
+            'mr' => 'Marathi',
+            'mh' => 'Marshallese',
+            'ro' => 'Moldovan, Moldavian, Romanian',
+            'mn' => 'Mongolian',
+            'na' => 'Nauru',
+            'nv' => 'Navajo, Navaho',
+            'nd' => 'Northern Ndebele',
+            'ng' => 'Ndonga',
+            'ne' => 'Nepali',
+            'se' => 'Northern Sami',
+            'no' => 'Norwegian',
+            'nb' => 'Norwegian Bokmål',
+            'nn' => 'Norwegian Nynorsk',
+            'ii' => 'Nuosu, Sichuan Yi',
+            'oc' => 'Occitan (post 1500)',
+            'oj' => 'Ojibwa',
+            'or' => 'Oriya',
+            'om' => 'Oromo',
+            'os' => 'Ossetian, Ossetic',
+            'pi' => 'Pali',
+            'pa' => 'Panjabi, Punjabi',
+            'ps' => 'Pashto, Pushto',
+            'fa' => 'Persian',
+            'pl' => 'Polish',
+            'pt' => 'Portuguese',
+            'qu' => 'Quechua',
+            'rm' => 'Romansh',
+            'rn' => 'Rundi',
+            'ru' => 'Russian',
+            'sm' => 'Samoan',
+            'sg' => 'Sango',
+            'sa' => 'Sanskrit',
+            'sc' => 'Sardinian',
+            'sr' => 'Serbian',
+            'sn' => 'Shona',
+            'sd' => 'Sindhi',
+            'si' => 'Sinhala, Sinhalese',
+            'sk' => 'Slovak',
+            'sl' => 'Slovenian',
+            'so' => 'Somali',
+            'st' => 'Sotho, Southern',
+            'nr' => 'South Ndebele',
+            'es' => 'Spanish, Castilian',
+            'sh' => 'Serbo-Croatian',
+            'su' => 'Sundanese',
+            'sw' => 'Swahili',
+            'ss' => 'Swati',
+            'sv' => 'Swedish',
+            'tl' => 'Tagalog',
+            'ty' => 'Tahitian',
+            'tg' => 'Tajik',
+            'ta' => 'Tamil',
+            'tt' => 'Tatar',
+            'te' => 'Telugu',
+            'th' => 'Thai',
+            'bo' => 'Tibetan',
+            'ti' => 'Tigrinya',
+            'to' => 'Tonga (Tonga Islands)',
+            'ts' => 'Tsonga',
+            'tn' => 'Tswana',
+            'tr' => 'Turkish',
+            'tk' => 'Turkmen',
+            'tw' => 'Twi',
+            'ug' => 'Uighur, Uyghur',
+            'uk' => 'Ukrainian',
+            'ur' => 'Urdu',
+            'uz' => 'Uzbek',
+            've' => 'Venda',
+            'vi' => 'Vietnamese',
+            'vo' => 'Volap_k',
+            'wa' => 'Walloon',
+            'cy' => 'Welsh',
+            'fy' => 'Western Frisian',
+            'wo' => 'Wolof',
+            'xh' => 'Xhosa',
+            'yi' => 'Yiddish',
+            'yo' => 'Yoruba',
+            'za' => 'Zhuang, Chuang',
+            'zu' => 'Zulu'
+        ];
+
+        return (isset($codes[$code]) ? $codes[$code] : '');
     }
 
     private function is_subject_medical($subjects) // accepts json

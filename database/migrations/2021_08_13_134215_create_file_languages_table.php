@@ -15,6 +15,9 @@ class CreateFileLanguagesTable extends Migration
     {
         Schema::create('file_languages', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('upload_id')->constrained()->onDelete('cascade');
+            $table->string('code')->nullable();
+            $table->string('language')->nullable();
             $table->timestamps();
         });
     }

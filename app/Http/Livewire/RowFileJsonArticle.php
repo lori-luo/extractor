@@ -46,6 +46,8 @@ class RowFileJsonArticle extends Component
     public $to_import_type_title;
     public $to_import_type_warning;
 
+    public $export_languages;
+
     public function __construct()
     {
         ini_set('max_execution_time', 600); //10 minutes
@@ -71,6 +73,7 @@ class RowFileJsonArticle extends Component
 
         $this->to_import_type_title = "";
         $this->to_import_type_warning = "";
+        $this->export_languages = $this->article->languages;
     }
 
 
@@ -229,7 +232,7 @@ class RowFileJsonArticle extends Component
 
 
         $limit = 200000;
-        // $limit = 1020;
+        $limit = 1000;
         $limit_ctr = 0;
         $record_ctr = 0;
         $extracted_ctr = 0;
@@ -418,6 +421,9 @@ class RowFileJsonArticle extends Component
                 'language' => $this->get_code_lang(strtolower($language))
             ]);
         }
+
+        $this->export_languages =  Upload::find($this->article->id)->languages;
+
 
         auth()->user()->logs()->create([
             'action' => 'Import file: ' . $this->article->file_name . ".json",

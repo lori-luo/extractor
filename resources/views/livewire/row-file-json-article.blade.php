@@ -84,7 +84,59 @@
                         <option value="5">80k-100k</option>
                     </select>
                     @endif
-                    <button class="btn btn-success" type="button" wire:click="export"><i class="bi bi-arrow-down"></i> Export</button>
+                    <!-- Modal -->
+                    <div wire:ignore.self class="modal fade" id="modal-export-article-{{ $article->id }}">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modal-export-article-{{ $article->id }}">
+                                        Export Options
+                                    </h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                                </div>
+                                <div class="modal-body text-center">
+                                    <div class="p-3">
+                                        Filename: <strong>{{ strtoupper($article->file_name) }}</strong>
+                                    </div>
+
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col"></th>
+                                                <th scope="col">Code</th>
+                                                <th scope="col">Language</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($export_languages as $lang)
+                                            <tr>
+                                                <th scope="row">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                    </div>
+                                                </th>
+                                                <td>{{ $lang->code }}</td>
+                                                <td>{{ $lang->language }} </td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button wire:click="export" data-bs-dismiss="modal" type="button" class="btn btn-primary">OK</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <button wire:key="btn_export_{{ $article->id }}" class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#modal-export-article-{{ $article->id }}">
+                        <i class="bi bi-arrow-down"></i> Export
+                    </button>
+
                 </div>
 
             </div>

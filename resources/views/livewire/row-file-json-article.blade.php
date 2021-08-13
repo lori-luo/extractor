@@ -37,10 +37,10 @@
                         </div>
                     </div>
                 </div>
-                <button wire:loading.remove wire:target="import_json" wire:key="btn_import_{{ $article->id }}" wire:click="set_to_read_json_type('import')" type="button" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal-{{ $article->id }}">
+                <button wire:loading.remove wire:target="import_json,export" wire:key="btn_import_{{ $article->id }}" wire:click="set_to_read_json_type('import')" type="button" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal-{{ $article->id }}">
                     Import
                 </button>
-                <button wire:loading.remove wire:target="import_json" wire:key="btn_force_import_{{ $article->id }}" wire:click="set_to_read_json_type('force')" type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal-{{ $article->id }}">
+                <button wire:loading.remove wire:target="import_json,export" wire:key="btn_force_import_{{ $article->id }}" wire:click="set_to_read_json_type('force')" type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal-{{ $article->id }}">
                     Force Import
                 </button>
 
@@ -50,6 +50,14 @@
                         <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
                     </div>
                 </span>
+
+                <span wire:loading wire:target="export">
+                    <div class="d-flex align-items-center">
+                        <strong>Exporting...</strong>
+                        <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
+                    </div>
+                </span>
+
             </div>
             <div class="col">
                 <div class="input-group input-group-sm">
@@ -83,7 +91,7 @@
         </div>
 
 
-        <span wire:loading wire:target="export">Exporting Json File</span>
+
 
 
     </td>

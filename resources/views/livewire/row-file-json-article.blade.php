@@ -103,7 +103,7 @@
                                     <table class="table table-striped table-sm">
                                         <thead>
                                             <tr>
-                                                <th colspan="3">Languages</th>
+                                                <th colspan="2">Languages</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -111,10 +111,12 @@
                                             <tr>
                                                 <th scope="row">
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" wire:click="lang_clicked({{ $lang->id }},$event.target.checked)" value="{{ $lang->id }}" {{ $lang->selected ? 'checked' : '' }}>
+                                                        <input id="check-lang-{{ $lang->id }}" class="form-check-input" type="checkbox" wire:click="lang_clicked({{ $lang->id }},$event.target.checked)" value="{{ $lang->id }}" {{ $lang->selected ? 'checked' : '' }}>
+                                                        <label class="form-check-label" for="check-lang-{{ $lang->id }}">
+                                                            {{ $lang->code }}
+                                                        </label>
                                                     </div>
                                                 </th>
-                                                <td>{{ $lang->code }}</td>
                                                 <td>{{ $lang->language }} </td>
                                             </tr>
                                             @endforeach

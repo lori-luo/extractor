@@ -182,7 +182,7 @@ class RowFileJsonArticle extends Component
         if (!File::exists($export_dir)) {
             //  dd('no path');
             File::makeDirectory($export_dir);
-            dd('created path');
+            //  dd('created path');
         }
 
 

@@ -84,7 +84,7 @@
                         <option value="5">80k-100k</option>
                     </select>
                     @endif
-                    <button class="btn btn-outline-secondary" type="button" wire:click="export">Export</button>
+                    <button class="btn btn-success" type="button" wire:click="export"><i class="bi bi-arrow-down"></i> Export</button>
                 </div>
 
             </div>

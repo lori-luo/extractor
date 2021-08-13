@@ -11,7 +11,8 @@ class FileLanguage extends Model
 
     protected $fillable = [
         'code',
-        'language'
+        'language',
+        'selected'
     ];
 
 

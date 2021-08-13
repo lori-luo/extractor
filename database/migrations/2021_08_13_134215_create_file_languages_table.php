@@ -18,6 +18,7 @@ class CreateFileLanguagesTable extends Migration
             $table->foreignId('upload_id')->constrained()->onDelete('cascade');
             $table->string('code')->nullable();
             $table->string('language')->nullable();
+            $table->boolean('selected')->default(false);
             $table->timestamps();
         });
     }

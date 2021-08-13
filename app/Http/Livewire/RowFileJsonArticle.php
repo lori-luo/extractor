@@ -416,9 +416,11 @@ class RowFileJsonArticle extends Component
         $this->article->save();
         $this->article->languages()->delete();
         foreach ($languages as $language) {
+            $lang = $this->get_code_lang(strtolower($language));
             $this->article->languages()->create([
                 'code' => $language,
-                'language' => $this->get_code_lang(strtolower($language))
+                'language' => $lang,
+                'selected' => ($lang == 'English' || $lang == 'Chinese' ? true : false)
             ]);
         }
 

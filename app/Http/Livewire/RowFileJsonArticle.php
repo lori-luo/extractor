@@ -177,6 +177,13 @@ class RowFileJsonArticle extends Component
         $fileName = $this->article->file_name . "_CLEAN_" .  $this->export_qty_text . '.json';
 
         $fileName2 = $this->article->file_name;
+
+        $export_dir = public_path('exports/');
+        if (!File::exists($export_dir)) {
+            File::makeDirectory($export_dir, 0777, true, true);
+        }
+
+
         File::put(public_path('exports/' . $fileName), $data_file);
 
         $this->export_file_name = $fileName;
@@ -509,6 +516,9 @@ class RowFileJsonArticle extends Component
 
         $this->dl_clean_data();
         // $this->export_file_name .= "_CLEANx_.json";
+
+
+
         return Response::download(public_path('exports/' . $this->export_file_name));
     }
 

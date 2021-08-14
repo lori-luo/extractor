@@ -41,22 +41,16 @@
                             <table wire:loading.remove class="table table-striped table-sm">
                                 <thead>
                                     <tr>
-                                        <th>Languages</th>
-                                        <th>
-                                            <div class="btn-group btn-group-sm" role="group" aria-label="Basic mixed styles example">
-                                                <button type="button" class="btn btn-danger" wire:click="lang_reset">Reset</button>
-                                                <button type="button" class="btn btn-warning" wire:click="select_all_lang">Select All</button>
-                                                <button type="button" class="btn btn-success" wire:click="unselect_all_lang">Unselect All</button>
-                                            </div>
-                                        </th>
+                                        <th colspan="2">Languages</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+
                                     @foreach($search_langs as $lang)
                                     <tr>
                                         <th scope="row">
                                             <div class="form-check">
-                                                <input wire:key="check-lang-{{ $lang->id }}" id="check-lang-{{ $lang->id }}" class="form-check-input" type="checkbox" wire:click="lang_clicked({{ $lang->id }},$event.target.checked)" value="{{ $lang->id }}">
+                                                <input wire:key="check-lang-{{ $lang->id }}" id="check-lang-{{ $lang->id }}" class="form-check-input" type="checkbox" wire:click="lang_clicked({{ $lang->id }},$event.target.checked)" value="{{ $lang->id }}" {{ $lang->selected ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="check-lang-{{ $lang->id }}">
                                                     {{ $lang->code }}
                                                 </label>

@@ -293,7 +293,7 @@ class RowFileJsonJournal extends Component
         $rows = JsonMachine::fromFile($this->path);
 
         $limit = 200000;
-        $limit = 100;
+        //   $limit = 100;
         $limit_ctr = 0;
         $record_ctr = 0;
         $extracted_ctr = 0;

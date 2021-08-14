@@ -92,20 +92,47 @@ class RowFileJsonArticle extends Component
             ->whereBetween('ctr', [$this->export_range_min, $this->export_range_max])
             ->get();
             */
+        $selected_export_langs = FileLanguage::where('upload_id', $this->article->id)->where('selected', true)->get();
+
         if ($this->sel_type == 1) {
-            $data = JsonArticle::where('upload_id', $this->article->id)
-                ->skip($skip)->take($take)
-                ->get();
+            $data = JsonArticle::where('upload_id', $this->article->id);
+
+            $data = $data->where(function ($data) use ($selected_export_langs) {
+                $ctr = 1;
+                foreach ($selected_export_langs as $lang) {
+                    if ($ctr == 1) {
+                        $data = $data->whereJsonContains('journal_language', $lang->code);
+                    } else {
+                        $data = $data->orWhereJsonContains('journal_language', $lang->code);
+                    }
+                    $ctr++;
+                }
+            });
+
+            $data = $data->skip($skip)->take($take);
+            $data = $data->get();
         }
 
         if ($this->sel_type == 2) {
-            $data = JsonArticle::where('upload_id', $this->article->id)
-                ->skip($skip)->take($take)
-                ->where('is_new', true)
-                ->orWhere('is_updated', true)
-                ->get();
-        }
+            $data = JsonArticle::where('upload_id', $this->article->id);
 
+            $data = $data->where(function ($data) use ($selected_export_langs) {
+                $ctr = 1;
+                foreach ($selected_export_langs as $lang) {
+                    if ($ctr == 1) {
+                        $data = $data->whereJsonContains('journal_language', $lang->code);
+                    } else {
+                        $data = $data->orWhereJsonContains('journal_language', $lang->code);
+                    }
+                    $ctr++;
+                }
+            });
+
+            $data = $data->skip($skip)->take($take);
+            $data = $data->where('is_new', true);
+            $data = $data->orWhere('is_updated', true);
+            $data = $data->get();
+        }
 
 
         $rows = [];

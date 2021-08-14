@@ -11,6 +11,7 @@ class SearchLanguage extends Model
 
     protected $fillable = [
         'code',
+        'user_id',
         'language',
         'selected'
     ];

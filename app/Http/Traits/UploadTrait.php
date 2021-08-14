@@ -9,6 +9,21 @@ use App\Models\SearchLanguage;
 trait UploadTrait
 {
 
+    public function set_search_langs()
+    {
+        $search_langs_arr = [];
+        $search_langs = SearchLanguage::get();
+        foreach ($search_langs as $lang) {
+            $check_lang['code'] = $lang->code;
+            $check_lang['language'] = $lang->language;
+            $check_lang['selected'] = ($lang->code == 'EN' || $lang->code == 'ZH' ? true : false);
+            array_push($search_langs_arr, $check_lang);
+        }
+
+        return $search_langs_arr;
+    }
+
+
     public function lang_clicked($id, $val)
     {
         $lang = FileLanguage::find($id);

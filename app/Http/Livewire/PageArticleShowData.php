@@ -44,6 +44,11 @@ class PageArticleShowData extends Component
         $this->is_selected = false;
         $this->search = "";
         $this->search_langs = SearchLanguage::get();
+        $this->set_search_langs();
+
+        $this->search_langs_arr = $this->set_search_langs();
+
+
         $this->selected_file = (Upload::where('category', 'Article')
             ->orderBy('date_modified', 'desc')->first())->id;
 
@@ -51,6 +56,13 @@ class PageArticleShowData extends Component
         // $this->articles =  JsonArticle::latest()->simplePaginate(50);
 
     }
+
+
+    public function lang_clicked_search_pre_arr($id, $val)
+    {
+        $this->search_langs_arr[$id]['selected'] = ($val ? true : false);
+    }
+
 
     public function lang_clicked_search_pre($id, $val)
     {
@@ -108,6 +120,18 @@ class PageArticleShowData extends Component
         $this->emit('articlesDeleted');
     }
 
+    public function lang_reset_arr($type = 'reset')
+    {
+
+        foreach ($this->search_langs_arr as $key => $lang) {
+            $this->search_langs_arr[$key]['selected'] = ($type == 'reset'
+                ? ($lang['code'] == 'EN' || $lang['code'] == 'ZH' ? true : false)
+                : ($type == 'select' ? true : false));
+        }
+    }
+
+
+
     public function lang_reset($type = 'reset')
     {
         $langs =   SearchLanguage::get();
@@ -140,13 +164,17 @@ class PageArticleShowData extends Component
 
             $data['articles'] = $data['articles']->where(function ($data) use ($selected_export_langs) {
                 $ctr = 1;
-                foreach ($selected_export_langs as $lang) {
-                    if ($ctr == 1) {
-                        $data = $data->whereJsonContains('journal_language', $lang->code);
-                    } else {
-                        $data = $data->orWhereJsonContains('journal_language', $lang->code);
+
+
+                foreach ($this->search_langs_arr as $key => $lang) {
+                    if ($this->search_langs_arr[$key]['selected']) {
+                        if ($ctr == 1) {
+                            $data = $data->whereJsonContains('journal_language', $lang['code']);
+                        } else {
+                            $data = $data->orWhereJsonContains('journal_language', $lang['code']);
+                        }
+                        $ctr++;
                     }
-                    $ctr++;
                 }
             });
 
@@ -161,13 +189,15 @@ class PageArticleShowData extends Component
 
             $data['articles'] = $data['articles']->where(function ($data) use ($selected_export_langs) {
                 $ctr = 1;
-                foreach ($selected_export_langs as $lang) {
-                    if ($ctr == 1) {
-                        $data = $data->whereJsonContains('journal_language', $lang->code);
-                    } else {
-                        $data = $data->orWhereJsonContains('journal_language', $lang->code);
+                foreach ($this->search_langs_arr as $key => $lang) {
+                    if ($this->search_langs_arr[$key]['selected']) {
+                        if ($ctr == 1) {
+                            $data = $data->whereJsonContains('journal_language', $lang['code']);
+                        } else {
+                            $data = $data->orWhereJsonContains('journal_language', $lang['code']);
+                        }
+                        $ctr++;
                     }
-                    $ctr++;
                 }
             });
 

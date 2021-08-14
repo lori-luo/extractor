@@ -197,11 +197,6 @@ class RowFileJsonArticle extends Component
             if ($d->journal_license) {
                 $row['bibjson']['journal']['license'] = json_decode($d->journal_license);
             }
-
-
-
-
-
             array_push($rows, $row);
         }
 
@@ -446,15 +441,7 @@ class RowFileJsonArticle extends Component
 
 
         $this->article->save();
-        $this->article->languages()->delete();
-        foreach ($languages as $language) {
-            $lang = $this->get_code_lang(strtolower($language));
-            $this->article->languages()->create([
-                'code' => $language,
-                'language' => $lang,
-                'selected' => ($lang == 'English' || $lang == 'Chinese' ? true : false)
-            ]);
-        }
+        $this->insert_file_languages($this->article, $languages);
 
         $this->export_languages =  Upload::find($this->article->id)->languages;
 
@@ -464,123 +451,6 @@ class RowFileJsonArticle extends Component
             'type' => 'import-article',
             'obj' => json_encode($this->article)
         ]);
-    }
-
-    public function lang_clicked($id, $val)
-    {
-        $lang = FileLanguage::find($id);
-        $lang_selected = ($val ? true : false);
-
-        $lang->selected = $lang_selected;
-        $lang->save();
-    }
-
-
-
-    private function is_subject_medical($subjects) // accepts json
-    {
-
-
-        $valid_subjects = [
-
-            'Medicine',
-
-            //----Medicine
-            'Dentistry',
-            'Dermatology',
-            'Gynecology and obstetrics',
-            'Homeopathy',
-            'Internal medicine',
-            'Infectious and parasitic diseases',
-            'Medical emergencies. Critical care. Intensive care. First aid',
-            'Neoplasms. Tumors. Oncology. Including cancer and carcinogens',
-            'Neurosciences. Biological psychiatry. Neuropsychiatry',
-            'Neurology. Diseases of the nervous system',
-            'Psychiatry',
-            'Therapeutics. Psychotherapy',
-            'Special situations and conditions',
-            'Arctic medicine. Tropical medicine',
-            'Geriatrics',
-            'Industrial medicine. Industrial hygiene',
-            'Sports medicine',
-            'Specialties of internal medicine',
-            'Diseases of the blood and blood-forming organs',
-            'Diseases of the circulatory (Cardiovascular) system',
-            'Diseases of the digestive system. Gastroenterology',
-            'Diseases of the endocrine glands. Clinical endocrinology',
-            'Diseases of the genitourinary system. Urology',
-            'Diseases of the musculoskeletal system',
-            'Diseases of the respiratory system',
-            'Immunologic diseases. Allergy',
-            'Nutritional diseases. Deficiency diseases',
-
-            'Medicine (General)',
-            'Computer applications to medicine. Medical informatics',
-            'General works',
-            'History of medicine. Medical expeditions',
-            'Medical philosophy. Medical ethics',
-            'Medical physics. Medical radiology. Nuclear medicine',
-            'Medical technology',
-
-            'Medical',
-            'Nursing',
-            'Ophthalmology',
-            'Other systems of medicine',
-
-            'Chiropractic',
-            'Mental healing',
-            'Miscellaneous systems and treatments',
-            'Osteopathy',
-
-            'Optics',
-            'Otorhinolaryngology',
-            'Pathology',
-            'Pediatrics',
-            'Pharmacy and materia medica',
-            'Public aspects of medicine',
-            'Toxicology. Poisons',
-            'Anesthesiology',
-            'Orthopedic surgery',
-            'Therapeutics. Pharmacology',
-            'Philosophy. Psychology.', //no found
-            'Aesthetics',
-            'Psychology',
-            'Consciousness. Cognition',
-
-            'Science',
-            'Biology (General)',
-            'Ecology',
-            'Genetics',
-            'Life',
-            'Reproduction',
-
-            'Chemistry',
-            'Analytical chemistry',
-            'Organic chemistry',
-            'Biochemistry',
-            'Human anatomy',
-            'Microbiology',
-            'Microbial ecology',
-
-            'Physiology',
-            'Biochemistry',
-            'Neurophysiology and neuropsychology',
-
-            'Zoology'
-
-
-        ];
-
-
-
-        $subjects = json_decode($subjects);
-        foreach ($subjects as $subject) {
-            if (in_array($subject->term, $valid_subjects)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     public function export()

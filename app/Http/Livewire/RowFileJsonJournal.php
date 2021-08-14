@@ -2,18 +2,23 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Upload;
+
+
 use Livewire\Component;
-
-
 use App\Models\JsonJournal;
 use Illuminate\Support\Str;
+use App\Models\FileLanguage;
 use JsonMachine\JsonMachine;
 use Illuminate\Support\Carbon;
+use App\Http\Traits\UploadTrait;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Response;
 
 class RowFileJsonJournal extends Component
 {
+    use UploadTrait;
+
     public $journal;
     public $export_qty;
     public $export_skip;
@@ -30,6 +35,7 @@ class RowFileJsonJournal extends Component
 
 
     public $export_qty_category;
+    public $export_languages;
 
     public function mount()
     {
@@ -43,6 +49,7 @@ class RowFileJsonJournal extends Component
 
         $this->to_import_type_title = "";
         $this->to_import_type_warning = "";
+        $this->export_languages = $this->journal->languages;
     }
 
 
@@ -146,23 +153,57 @@ class RowFileJsonJournal extends Component
         }
     }
 
+
+
     private function dl_clean_data()
     {
         $skip = $this->export_skip;
         $take = $this->export_take;
 
+
+        $selected_export_langs = FileLanguage::where('upload_id', $this->journal->id)->where('selected', true)->get();
+
+
         if ($this->sel_type == 1) {
-            $data = JsonJournal::where('upload_id', $this->journal->id)
-                ->skip($skip)->take($take)
-                ->get();
+            $data = JsonJournal::where('upload_id', $this->journal->id);
+
+            $data = $data->where(function ($data) use ($selected_export_langs) {
+                $ctr = 1;
+                foreach ($selected_export_langs as $lang) {
+                    if ($ctr == 1) {
+                        $data = $data->whereJsonContains('language', $lang->code);
+                    } else {
+                        $data = $data->orWhereJsonContains('language', $lang->code);
+                    }
+                    $ctr++;
+                }
+            });
+
+
+            $data = $data->skip($skip)->take($take);
+            $data = $data->get();
         }
 
         if ($this->sel_type == 2) {
-            $data = JsonJournal::where('upload_id', $this->journal->id)
-                ->skip($skip)->take($take)
-                ->where('is_new', true)
-                ->orWhere('is_updated', true)
-                ->get();
+            $data = JsonJournal::where('upload_id', $this->journal->id);
+
+            $data = $data->where(function ($data) use ($selected_export_langs) {
+                $ctr = 1;
+                foreach ($selected_export_langs as $lang) {
+                    if ($ctr == 1) {
+                        $data = $data->whereJsonContains('language', $lang->code);
+                    } else {
+                        $data = $data->orWhereJsonContains('language', $lang->code);
+                    }
+                    $ctr++;
+                }
+            });
+
+
+            $data = $data->skip($skip)->take($take);
+            $data = $data->where('is_new', true);
+            $data = $data->orWhere('is_updated', true);
+            $data = $data->get();
         }
 
 
@@ -232,14 +273,17 @@ class RowFileJsonJournal extends Component
         $rows = JsonMachine::fromFile($this->path);
 
         $limit = 200000;
-        //   $limit = 1000;
+        $limit = 100;
         $limit_ctr = 0;
         $record_ctr = 0;
         $extracted_ctr = 0;
         $record_new_ctr = 0;
         $record_updated_ctr = 0;
+        $languages = [];
 
         $import_start = Carbon::now();
+
+        //   $test = "";
 
         JsonJournal::where('upload_id', $this->journal->id)->update([
             'is_new' => false,
@@ -258,6 +302,12 @@ class RowFileJsonJournal extends Component
             $record_ctr++;
             $this->row_count = $record_ctr;
 
+            if ($limit <= $record_ctr) { // limit_ctr only includes qualified records
+                break;
+            }
+
+
+            //  $test = $test . " | " . $record_ctr;
             if (isset($row['bibjson']['subject'])) {
                 if (!$this->is_subject_medical(json_encode($row['bibjson']['subject']))) {
                     //if not medical, skip
@@ -318,6 +368,12 @@ class RowFileJsonJournal extends Component
 
             if (isset($row['bibjson']['language'])) {
                 $journal->language =  json_encode($row['bibjson']['language']);
+                $langs = json_decode($journal->language);
+                foreach ($langs as $lang) {
+                    if (!in_array($lang, $languages)) {
+                        array_push($languages, $lang);
+                    }
+                }
             }
 
 
@@ -406,13 +462,13 @@ class RowFileJsonJournal extends Component
                 $extracted_ctr++;
             }
 
-            if ($limit <= $record_ctr) { // limit_ctr only includes qualified records
-                break;
-            }
+
 
             $ctr++;
             $limit_ctr++;
         }
+
+        // dd($test);
         $import_end = Carbon::now();
         $extracted_ctr =  JsonJournal::where('upload_id', $this->journal->id)->count();
         $this->journal->original_record_count = $record_ctr;
@@ -424,7 +480,8 @@ class RowFileJsonJournal extends Component
 
 
         $this->journal->save();
-
+        $this->insert_file_languages($this->journal, $languages);
+        $this->export_languages =  Upload::find($this->journal->id)->languages;
 
 
         auth()->user()->logs()->create([
@@ -434,111 +491,7 @@ class RowFileJsonJournal extends Component
         ]);
     }
 
-    private function is_subject_medical($subjects) // accepts json
-    {
 
-
-        $valid_subjects = [
-
-            'Medicine',
-
-            //----Medicine
-            'Dentistry',
-            'Dermatology',
-            'Gynecology and obstetrics',
-            'Homeopathy',
-            'Internal medicine',
-            'Infectious and parasitic diseases',
-            'Medical emergencies. Critical care. Intensive care. First aid',
-            'Neoplasms. Tumors. Oncology. Including cancer and carcinogens',
-            'Neurosciences. Biological psychiatry. Neuropsychiatry',
-            'Neurology. Diseases of the nervous system',
-            'Psychiatry',
-            'Therapeutics. Psychotherapy',
-            'Special situations and conditions',
-            'Arctic medicine. Tropical medicine',
-            'Geriatrics',
-            'Industrial medicine. Industrial hygiene',
-            'Sports medicine',
-            'Specialties of internal medicine',
-            'Diseases of the blood and blood-forming organs',
-            'Diseases of the circulatory (Cardiovascular) system',
-            'Diseases of the digestive system. Gastroenterology',
-            'Diseases of the endocrine glands. Clinical endocrinology',
-            'Diseases of the genitourinary system. Urology',
-            'Diseases of the musculoskeletal system',
-            'Diseases of the respiratory system',
-            'Immunologic diseases. Allergy',
-            'Nutritional diseases. Deficiency diseases',
-
-            'Medicine (General)',
-            'Computer applications to medicine. Medical informatics',
-            'General works',
-            'History of medicine. Medical expeditions',
-            'Medical philosophy. Medical ethics',
-            'Medical physics. Medical radiology. Nuclear medicine',
-            'Medical technology',
-
-            'Medical',
-            'Nursing',
-            'Ophthalmology',
-            'Other systems of medicine',
-
-            'Chiropractic',
-            'Mental healing',
-            'Miscellaneous systems and treatments',
-            'Osteopathy',
-
-            'Optics',
-            'Otorhinolaryngology',
-            'Pathology',
-            'Pediatrics',
-            'Pharmacy and materia medica',
-            'Public aspects of medicine',
-            'Toxicology. Poisons',
-            'Anesthesiology',
-            'Orthopedic surgery',
-            'Therapeutics. Pharmacology',
-            'Philosophy. Psychology.', //no found
-            'Aesthetics',
-            'Psychology',
-            'Consciousness. Cognition',
-
-            'Science',
-            'Biology (General)',
-            'Ecology',
-            'Genetics',
-            'Life',
-            'Reproduction',
-
-            'Chemistry',
-            'Analytical chemistry',
-            'Organic chemistry',
-            'Biochemistry',
-            'Human anatomy',
-            'Microbiology',
-            'Microbial ecology',
-
-            'Physiology',
-            'Biochemistry',
-            'Neurophysiology and neuropsychology',
-
-            'Zoology'
-
-
-        ];
-
-
-
-        $subjects = json_decode($subjects);
-        foreach ($subjects as $subject) {
-            if (in_array($subject->term, $valid_subjects)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
 
 
     public function render()

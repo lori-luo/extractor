@@ -78,7 +78,59 @@
                         <option value="5">80k-100k</option>
                     </select>
                     @endif
-                    <button class="btn btn-outline-secondary" type="button" wire:click="export">Export</button>
+
+                    <!-- Modal -->
+                    <div wire:ignore.self class="modal fade" id="modal-export-journal-{{ $journal->id }}">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header bg-success text-light">
+                                    <h5 class="modal-title" id="modal-export-journal-{{ $journal->id }}">
+                                        Export Options
+                                    </h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                                </div>
+                                <div class="modal-body">
+                                    <div class="p-2 text-center">
+                                        <strong>{{ strtoupper($journal->file_name) }}</strong>
+                                    </div>
+
+                                    <table class="table table-striped table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="2">Languages</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($export_languages as $lang)
+                                            <tr>
+                                                <th scope="row">
+                                                    <div class="form-check">
+                                                        <input id="check-lang-{{ $lang->id }}" class="form-check-input" type="checkbox" wire:click="lang_clicked({{ $lang->id }},$event.target.checked)" value="{{ $lang->id }}" {{ $lang->selected ? 'checked' : '' }}>
+                                                        <label class="form-check-label" for="check-lang-{{ $lang->id }}">
+                                                            {{ $lang->code }}
+                                                        </label>
+                                                    </div>
+                                                </th>
+                                                <td>{{ $lang->language }} </td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button wire:click="export" data-bs-dismiss="modal" type="button" class="btn btn-primary">OK</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <button wire:key="btn_export_{{ $journal->id }}" class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#modal-export-journal-{{ $journal->id }}">
+                        <i class="bi bi-arrow-down"></i> Export
+                    </button>
                 </div>
             </div>
         </div>

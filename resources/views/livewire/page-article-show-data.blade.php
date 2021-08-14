@@ -37,7 +37,7 @@
                             </h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
+                        <div wire:loading.remove class="modal-body">
                             <table class="table table-striped table-sm">
                                 <thead>
                                     <tr>

@@ -2,12 +2,13 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\FileLanguage;
 use App\Models\Upload;
 use Livewire\Component;
 use App\Models\JsonArticle;
+use App\Models\FileLanguage;
 use Livewire\WithPagination;
 use App\Models\SearchLanguage;
+use Illuminate\Support\Facades\Request;
 
 class PageArticleShowData extends Component
 {
@@ -18,6 +19,7 @@ class PageArticleShowData extends Component
     protected $listeners = [
         'articleDeleted' => '$refresh',
         'articlesDeleted' => '$refresh',
+        'resetSearchLangs' => '$refresh',
         'selectedArticle' => 'selectedArticlex'
     ];
 
@@ -53,6 +55,8 @@ class PageArticleShowData extends Component
 
         $lang->selected = $lang_selected;
         $lang->save();
+
+        $this->search_langs = SearchLanguage::get();
     }
 
     public function re_search()
@@ -109,6 +113,29 @@ class PageArticleShowData extends Component
     {
 
 
+        $langs =   SearchLanguage::get();
+        foreach ($langs as $lang) {
+
+            $lang->selected = ($lang->code == 'EN' || $lang->code == 'ZH' ? true : false);
+            $lang->save();
+        }
+
+        $this->search_langs = SearchLanguage::get();
+    }
+
+    public function lang_select_all()
+    {
+        $langs =   SearchLanguage::get();
+        foreach ($langs as $lang) {
+            $lang->selected = true;
+            $lang->save();
+        }
+
+        $this->search_langs = SearchLanguage::get();
+    }
+
+    public function lang_unselect_all()
+    {
         $langs =   SearchLanguage::get();
         foreach ($langs as $lang) {
             $lang->selected = false;

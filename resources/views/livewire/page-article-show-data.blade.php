@@ -37,8 +37,8 @@
                             </h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div wire:loading.remove class="modal-body">
-                            <table class="table table-striped table-sm">
+                        <div style="height: 400px;" class="modal-body overflow-auto">
+                            <table wire:loading.remove class="table table-striped table-sm">
                                 <thead>
                                     <tr>
                                         <th colspan="2">Languages</th>
@@ -60,6 +60,11 @@
                                     @endforeach
                                 </tbody>
                             </table>
+
+                            <div wire:loading>
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                Searching...
+                            </div>
 
                         </div>
                         <div class="modal-footer">

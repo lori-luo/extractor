@@ -23,22 +23,44 @@
         </div>
         <div class="col">
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-select-lang">
+            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-select-lang">
                 Select Languages
             </button>
 
             <!-- Modal -->
-            <div class="modal fade" id="modal-select-lang" tabindex="-1">
+            <div wire:ignore.self class="modal fade" id="modal-select-lang">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">
+                            <h5 class="modal-title">
                                 Select Languages
                             </h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            ...
+                            <table class="table table-striped table-sm">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2">Languages</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($search_langs as $lang)
+                                    <tr>
+                                        <th scope="row">
+                                            <div class="form-check">
+                                                <input id="check-lang-{{ $lang->id }}" class="form-check-input" type="checkbox" wire:click="lang_clicked({{ $lang->id }},$event.target.checked)" value="{{ $lang->id }}" {{ $lang->selected ? 'checked' : '' }}>
+                                                <label class="form-check-label" for="check-lang-{{ $lang->id }}">
+                                                    {{ $lang->code }}
+                                                </label>
+                                            </div>
+                                        </th>
+                                        <td>{{ $lang->language }} </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ok</button>
@@ -49,7 +71,7 @@
 
         </div>
         <div class="col">
-            <button wire:loading.remove class="btn btn-outline-success" wire:click="re_search">Search</button>
+            <button wire:loading.remove class="btn btn-success" wire:click="re_search">Search</button>
             <button wire:loading class="btn btn-primary mb-2" type="button" disabled>
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                 Searching...

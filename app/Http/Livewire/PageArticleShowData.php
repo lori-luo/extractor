@@ -6,6 +6,7 @@ use App\Models\Upload;
 use Livewire\Component;
 use App\Models\JsonArticle;
 use Livewire\WithPagination;
+use App\Models\SearchLanguage;
 
 class PageArticleShowData extends Component
 {
@@ -24,6 +25,7 @@ class PageArticleShowData extends Component
     public $is_selected;
     public $search;
     public $selected_file;
+    public $search_langs;
 
 
 
@@ -32,11 +34,20 @@ class PageArticleShowData extends Component
     {
         $this->is_selected = false;
         $this->search = "";
-
+        $this->search_langs = SearchLanguage::get();
         $this->selected_file = (Upload::where('category', 'Article')
             ->orderBy('date_modified', 'desc')->first())->id;
         // $this->articles =  JsonArticle::latest()->simplePaginate(50);
 
+    }
+
+    public function lang_clicked($id, $val)
+    {
+        $lang = SearchLanguage::find($id);
+        $lang_selected = ($val ? true : false);
+
+        $lang->selected = $lang_selected;
+        $lang->save();
     }
 
     public function re_search()
@@ -93,20 +104,50 @@ class PageArticleShowData extends Component
     public function render()
     {
 
+        $selected_export_langs = SearchLanguage::where('selected', true)->get();
+
+
         if ($this->selected_file == 0) {
-            $data['articles'] = JsonArticle::latest()
-                ->where(function ($query) {
-                    $query->where('title_short', 'like', '%' . $this->search . '%')
-                        ->orWhere('title', 'like', '%' . $this->search . '%');
-                })
-                ->paginate(50);
+            $data['articles'] = JsonArticle::latest();
+            $data['articles'] = $data['articles']->where(function ($query) {
+                $query->where('title_short', 'like', '%' . $this->search . '%')
+                    ->orWhere('title', 'like', '%' . $this->search . '%');
+            });
+
+            $data['articles'] = $data['articles']->where(function ($data) use ($selected_export_langs) {
+                $ctr = 1;
+                foreach ($selected_export_langs as $lang) {
+                    if ($ctr == 1) {
+                        $data = $data->whereJsonContains('journal_language', $lang->code);
+                    } else {
+                        $data = $data->orWhereJsonContains('journal_language', $lang->code);
+                    }
+                    $ctr++;
+                }
+            });
+
+
+            $data['articles'] = $data['articles']->paginate(50);
         } else {
-            $data['articles'] = JsonArticle::latest()
-                ->where(function ($query) {
-                    $query->where('title_short', 'like', '%' . $this->search . '%')
-                        ->orWhere('title', 'like', '%' . $this->search . '%');
-                })
-                ->where('upload_id', $this->selected_file)
+            $data['articles'] = JsonArticle::latest();
+            $data['articles'] = $data['articles']->where(function ($query) {
+                $query->where('title_short', 'like', '%' . $this->search . '%')
+                    ->orWhere('title', 'like', '%' . $this->search . '%');
+            });
+
+            $data['articles'] = $data['articles']->where(function ($data) use ($selected_export_langs) {
+                $ctr = 1;
+                foreach ($selected_export_langs as $lang) {
+                    if ($ctr == 1) {
+                        $data = $data->whereJsonContains('journal_language', $lang->code);
+                    } else {
+                        $data = $data->orWhereJsonContains('journal_language', $lang->code);
+                    }
+                    $ctr++;
+                }
+            });
+
+            $data['articles'] = $data['articles']->where('upload_id', $this->selected_file)
                 ->paginate(50);
         }
 

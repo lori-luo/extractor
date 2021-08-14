@@ -89,7 +89,7 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header bg-success text-light">
-                                    <h5 class="modal-title" id="modal-export-article-{{ $article->id }}">
+                                    <h5 class="modal-title">
                                         Export Options
                                     </h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

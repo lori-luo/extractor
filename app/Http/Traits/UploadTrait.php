@@ -16,6 +16,9 @@ trait UploadTrait
 
         $lang->selected = $lang_selected;
         $lang->save();
+
+        $export_languages = Upload::find($lang->upload_id)->languages;
+        return $export_languages;
     }
 
 

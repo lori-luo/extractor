@@ -81,6 +81,27 @@ class RowFileJsonArticle extends Component
         $this->export_languages = $this->article->languages;
     }
 
+    public function lang_clicked_pre($id, $val)
+    {
+        $this->export_languages = $this->lang_clicked($id, $val);
+    }
+
+    public function lang_reset($type = 'reset')
+    {
+        $langs =   FileLanguage::where('upload_id', $this->article->id)->get();
+        foreach ($langs as $lang) {
+
+            $lang->selected = ($type == 'reset'
+                ? ($lang->code == 'EN' || $lang->code == 'ZH' ? true : false)
+                : ($type == 'select' ? true : false));
+            $lang->save();
+        }
+
+        $this->export_languages = FileLanguage::where('upload_id', $this->article->id)->get();
+    }
+
+
+
 
 
     public function dl_clean_data()

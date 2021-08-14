@@ -90,7 +90,7 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 
                                 </div>
-                                <div class="modal-body">
+                                <div style="height: 400px;" class="modal-body overflow-auto">
                                     <div class="p-2 text-center">
                                         <strong>{{ strtoupper($journal->file_name) }}</strong>
                                     </div>
@@ -98,15 +98,29 @@
                                     <table class="table table-striped table-sm">
                                         <thead>
                                             <tr>
-                                                <th colspan="2">Languages</th>
+                                                <th>Languages</th>
+                                                <th>
+                                                    <div class="btn-group btn-group-sm" role="group">
+                                                        <button wire:click="lang_reset" type="button" class="btn btn-danger">
+                                                            Reset
+                                                        </button>
+                                                        <button wire:click="lang_reset('select')" type="button" class="btn btn-warning">
+                                                            Select All
+                                                        </button>
+                                                        <button wire:click="lang_reset('unselect')" type="button" class="btn btn-success">
+                                                            Unselect All
+                                                        </button>
+                                                    </div>
+                                                </th>
+
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody wire:loading.remove>
                                             @foreach($export_languages as $lang)
                                             <tr>
                                                 <th scope="row">
                                                     <div class="form-check">
-                                                        <input id="check-lang-{{ $lang->id }}" class="form-check-input" type="checkbox" wire:click="lang_clicked({{ $lang->id }},$event.target.checked)" value="{{ $lang->id }}" {{ $lang->selected ? 'checked' : '' }}>
+                                                        <input id="check-lang-{{ $lang->id }}" class="form-check-input" type="checkbox" wire:click="lang_clicked_pre({{ $lang->id }},$event.target.checked)" value="{{ $lang->id }}" {{ $lang->selected ? 'checked' : '' }}>
                                                         <label class="form-check-label" for="check-lang-{{ $lang->id }}">
                                                             {{ $lang->code }}
                                                         </label>
@@ -117,6 +131,10 @@
                                             @endforeach
                                         </tbody>
                                     </table>
+                                    <div wire:loading>
+                                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                        Loading...
+                                    </div>
 
                                 </div>
                                 <div class="modal-footer">

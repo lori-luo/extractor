@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\FileLanguage;
 use App\Models\Upload;
 use Livewire\Component;
 use App\Models\JsonArticle;
@@ -26,6 +27,7 @@ class PageArticleShowData extends Component
     public $search;
     public $selected_file;
     public $search_langs;
+    public $is_search_langs_reset;
 
 
 
@@ -37,6 +39,8 @@ class PageArticleShowData extends Component
         $this->search_langs = SearchLanguage::get();
         $this->selected_file = (Upload::where('category', 'Article')
             ->orderBy('date_modified', 'desc')->first())->id;
+
+        $this->is_search_langs_reset = false;
         // $this->articles =  JsonArticle::latest()->simplePaginate(50);
 
     }
@@ -48,6 +52,7 @@ class PageArticleShowData extends Component
 
         $lang->selected = $lang_selected;
         $lang->save();
+        $this->is_search_langs_reset = false;
     }
 
     public function re_search()
@@ -98,6 +103,19 @@ class PageArticleShowData extends Component
 
         $this->selected_articles = [];
         $this->emit('articlesDeleted');
+    }
+
+    public function lang_reset()
+    {
+
+        $langs =   SearchLanguage::get();
+        foreach ($langs as $lang) {
+            $lang->selected = false;
+            $lang->save();
+        }
+
+        $this->search_langs = SearchLanguage::get();
+        $this->is_search_langs_reset = true;
     }
 
 

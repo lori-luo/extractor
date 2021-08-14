@@ -21,6 +21,18 @@ trait UploadTrait
         return $export_languages;
     }
 
+    public function lang_clicked_search($id, $val)
+    {
+        $lang = SearchLanguage::find($id);
+        $lang_selected = ($val ? true : false);
+
+        $lang->selected = $lang_selected;
+        $lang->save();
+
+        $search_langs = SearchLanguage::get();
+        return $search_langs;
+    }
+
 
     public function insert_file_languages(Upload $file, $languages)
     {

@@ -8,6 +8,7 @@ use App\Models\JsonArticle;
 use App\Models\FileLanguage;
 use Livewire\WithPagination;
 use App\Models\SearchLanguage;
+use App\Http\Traits\UploadTrait;
 use Illuminate\Support\Facades\Request;
 
 class PageArticleShowData extends Component
@@ -15,6 +16,9 @@ class PageArticleShowData extends Component
     //  public $articles;
 
     use WithPagination;
+    use UploadTrait;
+
+
     //  protected $paginationTheme = 'bootstrap';
     protected $listeners = [
         'articleDeleted' => '$refresh',
@@ -48,15 +52,10 @@ class PageArticleShowData extends Component
 
     }
 
-    public function lang_clicked($id, $val)
+    public function lang_clicked_search_pre($id, $val)
     {
-        $lang = SearchLanguage::find($id);
-        $lang_selected = ($val ? true : false);
 
-        $lang->selected = $lang_selected;
-        $lang->save();
-
-        $this->search_langs = SearchLanguage::get();
+        $this->search_langs = $this->lang_clicked_search($id, $val);
     }
 
     public function re_search()
@@ -109,41 +108,21 @@ class PageArticleShowData extends Component
         $this->emit('articlesDeleted');
     }
 
-    public function lang_reset()
+    public function lang_reset($type = 'reset')
     {
-
-
         $langs =   SearchLanguage::get();
         foreach ($langs as $lang) {
 
-            $lang->selected = ($lang->code == 'EN' || $lang->code == 'ZH' ? true : false);
+            $lang->selected = ($type == 'reset'
+                ? ($lang->code == 'EN' || $lang->code == 'ZH' ? true : false)
+                : ($type == 'select' ? true : false));
             $lang->save();
         }
 
         $this->search_langs = SearchLanguage::get();
     }
 
-    public function lang_select_all()
-    {
-        $langs =   SearchLanguage::get();
-        foreach ($langs as $lang) {
-            $lang->selected = true;
-            $lang->save();
-        }
 
-        $this->search_langs = SearchLanguage::get();
-    }
-
-    public function lang_unselect_all()
-    {
-        $langs =   SearchLanguage::get();
-        foreach ($langs as $lang) {
-            $lang->selected = false;
-            $lang->save();
-        }
-
-        $this->search_langs = SearchLanguage::get();
-    }
 
 
     public function render()

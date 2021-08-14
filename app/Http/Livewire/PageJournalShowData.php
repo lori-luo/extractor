@@ -5,11 +5,14 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use App\Models\JsonJournal;
 use Livewire\WithPagination;
+use App\Models\SearchLanguage;
+use App\Http\Traits\UploadTrait;
 
 class PageJournalShowData extends Component
 {
 
     use WithPagination;
+    use UploadTrait;
 
     //  protected $paginationTheme = 'bootstrap';
     public $is_selected;
@@ -21,10 +24,13 @@ class PageJournalShowData extends Component
         'selectedJournal' => 'selectedJournalx'
     ];
 
+    public $search_langs;
+
     public function mount()
     {
         $this->is_selected = false;
         $this->search = "";
+        $this->search_langs = SearchLanguage::get();
     }
 
     public function selectedJournalx(JsonJournal $journal, $is_selected)
@@ -67,6 +73,25 @@ class PageJournalShowData extends Component
     public function updatedSearch()
     {
         $this->resetPage();
+    }
+
+    public function lang_reset($type = 'reset')
+    {
+        $langs =   SearchLanguage::get();
+        foreach ($langs as $lang) {
+
+            $lang->selected = ($type == 'reset'
+                ? ($lang->code == 'EN' || $lang->code == 'ZH' ? true : false)
+                : ($type == 'select' ? true : false));
+            $lang->save();
+        }
+
+        $this->search_langs = SearchLanguage::get();
+    }
+
+    public function lang_clicked_search_pre($id, $val)
+    {
+        $this->search_langs = $this->lang_clicked_search($id, $val);
     }
 
 

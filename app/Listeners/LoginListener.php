@@ -25,9 +25,11 @@ class LoginListener
      */
     public function handle($event)
     {
+
         $event->user->logs()->create([
             'action' => 'Login',
-            'type' => 'login'
+            'type' => 'login',
+            'obj' => ''
         ]);
     }
 }

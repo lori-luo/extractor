@@ -119,10 +119,11 @@ trait UploadTrait
                 'selected' => ($lang == 'English' || $lang == 'Chinese' ? true : false)
             ]);
 
+
             SearchLanguage::firstOrCreate([
                 'code' => $language,
                 'language' => $lang,
-                'selected' => ($lang == 'English' || $lang == 'Chinese' ? true : false)
+                'selected' => ($language == 'EN' || $language == 'ZH' ? true : false)
             ]);
         }
     }

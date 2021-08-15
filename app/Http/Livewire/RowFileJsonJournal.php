@@ -46,7 +46,7 @@ class RowFileJsonJournal extends Component
         $this->row_count = 0;
 
         $this->export_qty_category = 1; //per 10k
-        //$this->export_qty_category = 2; //per 20k
+        $this->export_qty_category = 2; //per 20k
 
         $this->to_import_type_title = "";
         $this->to_import_type_warning = "";

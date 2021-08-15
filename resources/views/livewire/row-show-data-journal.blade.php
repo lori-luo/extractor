@@ -7,7 +7,16 @@
     </th>
 
     <td style="width:50%">
+        @php
+
+
+        @endphp
         <small>
+            {{--
+            <span>
+                <img class="d-inline" src="{{ asset('images/flags/png/'. strtolower(json_decode($journal->publisher)->country) .'.png') }}" alt="">
+            </span> |
+            --}}
             <a class="title_link" href="{{ route('json_journal.data.row',$journal) }}" target="_blank">
                 {{ $journal->title }}
             </a>

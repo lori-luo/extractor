@@ -7,6 +7,11 @@
     </th>
     <td style="width:50%">
         <small>
+            {{--
+            <span>
+                <img class="d-inline" src="{{ asset('images/flags/png/'. strtolower($article->journal_country) .'.png') }}" alt="">
+            </span> |
+            --}}
             @if(is_null($article->abstract))
             <span class="badge bg-danger">No abstract</span> -
             @endif

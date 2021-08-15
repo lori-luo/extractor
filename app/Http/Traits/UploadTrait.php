@@ -9,6 +9,49 @@ use App\Models\SearchLanguage;
 trait UploadTrait
 {
 
+    public function set_export_prop($export_qty_category, $export_qty)
+    {
+
+        $export_take = 0;
+        $export_qty_text_arr = [];
+        $export = [];
+
+        if ($export_qty_category == 1) {
+            $export_take = 10000;
+
+
+            $export_qty_text_arr[1] = "1-10k";
+            $export_qty_text_arr[2] = "10-20k";
+            $export_qty_text_arr[3] = "20k-30k";
+            $export_qty_text_arr[4] = "30k-40k";
+            $export_qty_text_arr[5] = "40k-50k";
+            $export_qty_text_arr[6] = "50k-60k";
+            $export_qty_text_arr[7] = "60k-70k";
+            $export_qty_text_arr[8] = "70k-80k";
+            $export_qty_text_arr[9] = "80k-90k";
+            $export_qty_text_arr[10] = "90k-100k";
+        } elseif ($export_qty_category == 2) {
+            $export_take = 20000;
+
+            $export_qty_text_arr[1] = "1-20k";
+            $export_qty_text_arr[2] = "20k-40k";
+            $export_qty_text_arr[3] = "40k-60k";
+            $export_qty_text_arr[4] = "60k-80k";
+            $export_qty_text_arr[5] = "80k-100k";
+        }
+
+        for ($x = 1; $x <= count($export_qty_text_arr); $x++) {
+            if ($x == $export_qty) {
+                $export['export_skip'] = ($x - 1) * $export_take;
+                $export['export_qty_text'] = $export_qty_text_arr[$x];
+                $export['export_take'] = $export_take;
+                break;
+            }
+        }
+
+        return $export;
+    }
+
 
 
     public function set_file_export_langs(Upload $file)

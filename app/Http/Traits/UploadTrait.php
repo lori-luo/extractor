@@ -9,6 +9,22 @@ use App\Models\SearchLanguage;
 trait UploadTrait
 {
 
+
+
+    public function set_file_export_langs(Upload $file)
+    {
+        $export_langs_arr = [];
+        $export_langs = $file->languages;
+        foreach ($export_langs as $lang) {
+            $check_lang['code'] = $lang->code;
+            $check_lang['language'] = $lang->language;
+            $check_lang['selected'] = ($lang->code == 'EN' || $lang->code == 'ZH' ? true : false);
+            array_push($export_langs_arr, $check_lang);
+        }
+
+        return $export_langs_arr;
+    }
+
     public function set_search_langs()
     {
         $search_langs_arr = [];

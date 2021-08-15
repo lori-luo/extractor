@@ -36,6 +36,7 @@ class RowFileJsonJournal extends Component
 
     public $export_qty_category;
     public $export_languages;
+    public $export_languages_arr;
 
     public function mount()
     {
@@ -50,6 +51,7 @@ class RowFileJsonJournal extends Component
         $this->to_import_type_title = "";
         $this->to_import_type_warning = "";
         $this->export_languages = $this->journal->languages;
+        $this->export_languages_arr = $this->set_file_export_langs($this->journal);
     }
 
 
@@ -153,6 +155,20 @@ class RowFileJsonJournal extends Component
         }
     }
 
+    public function lang_reset_arr($type = 'reset')
+    {
+        foreach ($this->export_languages_arr as $key => $lang) {
+            $this->export_languages_arr[$key]['selected'] = ($type == 'reset'
+                ? ($lang['code'] == 'EN' || $lang['code'] == 'ZH' ? true : false)
+                : ($type == 'select' ? true : false));
+        }
+    }
+
+    public function lang_clicked_pre_arr($id, $val)
+    {
+        $this->export_languages_arr[$id]['selected'] = ($val ? true : false);
+    }
+
     public function lang_clicked_pre($id, $val)
     {
 
@@ -181,21 +197,22 @@ class RowFileJsonJournal extends Component
         $take = $this->export_take;
 
 
-        $selected_export_langs = FileLanguage::where('upload_id', $this->journal->id)->where('selected', true)->get();
 
 
         if ($this->sel_type == 1) {
             $data = JsonJournal::where('upload_id', $this->journal->id);
 
-            $data = $data->where(function ($data) use ($selected_export_langs) {
+            $data = $data->where(function ($data) {
                 $ctr = 1;
-                foreach ($selected_export_langs as $lang) {
-                    if ($ctr == 1) {
-                        $data = $data->whereJsonContains('language', $lang->code);
-                    } else {
-                        $data = $data->orWhereJsonContains('language', $lang->code);
+                foreach ($this->export_languages_arr as $lang) {
+                    if ($lang['selected']) {
+                        if ($ctr == 1) {
+                            $data = $data->whereJsonContains('language', $lang['code']);
+                        } else {
+                            $data = $data->orWhereJsonContains('language', $lang['code']);
+                        }
+                        $ctr++;
                     }
-                    $ctr++;
                 }
             });
 
@@ -207,15 +224,17 @@ class RowFileJsonJournal extends Component
         if ($this->sel_type == 2) {
             $data = JsonJournal::where('upload_id', $this->journal->id);
 
-            $data = $data->where(function ($data) use ($selected_export_langs) {
+            $data = $data->where(function ($data) {
                 $ctr = 1;
-                foreach ($selected_export_langs as $lang) {
-                    if ($ctr == 1) {
-                        $data = $data->whereJsonContains('language', $lang->code);
-                    } else {
-                        $data = $data->orWhereJsonContains('language', $lang->code);
+                foreach ($this->export_languages_arr as $lang) {
+                    if ($lang['selected']) {
+                        if ($ctr == 1) {
+                            $data = $data->whereJsonContains('language', $lang['code']);
+                        } else {
+                            $data = $data->orWhereJsonContains('language', $lang['code']);
+                        }
+                        $ctr++;
                     }
-                    $ctr++;
                 }
             });
 

@@ -101,13 +101,13 @@
                                                 <th>Languages</th>
                                                 <th>
                                                     <div class="btn-group btn-group-sm" role="group">
-                                                        <button wire:click="lang_reset" type="button" class="btn btn-danger">
+                                                        <button wire:click="lang_reset_arr" type="button" class="btn btn-danger">
                                                             Reset
                                                         </button>
-                                                        <button wire:click="lang_reset('select')" type="button" class="btn btn-warning">
+                                                        <button wire:click="lang_reset_arr('select')" type="button" class="btn btn-warning">
                                                             Select All
                                                         </button>
-                                                        <button wire:click="lang_reset('unselect')" type="button" class="btn btn-success">
+                                                        <button wire:click="lang_reset_arr('unselect')" type="button" class="btn btn-success">
                                                             Unselect All
                                                         </button>
                                                     </div>
@@ -116,17 +116,17 @@
                                             </tr>
                                         </thead>
                                         <tbody wire:loading.remove>
-                                            @foreach($export_languages as $lang)
+                                            @foreach($export_languages_arr as $key => $ex_lang)
                                             <tr>
                                                 <th scope="row">
                                                     <div class="form-check">
-                                                        <input id="check-lang-{{ $lang->id }}" class="form-check-input" type="checkbox" wire:click="lang_clicked_pre({{ $lang->id }},$event.target.checked)" value="{{ $lang->id }}" {{ $lang->selected ? 'checked' : '' }}>
-                                                        <label class="form-check-label" for="check-lang-{{ $lang->id }}">
-                                                            {{ $lang->code }}
+                                                        <input id="check-lang-arr-{{ $key }}" class="form-check-input" type="checkbox" wire:click="lang_clicked_pre_arr({{ $key }},$event.target.checked)" value="{{ $key }}" {{ $ex_lang['selected'] ? 'checked' : '' }}>
+                                                        <label class="form-check-label" for="check-lang-arr-{{ $key }}">
+                                                            {{ $ex_lang['code'] }}
                                                         </label>
                                                     </div>
                                                 </th>
-                                                <td>{{ $lang->language }} </td>
+                                                <td>{{ $ex_lang['language'] }} </td>
                                             </tr>
                                             @endforeach
                                         </tbody>

@@ -75,76 +75,61 @@
 
                                     </tr>
                                     @endforeach
-                                    {{--
-                                    @foreach($search_langs as $lang)
-                                    <tr>
-                                        <th scope="row">
-                                            <div class="form-check">
-                                                <input wire:key="check-lang-{{ $lang->id }}" id="check-lang-{{ $lang->id }}" class="form-check-input" type="checkbox" wire:click="lang_clicked_search_pre({{ $lang->id }},$event.target.checked)" value="{{ $lang->id }}" {{ $lang->selected ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="check-lang-{{ $lang->id }}">
-                                        {{ $lang->code }}
-                                    </label>
-                        </div>
-                        </th>
-                        <td>{{ $lang->language }} </td>
-                        </tr>
-                        @endforeach
-                        --}}
-                        </tbody>
-                        </table>
+                                </tbody>
+                            </table>
 
-                        <div wire:loading>
-                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                            Searching...
-                        </div>
+                            <div wire:loading>
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                Searching...
+                            </div>
 
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ok</button>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ok</button>
+                        </div>
                     </div>
                 </div>
             </div>
+
         </div>
-
+        <div class="col">
+            <button wire:loading.remove class="btn btn-success" wire:click="re_search">Search</button>
+            <button wire:loading class="btn btn-primary mb-2" type="button" disabled>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Searching...
+            </button>
+        </div>
     </div>
-    <div class="col">
-        <button wire:loading.remove class="btn btn-success" wire:click="re_search">Search</button>
-        <button wire:loading class="btn btn-primary mb-2" type="button" disabled>
-            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-            Searching...
-        </button>
+
+
+
+
+
+    <table class="table table-sm table-hover">
+        <thead class="table-primary">
+            <tr>
+                <th scope="col">
+                </th>
+                <th scope="col" style="width:50%">Title</th>
+                <th scope="col" style="width:10%">Subjects</th>
+                <th scope="col" style="width:10%">Keywords</th>
+                <th scope="col">Imported</th>
+                <th scope="col">Created</th>
+                <th scope="col">Updated</th>
+                <th scope="col">Action</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($articles as $article)
+            @livewire('row-show-data-article',['article' => $article,'is_selected'=>$is_selected],key($article->article_id))
+            @endforeach
+        </tbody>
+    </table>
+
+    <div style="height:30px;">
+        {{ $articles->links() }}
     </div>
-</div>
-
-
-
-
-
-<table class="table table-sm table-hover">
-    <thead class="table-primary">
-        <tr>
-            <th scope="col">
-            </th>
-            <th scope="col" style="width:50%">Title</th>
-            <th scope="col" style="width:10%">Subjects</th>
-            <th scope="col" style="width:10%">Keywords</th>
-            <th scope="col">Imported</th>
-            <th scope="col">Created</th>
-            <th scope="col">Updated</th>
-            <th scope="col">Action</th>
-
-        </tr>
-    </thead>
-    <tbody>
-        @foreach($articles as $article)
-        @livewire('row-show-data-article',['article' => $article,'is_selected'=>$is_selected],key($article->article_id))
-        @endforeach
-    </tbody>
-</table>
-
-<div style="height:30px;">
-    {{ $articles->links() }}
-</div>
 
 
 </div>

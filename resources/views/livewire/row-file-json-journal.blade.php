@@ -126,7 +126,7 @@
                                                         </label>
                                                     </div>
                                                 </th>
-                                                <td>{{ $ex_lang['language'] }} </td>
+                                                <td>{{ $ex_lang['language'] }} ({{ $ex_lang['row_count'] }}) </td>
                                             </tr>
                                             @endforeach
                                         </tbody>

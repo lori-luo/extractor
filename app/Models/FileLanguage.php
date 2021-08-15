@@ -13,7 +13,8 @@ class FileLanguage extends Model
         'code',
         'user_id',
         'language',
-        'selected'
+        'selected',
+        'row_count'
     ];
 
 

@@ -19,6 +19,7 @@ class CreateFileLanguagesTable extends Migration
             $table->string('code')->nullable();
             $table->string('language')->nullable();
             $table->boolean('selected')->default(false);
+            $table->integer('row_count')->nullable();
             $table->timestamps();
         });
     }

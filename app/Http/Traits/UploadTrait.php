@@ -57,11 +57,12 @@ trait UploadTrait
     public function set_file_export_langs(Upload $file)
     {
         $export_langs_arr = [];
-        $export_langs = $file->languages;
+        $export_langs = Upload::find($file->id)->languages;
         foreach ($export_langs as $lang) {
             $check_lang['code'] = $lang->code;
             $check_lang['language'] = $lang->language;
             $check_lang['selected'] = ($lang->code == 'EN' || $lang->code == 'ZH' ? true : false);
+            $check_lang['row_count'] = $lang->row_count;
             array_push($export_langs_arr, $check_lang);
         }
 
@@ -108,7 +109,7 @@ trait UploadTrait
     }
 
 
-    public function insert_file_languages(Upload $file, $languages)
+    public function insert_file_languages(Upload $file, $languages, $lang_count)
     {
         $file->languages()->delete();
         foreach ($languages as $language) {
@@ -116,7 +117,8 @@ trait UploadTrait
             $file->languages()->create([
                 'code' => $language,
                 'language' => $lang,
-                'selected' => ($lang == 'English' || $lang == 'Chinese' ? true : false)
+                'selected' => ($lang == 'English' || $lang == 'Chinese' ? true : false),
+                'row_count' => $lang_count[$language]
             ]);
 
 
@@ -124,6 +126,7 @@ trait UploadTrait
                 'code' => $language,
                 'language' => $lang,
                 'selected' => ($language == 'EN' || $language == 'ZH' ? true : false)
+
             ]);
         }
     }

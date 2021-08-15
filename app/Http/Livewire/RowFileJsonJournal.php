@@ -252,6 +252,7 @@ class RowFileJsonJournal extends Component
         $record_new_ctr = 0;
         $record_updated_ctr = 0;
         $languages = [];
+        $lang_count = [];
 
         $import_start = Carbon::now();
 
@@ -344,6 +345,12 @@ class RowFileJsonJournal extends Component
                 foreach ($langs as $lang) {
                     if (!in_array($lang, $languages)) {
                         array_push($languages, $lang);
+                    }
+
+                    if (isset($lang_count[$lang])) {
+                        $lang_count[$lang]++;
+                    } else {
+                        $lang_count[$lang] = 1;
                     }
                 }
             }
@@ -452,7 +459,8 @@ class RowFileJsonJournal extends Component
 
 
         $this->journal->save();
-        $this->insert_file_languages($this->journal, $languages);
+        $this->insert_file_languages($this->journal, $languages, $lang_count);
+        $this->export_languages_arr = $this->set_file_export_langs($this->journal);
         $this->export_languages =  Upload::find($this->journal->id)->languages;
 
 

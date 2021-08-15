@@ -293,7 +293,7 @@ class RowFileJsonArticle extends Component
 
 
         $limit = 200000;
-        // $limit = 1000;
+        $limit = 1000;
         $limit_ctr = 0;
         $record_ctr = 0;
         $extracted_ctr = 0;
@@ -301,6 +301,7 @@ class RowFileJsonArticle extends Component
         $record_updated_ctr = 0;
         $import_start = Carbon::now();
         $languages = [];
+        $lang_count = [];
 
         JsonArticle::where('upload_id', $this->article->id)->update([
             'is_new' => false,
@@ -401,6 +402,11 @@ class RowFileJsonArticle extends Component
                     if (!in_array($lang, $languages)) {
                         array_push($languages, $lang);
                     }
+                    if (isset($lang_count[$lang])) {
+                        $lang_count[$lang]++;
+                    } else {
+                        $lang_count[$lang] = 1;
+                    }
                 }
             }
             if (isset($row['bibjson']['journal']['title'])) {
@@ -475,7 +481,9 @@ class RowFileJsonArticle extends Component
 
 
         $this->article->save();
-        $this->insert_file_languages($this->article, $languages);
+
+        $this->insert_file_languages($this->article, $languages, $lang_count);
+        $this->export_languages_arr = $this->set_file_export_langs($this->article);
 
         $this->export_languages =  Upload::find($this->article->id)->languages;
 

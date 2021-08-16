@@ -173,7 +173,10 @@
                                             <tr>
                                                 <th>Country</th>
                                                 <td>
-                                                    {{ $article->journal_country }}
+                                                    {{ $article->journal_country }} |
+                                                    <span>
+                                                        <img class="d-inline" src="{{ asset('images/flags/png/'. strtolower($article->journal_country) .'.png') }}" alt="">
+                                                    </span>
                                                 </td>
                                             </tr>
                                             @if($article->license_obj())

@@ -286,7 +286,10 @@
                                                 <th>Country</th>
                                                 <td>
                                                     @isset($journal->institution_obj()->country)
-                                                    {{ $journal->institution_obj()->country }}
+                                                    {{ $journal->institution_obj()->country }} |
+                                                    <span>
+                                                        <img class="d-inline" src="{{ asset('images/flags/png/'. strtolower($journal->institution_obj()->country) .'.png') }}" alt="">
+                                                    </span>
                                                     @endisset
                                                 </td>
                                             </tr>
@@ -312,7 +315,10 @@
                                                 <th>Country</th>
                                                 <td>
                                                     @isset($journal->publisher_obj()->country)
-                                                    {{ $journal->publisher_obj()->country }}
+                                                    {{ $journal->publisher_obj()->country }} |
+                                                    <span>
+                                                        <img class="d-inline" src="{{ asset('images/flags/png/'. strtolower($journal->publisher_obj()->country) .'.png') }}" alt="">
+                                                    </span>
                                                     @endisset
                                                 </td>
                                             </tr>

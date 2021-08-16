@@ -49,6 +49,9 @@ class PageJsonArticleController extends Controller
     {
         $data['article'] = $article;
         $data['title'] = $data['article']->title;
+        $data['fav_icon'] = asset('images/flags/png/' . strtolower($data['article']->journal_country) . '.png');
+
+
         return view('PageJsonArticle.show_full_article', $data);
     }
 

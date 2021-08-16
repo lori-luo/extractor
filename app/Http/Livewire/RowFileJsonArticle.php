@@ -364,6 +364,7 @@ class RowFileJsonArticle extends Component
             if (isset($row['bibjson']['title'])) {
                 $article->title = $row['bibjson']['title'];
                 $article->title_short = Str::substr($article->title, 0, 180) . ' ' . $record_new_ctr;
+                $article->slug =  Str::slug($article->title, '-');
             }
 
 

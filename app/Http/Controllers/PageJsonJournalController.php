@@ -34,6 +34,12 @@ class PageJsonJournalController extends Controller
     {
         $data['journal'] = $journal;
         $data['title'] = $data['journal']->title;
+
+        if (isset($data['journal']->publisher_obj()->country)) {
+
+            $data['fav_icon'] = asset('images/flags/png/' . strtolower($data['journal']->publisher_obj()->country) . '.png');
+        }
+
         return view('PageJsonJournal.show_full_article', $data);
     }
 

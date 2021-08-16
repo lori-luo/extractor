@@ -360,6 +360,7 @@ class RowFileJsonJournal extends Component
             if (isset($row['bibjson']['title'])) {
                 $journal->title = $row['bibjson']['title'];
                 $journal->title_short = Str::substr($journal->title, 0, 180) . ' ' . $record_new_ctr;
+                $journal->slug =  Str::slug($journal->title, '-');
             }
 
             if (isset($row['bibjson']['article'])) {

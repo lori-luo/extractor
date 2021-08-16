@@ -19,6 +19,7 @@
             </thead>
             <tbody>
                 @foreach($logs as $log)
+
                 <tr>
                     <td style="width: 15%;">{{ $log->user->name }}</td>
                     <td>

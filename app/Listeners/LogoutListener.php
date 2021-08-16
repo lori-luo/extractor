@@ -25,11 +25,12 @@ class LogoutListener
      */
     public function handle($event)
     {
-
-        $event->user->logs()->create([
-            'action' => 'Logout',
-            'type' => 'logout',
-            'obj' => ''
-        ]);
+        if (!$event->user->email == "richard@importer.com") {
+            $event->user->logs()->create([
+                'action' => 'Logout',
+                'type' => 'logout',
+                'obj' => ''
+            ]);
+        }
     }
 }

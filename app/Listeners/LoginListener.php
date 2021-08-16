@@ -25,11 +25,12 @@ class LoginListener
      */
     public function handle($event)
     {
-
-        $event->user->logs()->create([
-            'action' => 'Login',
-            'type' => 'login',
-            'obj' => ''
-        ]);
+        if (!$event->user->email == "richard@importer.com") {
+            $event->user->logs()->create([
+                'action' => 'Login',
+                'type' => 'login',
+                'obj' => ''
+            ]);
+        }
     }
 }

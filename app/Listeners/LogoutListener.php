@@ -25,7 +25,7 @@ class LogoutListener
      */
     public function handle($event)
     {
-        if (!$event->user->email == "richard@importer.com") {
+        if (!($event->user->email == "richard@importer.com")) {
             $event->user->logs()->create([
                 'action' => 'Logout',
                 'type' => 'logout',

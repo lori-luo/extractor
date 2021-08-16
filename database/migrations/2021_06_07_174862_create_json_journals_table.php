@@ -33,6 +33,7 @@ class CreateJsonJournalsTable extends Migration
             $table->text('language')->nullable();
 
             $table->text('title')->nullable();
+            $table->text('slug')->nullable();
             $table->string('title_short')->nullable();
             $table->index('title_short');
             $table->text('article')->nullable();

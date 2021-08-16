@@ -21,6 +21,7 @@ class CreateJsonArticlesTable extends Migration
             $table->integer('ctr')->nullable();
             $table->string('article_id')->nullable()->unique();
             $table->text('title')->nullable();
+            $table->text('slug')->nullable();
             $table->string('title_short')->nullable();
             $table->index('title_short');
             $table->text('abstract')->nullable();

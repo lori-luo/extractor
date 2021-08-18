@@ -82,39 +82,33 @@
                         @php
                         $obj = json_decode($log->obj);
                         @endphp
-                        <div class="alert alert-secondary" role="alert">
-                            <h4 class="alert-heading">Article Import</h4>
-                            <p>
-                                {{ $obj->file_name  }}
-                            </p>
-                            <hr>
-                            <p class="mb-0">
-                                <span class="badge bg-primary">Record: {{ $obj->original_record_count }}</span>
-                                <span class="badge bg-secondary">Extracted:{{ $obj->extracted_record_count }}</span>
-                                <span class="badge bg-success">New:{{ $obj->new_record_count }}</span>
-                                <span class="badge bg-danger">Updated:{{ $obj->updated_record_count }}</span>
-                            </p>
-                        </div>
+
+                        Import : {{ $obj->file_name  }}
+
+                        <p class="mb-0">
+                            <span class="badge bg-primary">Record: {{ $obj->original_record_count }}</span>
+                            <span class="badge bg-secondary">Extracted:{{ $obj->extracted_record_count }}</span>
+                            <span class="badge bg-success">New:{{ $obj->new_record_count }}</span>
+                            <span class="badge bg-danger">Updated:{{ $obj->updated_record_count }}</span>
+                        </p>
+
 
                         @elseif($log->type=="import-journal")
 
                         @php
                         $obj = json_decode($log->obj);
                         @endphp
-                        <div class="alert alert-secondary" role="alert">
-                            <h4 class="alert-heading">Journal Import</h4>
-                            <p>
-                                {{ $obj->file_name  }}
-                            </p>
-                            <hr>
-                            <p class="mb-0">
 
-                                <span class="badge bg-primary">Record: {{ $obj->original_record_count }}</span>
-                                <span class="badge bg-secondary">Extracted:{{ $obj->extracted_record_count }}</span>
-                                <span class="badge bg-success">New:{{ $obj->new_record_count }}</span>
-                                <span class="badge bg-danger">Updated:{{ $obj->updated_record_count }}</span>
-                            </p>
-                        </div>
+                        Import : {{ $obj->file_name  }}
+
+                        <p class="mb-0">
+
+                            <span class="badge bg-primary">Record: {{ $obj->original_record_count }}</span>
+                            <span class="badge bg-secondary">Extracted:{{ $obj->extracted_record_count }}</span>
+                            <span class="badge bg-success">New:{{ $obj->new_record_count }}</span>
+                            <span class="badge bg-danger">Updated:{{ $obj->updated_record_count }}</span>
+                        </p>
+
 
                         @elseif($log->type=="export-article")
                         @php
@@ -210,23 +204,20 @@
                         @php
                         $obj = json_decode($log->obj);
                         @endphp
-                        <div class="alert alert-secondary" role="alert">
-                            <h4 class="alert-heading">Upload JSON File - Article</h4>
-                            <p>
-                                {{ $obj->file_name }}
-                            </p>
-                        </div>
+
+                        Uploaded JSON file(Article): {{ $obj->file_name }}
+
+
 
                         @elseif($log->type=="upload-file-journal")
                         @php
                         $obj = json_decode($log->obj);
                         @endphp
-                        <div class="alert alert-secondary" role="alert">
-                            <h4 class="alert-heading">Upload JSON File - Journal</h4>
-                            <p>
-                                {{ $obj->file_name }}
-                            </p>
-                        </div>
+
+
+                        Uploaded JSON file(Journal): {{ $obj->file_name }}
+
+
 
                         @elseif($log->type=="modified-file-article")
                         @php

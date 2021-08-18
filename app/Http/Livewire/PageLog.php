@@ -30,7 +30,7 @@ class PageLog extends Component
     {
         $data['logs'] = Log::latest()
             ->where('obj', 'like', '%' . $this->search . '%')
-            ->paginate(10);
+            ->paginate(30);
         return view('livewire.page-log', $data);
     }
 }

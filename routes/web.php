@@ -76,7 +76,7 @@ Route::middleware(['auth:sanctum', 'verified'])
     ->name('json_journal.data');
 
 Route::middleware(['auth:sanctum', 'verified'])
-    ->get('/json-Journal/records/{journal}', [PageJsonJournalController::class, 'show_full_article'])
+    ->get('/json-Journal/records/{journal}/{slug}', [PageJsonJournalController::class, 'show_full_article'])
     ->name('json_journal.data.row');
 /* 
 Route::middleware(['auth:sanctum', 'verified'])

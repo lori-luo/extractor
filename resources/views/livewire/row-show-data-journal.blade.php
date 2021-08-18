@@ -17,7 +17,7 @@
                 <img class="d-inline" src="{{ asset('images/flags/png/'. strtolower(json_decode($journal->publisher)->country) .'.png') }}" alt="">
             </span> |
 
-            <a class="title_link" href="{{ route('json_journal.data.row',$journal) }}" target="_blank">
+            <a class="title_link" href="{{ route('json_journal.data.row',[$journal,$journal->slug]) }}" target="_blank">
                 {{ $journal->title }}
             </a>
         </small>

@@ -114,31 +114,17 @@
                         @php
                         $obj = json_decode($log->obj);
                         @endphp
-                        <div class="alert alert-secondary" role="alert">
-                            <h4 class="alert-heading">Article Export</h4>
-                            <p>
-                                {{ $obj->file_name  }}
-                            </p>
-                            <hr>
-                            <p class="mb-0">
-                                <a href="{{ route('log.dl_art_export_file',$obj->file_name) }}">Download File</a>
-                            </p>
-                        </div>
+
+                        Export : {{ $obj->file_name  }} | <a href="{{ route('log.dl_art_export_file',$obj->file_name) }}">Download File</a>
+
 
                         @elseif($log->type=="export-journal")
                         @php
                         $obj = json_decode($log->obj);
                         @endphp
-                        <div class="alert alert-secondary" role="alert">
-                            <h4 class="alert-heading">Journal Export</h4>
-                            <p>
-                                {{ $obj->file_name  }}
-                            </p>
-                            <hr>
-                            <p class="mb-0">
-                                <a href="{{ route('log.dl_art_export_file',$obj->file_name) }}">Download File</a>
-                            </p>
-                        </div>
+
+                        Export : {{ $obj->file_name  }} | <a href="{{ route('log.dl_art_export_file',$obj->file_name) }}">Download File</a>
+
 
                         @elseif($log->type=="delete-keyword-article")
                         @php

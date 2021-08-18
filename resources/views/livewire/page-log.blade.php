@@ -115,7 +115,7 @@
                         $obj = json_decode($log->obj);
                         @endphp
 
-                        Export : {{ $obj->file_name  }} | <a href="{{ route('log.dl_art_export_file',$obj->file_name) }}">Download File</a>
+                        Export : <a href="{{ route('log.dl_art_export_file',$obj->file_name) }}">{{ $obj->file_name  }}</a>
 
 
                         @elseif($log->type=="export-journal")
@@ -123,7 +123,7 @@
                         $obj = json_decode($log->obj);
                         @endphp
 
-                        Export : {{ $obj->file_name  }} | <a href="{{ route('log.dl_art_export_file',$obj->file_name) }}">Download File</a>
+                        Export : <a href="{{ route('log.dl_art_export_file',$obj->file_name) }}">{{ $obj->file_name  }}</a>
 
 
                         @elseif($log->type=="delete-keyword-article")

@@ -109,6 +109,7 @@
                 <th scope="col">
                 </th>
                 <th scope="col" style="width:50%">Title</th>
+                <th scope="col">Languages</th>
                 <th scope="col" style="width:10%">Subjects</th>
                 <th scope="col" style="width:10%">Keywords</th>
                 <th scope="col">Imported</th>

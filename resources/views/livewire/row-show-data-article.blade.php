@@ -23,6 +23,28 @@
         </small>
 
     </td>
+    <td class="text-nowrap">
+        <small>
+            <table class="table table-sm">
+                <tbody>
+                    @foreach($article->language_arr() as $key=>$lang)
+                    <tr>
+                        <th scope="row">
+                            {{ $key }}
+                        </th>
+                        <td>
+                            {{ $lang }}
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+
+
+
+
+        </small>
+    </td>
     <td style="width:0%">
         @foreach($article->subject_obj() as $subject)
 

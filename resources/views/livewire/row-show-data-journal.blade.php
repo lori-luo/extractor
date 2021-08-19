@@ -24,6 +24,24 @@
 
     </td>
     <td class="text-nowrap">
+        <small>
+            <table class="table table-sm">
+                <tbody>
+                    @foreach($journal->language_arr() as $key=>$lang)
+                    <tr>
+                        <th scope="row">
+                            {{ $key }}
+                        </th>
+                        <td>
+                            {{ $lang }}
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </small>
+    </td>
+    <td class="text-nowrap">
         <small>{{ $journal->eissn }}</small>
     </td>
     <td class="text-nowrap">

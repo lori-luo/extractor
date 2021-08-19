@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Http\Traits\UploadTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class JsonArticle extends Model
 {
     use HasFactory;
+    use UploadTrait;
 
     protected $casts = [
         'created_date' => 'datetime:Y-m-d',
@@ -54,5 +56,17 @@ class JsonArticle extends Model
     public function language_obj()
     {
         return json_decode($this->journal_language);
+    }
+
+    public function language_arr()
+    {
+        $lang_arr = [];
+        $langs = json_decode($this->journal_language);
+        foreach ($langs as $lang) {
+
+            $lang_arr[$lang] = $this->get_code_lang(strtolower($lang));
+        }
+
+        return $lang_arr;
     }
 }

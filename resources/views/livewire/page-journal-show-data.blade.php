@@ -1,4 +1,4 @@
-<div>
+<div class="pb-5">
 
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -122,6 +122,7 @@
 
             </th>
             <th scope="col" style="width:50%">Title</th>
+            <th scope="col">Languages</th>
             <th scope="col">ISSN</th>
             <th scope="col">PISSN</th>
             <th scope="col" style="width:10%">Subjects</th>

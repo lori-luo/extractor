@@ -29,20 +29,13 @@
                 <tbody>
                     @foreach($article->language_arr() as $key=>$lang)
                     <tr>
-                        <th scope="row">
-                            {{ $key }}
-                        </th>
                         <td>
-                            {{ $lang }}
+                            <strong>{{ $key }}</strong> - {{ $lang }}
                         </td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
-
-
-
-
         </small>
     </td>
     <td style="width:0%">

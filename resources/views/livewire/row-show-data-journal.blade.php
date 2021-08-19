@@ -29,11 +29,8 @@
                 <tbody>
                     @foreach($journal->language_arr() as $key=>$lang)
                     <tr>
-                        <th scope="row">
-                            {{ $key }}
-                        </th>
                         <td>
-                            {{ $lang }}
+                            <strong>{{ $key }}</strong> - {{ $lang }}
                         </td>
                     </tr>
                     @endforeach

@@ -58,6 +58,24 @@
                     </div>
                 </span>
 
+                <span wire:loading wire:target="export_new">
+                    <div class="d-flex align-items-center">
+                        <strong>Exporting...</strong>
+                        <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
+                    </div>
+                </span>
+                <span wire:loading wire:target="export_csv">
+                    <div class="d-flex align-items-center">
+                        <strong>Exporting...</strong>
+                        <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
+                    </div>
+                </span>
+                <span wire:loading wire:target="export_new_csv">
+                    <div class="d-flex align-items-center">
+                        <strong>Exporting...</strong>
+                        <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
+                    </div>
+                </span>
             </div>
             <div class="col">
                 <div class="input-group input-group-sm">
@@ -147,17 +165,30 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button wire:click="export" data-bs-dismiss="modal" type="button" class="btn btn-primary">OK</button>
+                                    <button wire:click="export_csv" data-bs-dismiss="modal" type="button" class="btn btn-primary">Csv</button>
+                                    <button wire:click="export" data-bs-dismiss="modal" type="button" class="btn btn-primary">Json</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-
+                    <div wire:ignore.self class="modal fade" id="modal-export-new-article-{{ $article->id }}">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button wire:click="export_new_csv" data-bs-dismiss="modal" type="button" class="btn btn-primary">Csv</button>
+                                    <button wire:click="export_new" data-bs-dismiss="modal" type="button" class="btn btn-primary">Json</button>
+                                </div>
+                            </div>                            
+                        </div>
+                    </div>
 
                     <button wire:key="btn_export_{{ $article->id }}" class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#modal-export-article-{{ $article->id }}">
                         <i class="bi bi-arrow-down"></i> Export
                     </button>
-
+                    <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#modal-export-new-article-{{ $article->id }}">
+                        <i class="bi bi-arrow-down"></i> Export New
+                    </button>
                 </div>
 
             </div>

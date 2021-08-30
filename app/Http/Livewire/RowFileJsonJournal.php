@@ -479,4 +479,398 @@ class RowFileJsonJournal extends Component
     {
         return view('livewire.row-file-json-journal');
     }
+
+    public function export_new()
+    {
+
+        $this->set_export_prop_pre();
+
+        $this->dl_clean_data_new();
+        return Response::download(public_path('exports/' . $this->export_file_name));
+    }
+
+    private function dl_clean_data_new()
+    {
+        $skip = $this->export_skip;
+        $take = $this->export_take;
+
+        if ($this->sel_type == 1) {
+            $data = JsonJournal::where('upload_id', $this->journal->id);
+
+            $data = $data->where(function ($data) {
+                /*$ctr = 1;
+                foreach ($this->export_languages_arr as $lang) {
+                    if ($lang['selected']) {
+                        if ($ctr == 1) {
+                            $data = $data->whereJsonContains('language', $lang['code']);
+                        } else {
+                            $data = $data->orWhereJsonContains('language', $lang['code']);
+                        }
+                        $ctr++;
+                    }
+                }*/
+                $data = $data->whereJsonContains('language', 'EN');
+                $data = $data->orWhereJsonContains('language', 'ZH');
+            });
+
+
+            $data = $data->skip($skip)->take($take);
+            $data = $data->get();
+        }
+
+        if ($this->sel_type == 2) {
+            $data = JsonJournal::where('upload_id', $this->journal->id);
+
+            $data = $data->where(function ($data) {
+                /*$ctr = 1;
+                foreach ($this->export_languages_arr as $lang) {
+                    if ($lang['selected']) {
+                        if ($ctr == 1) {
+                            $data = $data->whereJsonContains('language', $lang['code']);
+                        } else {
+                            $data = $data->orWhereJsonContains('language', $lang['code']);
+                        }
+                        $ctr++;
+                    }
+                }*/
+                $data = $data->whereJsonContains('language', 'EN');
+                $data = $data->orWhereJsonContains('language', 'ZH');
+            });
+
+
+            $data = $data->skip($skip)->take($take);
+            $data = $data->where('is_new', true);
+            $data = $data->orWhere('is_updated', true);
+            $data = $data->get();
+        }
+
+
+
+        $rows = [];
+        $ctr = 1;
+        $detector = new \LanguageDetector\LanguageDetector();
+        
+        foreach ($data as $d) {
+            if ($d->title) {
+                $language = $detector->evaluate($d->title)->getLanguage();
+                if (!in_array($language,array('en','zh-cn','zh-tw')))
+                {
+                    continue;
+                }                    
+            }
+
+            if ($d->keywords) {
+                $row['bibjson']['keywords'] = json_decode($d->keywords);
+            }
+
+            if ($d->subject) {
+                $row['bibjson']['subject'] = json_decode($d->subject);
+            }
+            if ($d->eissn) {
+                $row['bibjson']['eissn'] = ($d->eissn);
+            }
+            if ($d->title) {
+                $row['bibjson']['title'] = ($d->title);
+            }
+            if ($d->ref) {
+
+                $row['bibjson']['ref']['aims_scope'] = json_decode($d->ref)->aims_scope;
+            }
+            if ($d->language) {
+                $row['bibjson']['language'] = json_decode($d->language);
+            }
+
+            if ($d->publisher) {
+                $row['bibjson']['publisher']['country'] = json_decode($d->publisher)->country;
+                $row['bibjson']['publisher']['name'] = json_decode($d->publisher)->name;
+            }
+
+            if (!is_null($d->institution)) {
+                if (isset(json_decode($d->institution)->name)) {
+                    $row['bibjson']['institution']['name'] = json_decode($d->institution)->name;
+                }
+            }
+
+            array_push($rows, $row);
+        }
+
+        $data_file = json_encode($rows, JSON_PRETTY_PRINT);
+        $fileName = $this->journal->file_name . "_CLEAN_" .  time() . '.json';
+        $fileName = $this->journal->file_name . "_CLEAN_" .  $this->export_qty_text . '.json';
+
+        $fileName2 = $this->journal->file_name;
+        File::put(public_path('exports/' . $fileName), $data_file);
+
+        $this->export_file_name = $fileName;
+
+        auth()->user()->logs()->create([
+            'action' => 'Export file: ' . $this->export_file_name,
+            'type' => 'export-journal-new',
+            'obj' => json_encode([
+                'file_name' => $fileName
+            ])
+        ]);
+    }
+
+    public function export_csv()
+    {
+        $this->set_export_prop_pre();
+
+        $this->dl_clean_data_csv();
+        return Response::download(public_path('exports/' . $this->export_file_name));        
+    }
+
+    public function dl_clean_data_csv()
+    {
+        $skip = $this->export_skip;
+        $take = $this->export_take;
+
+        if ($this->sel_type == 1) {
+            $data = JsonJournal::where('upload_id', $this->journal->id);
+
+            $data = $data->where(function ($data) {
+                $ctr = 1;
+                foreach ($this->export_languages_arr as $lang) {
+                    if ($lang['selected']) {
+                        if ($ctr == 1) {
+                            $data = $data->whereJsonContains('language', $lang['code']);
+                        } else {
+                            $data = $data->orWhereJsonContains('language', $lang['code']);
+                        }
+                        $ctr++;
+                    }
+                }
+            });
+
+
+            $data = $data->skip($skip)->take($take);
+            $data = $data->get();
+        }
+
+        if ($this->sel_type == 2) {
+            $data = JsonJournal::where('upload_id', $this->journal->id);
+
+            $data = $data->where(function ($data) {
+                $ctr = 1;
+                foreach ($this->export_languages_arr as $lang) {
+                    if ($lang['selected']) {
+                        if ($ctr == 1) {
+                            $data = $data->whereJsonContains('language', $lang['code']);
+                        } else {
+                            $data = $data->orWhereJsonContains('language', $lang['code']);
+                        }
+                        $ctr++;
+                    }
+                }
+            });
+
+
+            $data = $data->skip($skip)->take($take);
+            $data = $data->where('is_new', true);
+            $data = $data->orWhere('is_updated', true);
+            $data = $data->get();
+        }
+
+
+
+        $rows = [];
+        $ctr = 1;
+
+        $data_csv = [];
+        $data_csv[] = [
+            'title','keywords','subject','eissn','aims_scope','language','publisher_country','publisher_name','institution_name'
+        ];
+
+        foreach ($data as $d) {
+            $keywords = $d->keywords;
+            $subject = $d->subject;
+            $eissn = $d->eissn;
+            $title = $d->title;
+            $aims_scope = '';
+            if ($d->ref) {
+                $aims_scope = json_decode($d->ref)->aims_scope;
+            }
+            $language = $d->language;
+            $publisher_country = '';
+            $publisher_name = '';
+            if ($d->publisher) {
+                $publisher_country = json_decode($d->publisher)->country;
+                $publisher_name = json_decode($d->publisher)->name;
+            }
+            $institution_name = '';
+            if (!is_null($d->institution)) {
+                if (isset(json_decode($d->institution)->name)) {
+                    $institution_name = json_decode($d->institution)->name;
+                }
+            }
+            $data_csv[] = [
+                $title,
+                $keywords,
+                $subject,
+                $eissn,
+                $aims_scope,
+                $language,
+                $publisher_country,
+                $publisher_name,
+                $institution_name,
+            ];
+        }
+
+        $fileName = $this->journal->file_name . "_CLEAN_" .  time() . '.csv';
+        $fileName = $this->journal->file_name . "_CLEAN_" .  $this->export_qty_text . '.csv';
+
+        $fileName2 = $this->journal->file_name;
+        $fp = fopen(public_path('exports/' . $fileName), 'w');
+        foreach ($data_csv as $fields) {
+            fputcsv($fp, $fields);
+        }
+        fclose($fp);
+
+        $this->export_file_name = $fileName;
+
+        auth()->user()->logs()->create([
+            'action' => 'Export file: ' . $this->export_file_name,
+            'type' => 'export-journal-csv',
+            'obj' => json_encode([
+                'file_name' => $fileName
+            ])
+        ]);
+    }
+
+    public function export_new_csv() 
+    {
+        $this->set_export_prop_pre();
+
+        $this->dl_clean_data_new_csv();
+        return Response::download(public_path('exports/' . $this->export_file_name));
+    }
+
+    public function dl_clean_data_new_csv()
+    {
+        $skip = $this->export_skip;
+        $take = $this->export_take;
+
+        if ($this->sel_type == 1) {
+            $data = JsonJournal::where('upload_id', $this->journal->id);
+
+            $data = $data->where(function ($data) {
+                /*$ctr = 1;
+                foreach ($this->export_languages_arr as $lang) {
+                    if ($lang['selected']) {
+                        if ($ctr == 1) {
+                            $data = $data->whereJsonContains('language', $lang['code']);
+                        } else {
+                            $data = $data->orWhereJsonContains('language', $lang['code']);
+                        }
+                        $ctr++;
+                    }
+                }*/
+                $data = $data->whereJsonContains('language', 'EN');
+                $data = $data->orWhereJsonContains('language', 'ZH');
+            });
+
+
+            $data = $data->skip($skip)->take($take);
+            $data = $data->get();
+        }
+
+        if ($this->sel_type == 2) {
+            $data = JsonJournal::where('upload_id', $this->journal->id);
+
+            $data = $data->where(function ($data) {
+                /*$ctr = 1;
+                foreach ($this->export_languages_arr as $lang) {
+                    if ($lang['selected']) {
+                        if ($ctr == 1) {
+                            $data = $data->whereJsonContains('language', $lang['code']);
+                        } else {
+                            $data = $data->orWhereJsonContains('language', $lang['code']);
+                        }
+                        $ctr++;
+                    }
+                }*/
+                $data = $data->whereJsonContains('language', 'EN');
+                $data = $data->orWhereJsonContains('language', 'ZH');
+            });
+
+
+            $data = $data->skip($skip)->take($take);
+            $data = $data->where('is_new', true);
+            $data = $data->orWhere('is_updated', true);
+            $data = $data->get();
+        }
+
+
+
+        $rows = [];
+        $ctr = 1;
+
+        $data_csv = [];
+        $data_csv[] = [
+            'title','keywords','subject','eissn','aims_scope','language','publisher_country','publisher_name','institution_name'
+        ];
+        $detector = new \LanguageDetector\LanguageDetector();
+        foreach ($data as $d) {
+            if ($d->title) {
+                $language = $detector->evaluate($d->title)->getLanguage();
+                if (!in_array($language,array('en','zh-cn','zh-tw')))
+                {
+                    continue;
+                }                    
+            }
+            
+            $keywords = $d->keywords;
+            $subject = $d->subject;
+            $eissn = $d->eissn;
+            $title = $d->title;
+            $aims_scope = '';
+            if ($d->ref) {
+                $aims_scope = json_decode($d->ref)->aims_scope;
+            }
+            $language = $d->language;
+            $publisher_country = '';
+            $publisher_name = '';
+            if ($d->publisher) {
+                $publisher_country = json_decode($d->publisher)->country;
+                $publisher_name = json_decode($d->publisher)->name;
+            }
+            $institution_name = '';
+            if (!is_null($d->institution)) {
+                if (isset(json_decode($d->institution)->name)) {
+                    $institution_name = json_decode($d->institution)->name;
+                }
+            }
+            $data_csv[] = [
+                $title,
+                $keywords,
+                $subject,
+                $eissn,
+                $aims_scope,
+                $language,
+                $publisher_country,
+                $publisher_name,
+                $institution_name,
+            ];
+        }
+
+        $fileName = $this->journal->file_name . "_CLEAN_" .  time() . '.csv';
+        $fileName = $this->journal->file_name . "_CLEAN_" .  $this->export_qty_text . '.csv';
+
+        $fileName2 = $this->journal->file_name;
+        $fp = fopen(public_path('exports/' . $fileName), 'w');
+        foreach ($data_csv as $fields) {
+            fputcsv($fp, $fields);
+        }
+        fclose($fp);
+
+        $this->export_file_name = $fileName;
+
+        auth()->user()->logs()->create([
+            'action' => 'Export file: ' . $this->export_file_name,
+            'type' => 'export-journal-csv',
+            'obj' => json_encode([
+                'file_name' => $fileName
+            ])
+        ]);
+    }
 }

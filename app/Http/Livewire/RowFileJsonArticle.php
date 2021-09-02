@@ -604,6 +604,11 @@ class RowFileJsonArticle extends Component
                 }                    
             }
 
+            if (!trim($d->title))
+            {
+                continue;
+            }
+
             if ($d->journal_title) {
                 $row['bibjson']['journal']['issns'] = json_decode($d->journal_issns);
             }
@@ -886,6 +891,11 @@ class RowFileJsonArticle extends Component
                 {
                     continue;
                 }                    
+            }
+
+            if (!trim($d->title))
+            {
+                continue;
             }
             
             $data_csv[] = array(
